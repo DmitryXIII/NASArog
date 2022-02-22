@@ -100,8 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabAlignmentMode="center"
-        app:navigationIcon="@drawable/baseline_menu_black_24dp"
-        app:menu="@menu/menu_bottom_bar" />
+        app:navigationIcon="@drawable/baseline_menu_black_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

@@ -3,13 +3,19 @@ package com.ineedyourcode.nasarog.view.picoftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.ineedyourcode.nasarog.MainActivity
+import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayState
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 
@@ -29,6 +35,8 @@ class PictureOfTheDayFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setBottomBar()
+
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
@@ -41,9 +49,28 @@ class PictureOfTheDayFragment :
         }
 
         BottomSheetBehavior.from(binding.bottomSheetContainer).apply {
-            state = BottomSheetBehavior.STATE_HALF_EXPANDED
             isHideable = false
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_bottombar_favorite -> {
+                Toast.makeText(requireContext(), "TOAST", Toast.LENGTH_SHORT).show()
+            }
+            R.id.action_bottombar_settings -> {
+                Toast.makeText(requireContext(), "TOAST", Toast.LENGTH_SHORT).show()
+            }
+            android.R.id.home -> {
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun renderData(state: PictureOfTheDayState) {
@@ -58,5 +85,10 @@ class PictureOfTheDayFragment :
                 binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
             }
         }
+    }
+
+    private fun setBottomBar() {
+        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
+        setHasOptionsMenu(true)
     }
 }
