@@ -39,7 +39,6 @@ class PictureOfTheDayViewModel(
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
                     //TODO
                 }
-
             }
         )
     }

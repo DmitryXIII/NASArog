@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_picture_of_the_day.xml" value="0.176" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_picture_of_the_day.xml" value="0.1" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/menu/menu_bottom_bar.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
