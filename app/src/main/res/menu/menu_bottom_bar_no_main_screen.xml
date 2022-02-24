@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_bottombar_go_back"
-        android:icon="@drawable/baseline_keyboard_backspace_black_24dp"
-        android:title="@string/menu_action_favorite"
+        android:id="@+id/action_bottombar_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/menu_action_search"
         app:showAsAction="ifRoom" />
 </menu>

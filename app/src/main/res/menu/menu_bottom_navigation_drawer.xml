@@ -3,11 +3,11 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/action_menu_bottomnav_one"
-            android:icon="@drawable/baseline_search_black_24dp"
+            android:icon="@drawable/ic_search"
             android:title="На экран 1" />
         <item
             android:id="@+id/action_menu_bottomnav_two"
-            android:icon="@drawable/baseline_search_black_24dp"
+            android:icon="@drawable/ic_search"
             android:title="На экран 2" />
     </group>
 

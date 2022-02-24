@@ -7,6 +7,10 @@
     <string name="APOD_description">Фото дня из NASA</string>
     <string name="menu_action_settings">Настройки</string>
     <string name="menu_action_favorite">Избранное</string>
+    <string name="menu_action_search">Поиск</string>
     <string name="menu_action_go_back">Назад</string>
     <string name="fab_description">Добавить</string>
+    <string name="chip_before_yesterday">Позавчера</string>
+    <string name="chip_yesterday">Вчера</string>
+    <string name="chip_today">Сегодня</string>
 </resources>

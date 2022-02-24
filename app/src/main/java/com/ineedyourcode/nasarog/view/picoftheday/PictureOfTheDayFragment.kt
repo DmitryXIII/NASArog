@@ -18,6 +18,7 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
+import com.ineedyourcode.nasarog.view.chips.ChipsFragment
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayState
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 
@@ -59,34 +60,34 @@ class PictureOfTheDayFragment :
         binding.fab.setOnClickListener {
             if (isMainScreen) {
                 with(binding) {
-                    bottomAppBar.apply {
-                        navigationIcon = null
-                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                        replaceMenu(R.menu.menu_bottom_bar_no_main_screen)
-                    }
                     fab.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
-                            R.drawable.baseline_keyboard_backspace_black_24dp
+                            R.drawable.ic_arrow_back
                         )
                     )
+                    bottomAppBar.apply {
+                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                        navigationIcon = null
+                        replaceMenu(R.menu.menu_bottom_bar_no_main_screen)
+                    }
                 }
             } else {
                 with(binding) {
-                    bottomAppBar.apply {
-                        navigationIcon = ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.baseline_menu_black_24dp
-                        )
-                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                        replaceMenu(R.menu.menu_bottom_bar)
-                    }
                     fab.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
-                            R.drawable.baseline_add_black_24dp
+                            R.drawable.ic_plus
                         )
                     )
+                    bottomAppBar.apply {
+                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                        navigationIcon = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_burger
+                        )
+                        replaceMenu(R.menu.menu_bottom_bar)
+                    }
                 }
             }
             isMainScreen = !isMainScreen
@@ -101,37 +102,41 @@ class PictureOfTheDayFragment :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_bottombar_favorite -> {
-                Toast.makeText(requireContext(), "TOAST", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "FAVORITE", Toast.LENGTH_SHORT).show()
             }
             R.id.action_bottombar_settings -> {
-                Toast.makeText(requireContext(), "TOAST", Toast.LENGTH_SHORT).show()
+                parentFragmentManager
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, ChipsFragment.newInstance())
+                    .addToBackStack("")
+                    .commit()
             }
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
             }
-            R.id.action_bottombar_go_back -> {
-                Toast.makeText(requireContext(), "GO_BACK", Toast.LENGTH_SHORT).show()
+            R.id.action_bottombar_search -> {
+                Toast.makeText(requireContext(), "SEARCH", Toast.LENGTH_SHORT).show()
             }
         }
-            return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 
-        private fun renderData(state: PictureOfTheDayState) {
-            when (state) {
-                is PictureOfTheDayState.Error -> {
-                    // TODO
-                }
-                is PictureOfTheDayState.Loading -> {
-                    // TODO
-                }
-                is PictureOfTheDayState.Success -> {
-                    binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
-                }
+    private fun renderData(state: PictureOfTheDayState) {
+        when (state) {
+            is PictureOfTheDayState.Error -> {
+                // TODO
+            }
+            is PictureOfTheDayState.Loading -> {
+                // TODO
+            }
+            is PictureOfTheDayState.Success -> {
+                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
             }
         }
-
-        private fun setBottomBar() {
-            (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
-            setHasOptionsMenu(true)
-        }
     }
+
+    private fun setBottomBar() {
+        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
+        setHasOptionsMenu(true)
+    }
+}
