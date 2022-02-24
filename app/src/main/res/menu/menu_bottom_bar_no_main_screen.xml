@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_bottombar_go_back"
+        android:icon="@drawable/baseline_keyboard_backspace_black_24dp"
+        android:title="@string/menu_action_favorite"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -8,8 +8,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
@@ -23,6 +25,8 @@ private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 
 class PictureOfTheDayFragment :
     BaseBindingFragment<FragmentPictureOfTheDayBinding>(FragmentPictureOfTheDayBinding::inflate) {
+
+    private var isMainScreen: Boolean = true
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -51,6 +55,42 @@ class PictureOfTheDayFragment :
         BottomSheetBehavior.from(binding.bottomSheetContainer).apply {
             isHideable = false
         }
+
+        binding.fab.setOnClickListener {
+            if (isMainScreen) {
+                with(binding) {
+                    bottomAppBar.apply {
+                        navigationIcon = null
+                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+                        replaceMenu(R.menu.menu_bottom_bar_no_main_screen)
+                    }
+                    fab.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.baseline_keyboard_backspace_black_24dp
+                        )
+                    )
+                }
+            } else {
+                with(binding) {
+                    bottomAppBar.apply {
+                        navigationIcon = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.baseline_menu_black_24dp
+                        )
+                        fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+                        replaceMenu(R.menu.menu_bottom_bar)
+                    }
+                    fab.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.baseline_add_black_24dp
+                        )
+                    )
+                }
+            }
+            isMainScreen = !isMainScreen
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,26 +109,29 @@ class PictureOfTheDayFragment :
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
             }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun renderData(state: PictureOfTheDayState) {
-        when (state) {
-            is PictureOfTheDayState.Error -> {
-                // TODO
-            }
-            is PictureOfTheDayState.Loading -> {
-                // TODO
-            }
-            is PictureOfTheDayState.Success -> {
-                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
+            R.id.action_bottombar_go_back -> {
+                Toast.makeText(requireContext(), "GO_BACK", Toast.LENGTH_SHORT).show()
             }
         }
+            return super.onOptionsItemSelected(item)
     }
 
-    private fun setBottomBar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
-        setHasOptionsMenu(true)
+        private fun renderData(state: PictureOfTheDayState) {
+            when (state) {
+                is PictureOfTheDayState.Error -> {
+                    // TODO
+                }
+                is PictureOfTheDayState.Loading -> {
+                    // TODO
+                }
+                is PictureOfTheDayState.Success -> {
+                    binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
+                }
+            }
+        }
+
+        private fun setBottomBar() {
+            (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
+            setHasOptionsMenu(true)
+        }
     }
-}
