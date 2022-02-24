@@ -16,9 +16,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
+import com.ineedyourcode.nasarog.utils.convertDateFormat
+import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
+import com.ineedyourcode.nasarog.utils.getCurrentDate
+import com.ineedyourcode.nasarog.utils.getYesterdayDate
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
-import com.ineedyourcode.nasarog.view.chips.ChipsFragment
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayState
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 
@@ -41,6 +44,8 @@ class PictureOfTheDayFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setBottomBar()
+
+        setChips()
 
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
@@ -94,6 +99,27 @@ class PictureOfTheDayFragment :
         }
     }
 
+    private fun setChips() {
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.chip_before_yesterday -> {
+                    val date = getBeforeYesterdayDate()
+                    binding.tvDateOfPicture.text = convertDateFormat(date)
+                    viewModel.getPictureOfTheDayFromDateRequest(date)
+                }
+                R.id.chip_yesterday -> {
+                    val date = getYesterdayDate()
+                    binding.tvDateOfPicture.text = convertDateFormat(date)
+                    viewModel.getPictureOfTheDayFromDateRequest(getYesterdayDate())
+                }
+                R.id.chip_today -> {
+                    binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
+                    viewModel.getPictureOfTheDayRequest()
+                }
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
@@ -105,11 +131,7 @@ class PictureOfTheDayFragment :
                 Toast.makeText(requireContext(), "FAVORITE", Toast.LENGTH_SHORT).show()
             }
             R.id.action_bottombar_settings -> {
-                parentFragmentManager
-                    .beginTransaction()
-                    .add(R.id.main_fragment_container, ChipsFragment.newInstance())
-                    .addToBackStack("")
-                    .commit()
+                Toast.makeText(requireContext(), "SETTINGS", Toast.LENGTH_SHORT).show()
             }
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
