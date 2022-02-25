@@ -9,12 +9,12 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="@dimen/margin_4dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:hint="@string/wiki_hint"
             app:counterEnabled="true"
@@ -22,10 +22,10 @@
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom"
             app:helperText="@string/search_helper"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/chip_group"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:startIconContentDescription="@string/start_icon_description"
             app:startIconDrawable="@drawable/ic_wiki">
 
@@ -40,11 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintBottom_toTopOf="@id/date_card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout"
             app:checkedChip="@id/chip_today"
+            app:layout_constraintBottom_toTopOf="@id/apod_coordinator"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_layout"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -69,81 +69,98 @@
                 android:text="@string/chip_today" />
         </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/date_card"
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.FoldingCube"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingHorizontal="16dp"
-            app:layout_constraintEnd_toEndOf="@id/iv_picture_of_the_day"
-            app:layout_constraintStart_toStartOf="@id/iv_picture_of_the_day"
-            app:layout_constraintTop_toTopOf="@id/iv_picture_of_the_day">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_date_of_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="01.01.2000" />
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <com.ineedyourcode.nasarog.utils.SquareImageView
-            android:id="@+id/iv_picture_of_the_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/APOD_description"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/purple_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/no_image_icon" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/bottom_sheet_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f6f6fa"
-        app:behavior_hideable="true"
-        app:behavior_peekHeight="100dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-        <View
-            android:id="@+id/bottom_sheet_line"
-            android:layout_width="25dp"
-            android:layout_height="3dp"
-            android:layout_marginTop="5dp"
-            android:background="#663b4351"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/bottom_sheet_description_header"
-            android:layout_width="wrap_content"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/apod_coordinator"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text=" pictureOfTheDayState.serverResponseData.title Добавьте описание (приходит с сервера) "
-            android:textColor="#000"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
-            tools:text="Two Clusters and a Comet" />
+            app:layout_constraintTop_toBottomOf="@id/chip_group">
 
-        <TextView
-            android:id="@+id/bottom_sheet_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="pictureOfTheDayState.serverResponseData.explanation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
-            tools:text="This lovely starfield spans some four full moons." />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/date_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:background="@color/white">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/margin_4dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_date_of_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/date_example" />
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.ineedyourcode.nasarog.utils.SquareImageView
+                android:id="@+id/iv_picture_of_the_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/APOD_description"
+                app:srcCompat="@drawable/no_image_icon" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bottom_sheet_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f6f6fa"
+                android:paddingBottom="@dimen/margin_4dp"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="@dimen/behavior_peekHeight"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+                <ImageView
+                    android:id="@+id/bottom_sheet_line"
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/bottomsheet_top_icon"
+                    android:src="@drawable/ic_double_arrow_up"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bottom_sheet_description_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:paddingHorizontal="@dimen/margin_8dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
+                    tools:text="@string/bottomsheet_description_header" />
+
+                <TextView
+                    android:id="@+id/bottom_sheet_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/margin_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header"
+                    tools:text="@string/bottomsheet_description" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar

@@ -9,10 +9,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import coil.transform.BlurTransformation
 import coil.transform.RoundedCornersTransformation
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
@@ -52,7 +54,13 @@ class PictureOfTheDayFragment :
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
+
         viewModel.getPictureOfTheDayRequest()
+
+        // кастомный прогрессбар
+        binding.spinKit.setIndeterminateDrawable(Circle() as Sprite);
+
+        binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent(Intent(Intent.ACTION_VIEW))).apply {
@@ -151,13 +159,15 @@ class PictureOfTheDayFragment :
                 // TODO
             }
             is PictureOfTheDayState.Loading -> {
-                // TODO
+                binding.spinKit.isVisible = true
+                binding.apodCoordinator.isVisible = false
             }
             is PictureOfTheDayState.Success -> {
-                binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
+                binding.spinKit.isVisible = false
+                binding.apodCoordinator.isVisible = true
                 binding.bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
                 binding.bottomSheetDescription.text = state.pictureOfTheDay.explanation
-                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url) {
+                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
                     crossfade(500)
                     transformations(RoundedCornersTransformation(25F))
                     build()

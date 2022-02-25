@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">NASArog</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="wiki_hint">Найти в Википедии</string>
+    <string name="wiki_hint">Поиск в Википедии</string>
     <string name="search_helper">Поиск</string>
-    <string name="start_icon_description">Поиск</string>
+    <string name="start_icon_description">Иконка Wiki</string>
     <string name="APOD_description">Фото дня из NASA</string>
     <string name="menu_action_settings">Настройки</string>
     <string name="menu_action_favorite">Избранное</string>
@@ -13,4 +13,8 @@
     <string name="chip_before_yesterday">Позавчера</string>
     <string name="chip_yesterday">Вчера</string>
     <string name="chip_today">Сегодня</string>
+    <string name="bottomsheet_top_icon">bottomsheet top icon</string>
+    <string name="bottomsheet_description">This lovely starfield spans some four full moons.</string>
+    <string name="bottomsheet_description_header">Two Clusters and a Comet</string>
+    <string name="date_example">01.01.2000</string>
 </resources>
