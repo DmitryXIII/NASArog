@@ -20,16 +20,16 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
-import com.ineedyourcode.nasarog.utils.convertDateFormat
-import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
-import com.ineedyourcode.nasarog.utils.getCurrentDate
-import com.ineedyourcode.nasarog.utils.getYesterdayDate
+import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayState
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
+private const val CROSSFADE_DURATION = 500
+private const val IMAGE_CORNER_RADIUS = 25f
+
 
 class PictureOfTheDayFragment :
     BaseBindingFragment<FragmentPictureOfTheDayBinding>(FragmentPictureOfTheDayBinding::inflate) {
@@ -66,10 +66,6 @@ class PictureOfTheDayFragment :
             startActivity(Intent(Intent(Intent(Intent.ACTION_VIEW))).apply {
                 data = Uri.parse("$WIKI_URL${binding.inputEditText.text}")
             })
-        }
-
-        BottomSheetBehavior.from(binding.bottomSheetContainer).apply {
-            isHideable = false
         }
 
         binding.fab.setOnClickListener {
@@ -130,47 +126,29 @@ class PictureOfTheDayFragment :
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_bottombar_favorite -> {
-                Toast.makeText(requireContext(), "FAVORITE", Toast.LENGTH_SHORT).show()
-            }
-            R.id.action_bottombar_settings -> {
-                Toast.makeText(requireContext(), "SETTINGS", Toast.LENGTH_SHORT).show()
-            }
-            android.R.id.home -> {
-                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
-            }
-            R.id.action_bottombar_search -> {
-                Toast.makeText(requireContext(), "SEARCH", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun renderData(state: PictureOfTheDayState) {
         when (state) {
             is PictureOfTheDayState.Error -> {
-                // TODO
+                view?.showSnackWithAction(
+                    state.error.localizedMessage ?: "",
+                    "Повторить"
+                ) { viewModel.getPictureOfTheDayRequest() }
             }
             is PictureOfTheDayState.Loading -> {
                 binding.spinKit.isVisible = true
                 binding.apodCoordinator.isVisible = false
             }
             is PictureOfTheDayState.Success -> {
-                binding.spinKit.isVisible = false
-                binding.apodCoordinator.isVisible = true
-                binding.bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
-                binding.bottomSheetDescription.text = state.pictureOfTheDay.explanation
-                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
-                    crossfade(500)
-                    transformations(RoundedCornersTransformation(25F))
-                    build()
+                with(binding) {
+                    bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
+                    bottomSheetDescription.text = state.pictureOfTheDay.explanation
+                    ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
+                        crossfade(CROSSFADE_DURATION)
+                        transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
+                        build()
+                    }
+                    spinKit.isVisible = false
+                    apodCoordinator.isVisible = true
                 }
             }
         }
@@ -179,5 +157,28 @@ class PictureOfTheDayFragment :
     private fun setBottomBar() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
         setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_bottombar_favorite -> {
+                showToast(requireContext(), getString(R.string.favorite))
+            }
+            R.id.action_bottombar_settings -> {
+                showToast(requireContext(), getString(R.string.settings))
+            }
+            android.R.id.home -> {
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
+            }
+            R.id.action_bottombar_search -> {
+                showToast(requireContext(), getString(R.string.search))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

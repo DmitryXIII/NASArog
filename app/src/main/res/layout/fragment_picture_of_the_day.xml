@@ -45,7 +45,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_layout"
-            app:singleSelection="true">
+            app:singleSelection="true"
+            app:selectionRequired="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_before_yesterday"
@@ -75,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:SpinKit_Color="@color/purple_200"
+            app:SpinKit_Color="@color/teal_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -121,9 +122,10 @@
                 android:id="@+id/bottom_sheet_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f6f6fa"
+                android:background="@color/white"
                 android:paddingBottom="@dimen/margin_4dp"
-                app:behavior_hideable="true"
+                android:layout_marginHorizontal="@dimen/margin_16dp"
+                app:behavior_hideable="false"
                 app:behavior_peekHeight="@dimen/behavior_peekHeight"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -143,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4dp"
                     android:paddingHorizontal="@dimen/margin_8dp"
-                    android:textColor="#000"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

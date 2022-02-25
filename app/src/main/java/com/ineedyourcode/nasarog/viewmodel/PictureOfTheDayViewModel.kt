@@ -8,6 +8,7 @@ import com.ineedyourcode.nasarog.remoterepo.PictureOfTheDayDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.NullPointerException
 
 class PictureOfTheDayViewModel(
     private val liveData: MutableLiveData<PictureOfTheDayState> = MutableLiveData(),
@@ -31,12 +32,12 @@ class PictureOfTheDayViewModel(
                             liveData.postValue(PictureOfTheDayState.Success(it))
                         }
                     } else {
-                        //TODO
+                        liveData.postValue(PictureOfTheDayState.Error(NullPointerException("Пустой ответ сервера")))
                     }
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    //TODO
+                    liveData.postValue(PictureOfTheDayState.Error(Throwable("Ошибка связи с сервером")))
                 }
             }
         )
@@ -55,12 +56,12 @@ class PictureOfTheDayViewModel(
                             liveData.postValue(PictureOfTheDayState.Success(it))
                         }
                     } else {
-                        //TODO
+                        liveData.postValue(PictureOfTheDayState.Error(NullPointerException("Пустой ответ сервера")))
                     }
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    //TODO
+                    liveData.postValue(PictureOfTheDayState.Error(Throwable("Ошибка связи с сервером")))
                 }
             }
         )

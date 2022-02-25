@@ -17,4 +17,7 @@
     <string name="bottomsheet_description">This lovely starfield spans some four full moons.</string>
     <string name="bottomsheet_description_header">Two Clusters and a Comet</string>
     <string name="date_example">01.01.2000</string>
+    <string name="favorite">FAVORITE</string>
+    <string name="settings">SETTINGS</string>
+    <string name="search">SEARCH</string>
 </resources>
