@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import coil.transform.BlurTransformation
+import coil.transform.RoundedCornersTransformation
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
@@ -152,7 +154,14 @@ class PictureOfTheDayFragment :
                 // TODO
             }
             is PictureOfTheDayState.Success -> {
-                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url)
+                binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
+                binding.bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
+                binding.bottomSheetDescription.text = state.pictureOfTheDay.explanation
+                binding.ivPictureOfTheDay.load(state.pictureOfTheDay.url) {
+                    crossfade(500)
+                    transformations(RoundedCornersTransformation(25F))
+                    build()
+                }
             }
         }
     }
