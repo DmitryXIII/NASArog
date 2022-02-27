@@ -3,11 +3,7 @@ package com.ineedyourcode.nasarog.view.picoftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +12,6 @@ import coil.transform.RoundedCornersTransformation
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
 import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
@@ -29,6 +24,7 @@ import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 private const val CROSSFADE_DURATION = 500
 private const val IMAGE_CORNER_RADIUS = 25f
+private const val BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT = 0.6
 
 
 class PictureOfTheDayFragment :
@@ -131,7 +127,7 @@ class PictureOfTheDayFragment :
             is PictureOfTheDayState.Error -> {
                 view?.showSnackWithAction(
                     state.error.localizedMessage ?: "",
-                    "Повторить"
+                    getString(R.string.repeat)
                 ) { viewModel.getPictureOfTheDayRequest() }
             }
             is PictureOfTheDayState.Loading -> {
@@ -141,7 +137,13 @@ class PictureOfTheDayFragment :
             is PictureOfTheDayState.Success -> {
                 with(binding) {
                     bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
-                    bottomSheetDescription.text = state.pictureOfTheDay.explanation
+
+                    // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
+                    // по заданному коэффициенту
+                    scrollBottomSheetDescription.layoutParams.height =
+                        (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
+
+                    tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
                     ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
                         crossfade(CROSSFADE_DURATION)
                         transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
