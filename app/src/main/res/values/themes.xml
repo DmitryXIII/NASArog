@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="floatingActionButtonStyle">@style/myFabStyle</item>
+        <item name="materialButtonStyle">@style/myContainedButtonsStyle</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+    </style>
+
+    <style name="Theme.NASArog_2" parent="Theme.NASArog">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@android:color/holo_red_dark</item>
+        <item name="colorOnPrimary">@android:color/holo_red_dark</item>
+        <item name="background">@android:color/holo_red_dark</item>
+        <item name="colorSecondary">@android:color/holo_red_dark</item>
     </style>
 </resources>
+
