@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -13,7 +14,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/myOutlinedTextInputLayoutStyle"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:hint="@string/wiki_hint"
@@ -32,7 +33,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.chip.ChipGroup
@@ -167,8 +169,8 @@
                         android:id="@+id/tv_bottom_sheet_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:paddingHorizontal="@dimen/margin_8dp"
+                        android:textColor="@color/black"
                         tools:text="@string/bottomsheet_description" />
                 </ScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -178,8 +180,8 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

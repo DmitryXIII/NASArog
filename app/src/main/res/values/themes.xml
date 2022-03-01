@@ -22,7 +22,9 @@
         <item name="colorPrimary">@android:color/holo_red_dark</item>
         <item name="colorOnPrimary">@android:color/holo_red_dark</item>
         <item name="background">@android:color/holo_red_dark</item>
-        <item name="colorSecondary">@android:color/holo_red_dark</item>
+        <item name="floatingActionButtonStyle">@style/myFabStyle_2</item>
+        <item name="materialButtonStyle">@style/myContainedButtonsStyle_2</item>
+        <item name="bottomAppBarStyle">@style/myBottomAppBarStyle_2</item>
     </style>
 </resources>
 
