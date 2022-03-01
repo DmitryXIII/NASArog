@@ -2,38 +2,20 @@
 <resources>
 
     <style name="myFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/black</item>
-        <item name="tint">@color/white</item>
-    </style>
-
-    <style name="myFabStyle_2" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@android:color/holo_orange_dark</item>
-        <item name="tint">@color/black</item>
+        <item name="backgroundTint">?colorPrimaryInverse</item>
+        <item name="tint">?colorOnPrimaryContainer</item>
     </style>
 
     <style name="myContainedButtonsStyle" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/black</item>
-        <item name="textAllCaps">false</item>
-    </style>
-
-    <style name="myContainedButtonsStyle_2" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@android:color/holo_orange_dark</item>
+        <item name="backgroundTint">?colorSecondary</item>
+        <item name="android:textColor">?colorOnPrimaryContainer</item>
         <item name="textAllCaps">false</item>
     </style>
 
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="fabAlignmentMode">center</item>
         <item name="fabAnimationMode">scale</item>
-        <item name="backgroundColor">@android:color/holo_orange_dark</item>
-        <item name="colorControlHighlight">@android:color/holo_orange_dark</item>
-        <item name="navigationIcon">@drawable/ic_burger</item>
-    </style>
-
-    <style name="myBottomAppBarStyle_2" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="fabAlignmentMode">center</item>
-        <item name="fabAnimationMode">scale</item>
-        <item name="backgroundTint">@color/black</item>
-        <item name="itemBackground">@color/white</item>
+        <item name="backgroundTint">?colorPrimaryInverse</item>
         <item name="navigationIcon">@drawable/ic_burger</item>
     </style>
 

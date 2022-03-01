@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#f4511e</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorPrimaryContainer">#ffccbc</color>
+    <color name="colorOnPrimaryContainer">#bf360c</color>
+    <color name="colorPrimaryInverse">#ffab91</color>
+    <color name="colorSecondary">#fdd835</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorSecondaryContainer">#fff9c4</color>
+    <color name="colorOnSecondaryContainer">#f57f17</color>
+    <color name="colorTertiary">#fff9c4</color>
+    <color name="colorOnTertiary">#FFFFFF</color>
+    <color name="colorTertiaryContainer">#f0f4c3</color>
+    <color name="colorOnTertiaryContainer">#827717</color>
+    <color name="black">#000000</color>
+
+    <color name="colorPrimary_2">#3949ab</color>
+    <color name="colorOnPrimary_2">#FFFFFF</color>
+    <color name="colorPrimaryContainer_2">#c5cae9</color>
+    <color name="colorOnPrimaryContainer_2">#1a237e</color>
+    <color name="colorPrimaryInverse_2">#9fa8da</color>
+    <color name="colorSecondary_2">#00acc1</color>
+    <color name="colorOnSecondary_2">#FFFFFF</color>
+    <color name="colorSecondaryContainer_2">#b2ebf2</color>
+    <color name="colorOnSecondaryContainer_2">#006064</color>
+    <color name="colorTertiary_2">#7cb342</color>
+    <color name="colorOnTertiary_2">#FFFFFF</color>
+    <color name="colorTertiaryContainer_2">#dcedc8</color>
+    <color name="colorOnTertiaryContainer_2">#33691e</color>
 </resources>
