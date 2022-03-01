@@ -19,33 +19,9 @@ class PictureOfTheDayViewModel(
         return liveData
     }
 
-    fun getPictureOfTheDayRequest() {
+    fun getPictureOfTheDayRequest(date: String = "") {
         liveData.postValue(PictureOfTheDayState.Loading(null))
-        retrofitRepository.getNasaRepository().getPictureOfTheDay().enqueue(
-            object : Callback<PictureOfTheDayDto> {
-                override fun onResponse(
-                    call: Call<PictureOfTheDayDto>,
-                    response: Response<PictureOfTheDayDto>
-                ) {
-                    if (response.isSuccessful && response.body() != null) {
-                        response.body()?.let {
-                            liveData.postValue(PictureOfTheDayState.Success(it))
-                        }
-                    } else {
-                        liveData.postValue(PictureOfTheDayState.Error(NullPointerException("Пустой ответ сервера")))
-                    }
-                }
-
-                override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveData.postValue(PictureOfTheDayState.Error(Throwable("Ошибка связи с сервером")))
-                }
-            }
-        )
-    }
-
-    fun getPictureOfTheDayFromDateRequest(date: String) {
-        liveData.postValue(PictureOfTheDayState.Loading(null))
-        retrofitRepository.getNasaRepository().getPictureOfTheDayFromDate(date).enqueue(
+        retrofitRepository.getNasaRepository().getPictureOfTheDay(date).enqueue(
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
                     call: Call<PictureOfTheDayDto>,

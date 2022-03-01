@@ -53,21 +53,18 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_before_yesterday"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_before_yesterday" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_yesterday"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_yesterday" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_today"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chip_today" />

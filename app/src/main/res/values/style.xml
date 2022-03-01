@@ -19,6 +19,24 @@
         <item name="navigationIcon">@drawable/ic_burger</item>
     </style>
 
+    <style name="myRadioButtonStyle" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="buttonTint">?colorOnPrimaryContainer</item>
+        <item name="android:textColor">?colorTertiaryContainer</item>
+    </style>
+
+    <style name="myCheckBoxStyle" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="buttonTint">?colorOnPrimaryContainer</item>
+        <item name="android:textColor">?colorTertiaryContainer</item>
+    </style>
+
+    <style name="myChipChoiceStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_choice_color</item>
+    </style>
+
+    <style name="myChipChoiceStyle_2" parent="myChipChoiceStyle">
+        <item name="android:textColor">?colorOnPrimaryContainer</item>
+    </style>
+
     <style name="myOutlinedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_stroke_color</item>
         <item name="boxStrokeWidth">@dimen/text_input_stroke_width</item>

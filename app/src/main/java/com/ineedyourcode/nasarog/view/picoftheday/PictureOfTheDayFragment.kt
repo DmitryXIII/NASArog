@@ -108,12 +108,12 @@ class PictureOfTheDayFragment :
                 R.id.chip_before_yesterday -> {
                     val date = getBeforeYesterdayDate()
                     binding.tvDateOfPicture.text = convertDateFormat(date)
-                    viewModel.getPictureOfTheDayFromDateRequest(date)
+                    viewModel.getPictureOfTheDayRequest(date)
                 }
                 R.id.chip_yesterday -> {
                     val date = getYesterdayDate()
                     binding.tvDateOfPicture.text = convertDateFormat(date)
-                    viewModel.getPictureOfTheDayFromDateRequest(getYesterdayDate())
+                    viewModel.getPictureOfTheDayRequest(getYesterdayDate())
                 }
                 R.id.chip_today -> {
                     binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())

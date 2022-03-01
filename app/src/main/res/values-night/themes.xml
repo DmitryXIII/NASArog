@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.NASArog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
@@ -16,14 +16,17 @@
         <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/colorTertiaryContainer</item>
+        <item name="radioButtonStyle">@style/myRadioButtonStyle</item>
+        <item name="checkboxStyle">@style/myCheckBoxStyle</item>
+        <item name="android:textColor">?colorTertiaryContainer</item>
         <item name="floatingActionButtonStyle">@style/myFabStyle</item>
         <item name="materialButtonStyle">@style/myContainedButtonsStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+        <item name="chipStyle">@style/myChipChoiceStyle_2</item>
     </style>
 
     <style name="Theme.NASArog_2" parent="Theme.NASArog">
-        <item name="colorPrimary">@color/colorPrimary_2</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorOnPrimary">@color/colorOnPrimary_2</item>
         <item name="colorPrimaryContainer">@color/colorPrimaryContainer_2</item>
         <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer_2</item>
@@ -36,5 +39,6 @@
         <item name="colorOnTertiary">@color/colorOnTertiary_2</item>
         <item name="colorTertiaryContainer">@color/colorTertiaryContainer_2</item>
         <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer_2</item>
+        <item name="fontFamily">@font/balsamiq_sans</item>
     </style>
 </resources>

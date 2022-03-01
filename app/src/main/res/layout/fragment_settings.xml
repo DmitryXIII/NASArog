@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorOnPrimary"
@@ -9,42 +10,60 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_8dp">
 
-    <RadioGroup
-        android:id="@+id/radio_group"
+    <LinearLayout
+        android:id="@+id/settings_btns_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rectangle"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/check1"
+        <RadioGroup
+            android:id="@+id/radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16dp"
-            android:text="Тема 1" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/check2"
+            <RadioButton
+                android:id="@+id/check1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:text="Тема 1" />
+
+            <RadioButton
+                android:id="@+id/check2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16dp"
+                android:text="Тема 2" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/checkbox_dark_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16dp"
-            android:text="Тема 2" />
-    </RadioGroup>
+            android:text="Темная тема" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_theme_example"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/margin_16dp"
-        app:cardCornerRadius="@dimen/margin_8dp">
+        app:cardCornerRadius="@dimen/radius_16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?colorPrimary">
+            android:background="?colorPrimary"
+            android:paddingTop="@dimen/margin_4dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
@@ -94,7 +113,6 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_example"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Чип"
