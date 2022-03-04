@@ -1,10 +1,10 @@
-package com.ineedyourcode.nasarog.viewmodel
+package com.ineedyourcode.nasarog.view.picoftheday
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ineedyourcode.nasarog.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.remoterepo.PictureOfTheDayDto
+import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,190 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorPrimary">
+    android:background="?colorPrimary"
+    android:padding="@dimen/margin_4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin_4dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout"
-            style="@style/myOutlinedTextInputLayoutStyle"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            android:hint="@string/wiki_hint"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
-            app:endIconDrawable="@drawable/ic_search"
-            app:endIconMode="custom"
-            app:helperText="@string/search_helper"
-            app:layout_constraintBottom_toTopOf="@id/chip_group"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconContentDescription="@string/start_icon_description"
-            app:startIconDrawable="@drawable/ic_wiki">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textCursorDrawable="@null" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:checkedChip="@id/chip_today"
-            app:layout_constraintBottom_toTopOf="@id/apod_coordinator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input_layout"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_before_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_before_yesterday" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_yesterday" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_today" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/spin_kit"
-            style="@style/SpinKitView.FoldingCube"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:SpinKit_Color="?colorOnPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/apod_coordinator"
-            android:layout_width="@dimen/zero"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_group">
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/date_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/margin_4dp">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?colorOnPrimaryContainer"
-                    android:paddingHorizontal="@dimen/margin_4dp"
-                    tools:ignore="PrivateResource">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_date_of_picture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/date_example" />
-                </FrameLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.ineedyourcode.nasarog.utils.SquareImageView
-                android:id="@+id/iv_picture_of_the_day"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/zero"
-                android:contentDescription="@string/APOD_description"
-                app:srcCompat="@drawable/no_image_icon" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bottom_sheet_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/margin_16dp"
-                android:background="@drawable/bottomsheet_background"
-                android:paddingBottom="@dimen/margin_4dp"
-                app:behavior_hideable="false"
-                app:behavior_peekHeight="@dimen/behavior_peekHeight"
-                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-                <ImageView
-                    android:id="@+id/bottom_sheet_line"
-                    android:layout_width="@dimen/zero"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/bottomsheet_top_icon"
-                    android:src="@drawable/ic_double_arrow_up"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/bottom_sheet_description_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4dp"
-                    android:paddingHorizontal="@dimen/margin_8dp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line"
-                    tools:text="@string/bottomsheet_description_header" />
-
-                <ScrollView
-                    android:id="@+id/scroll_bottom_sheet_description"
-                    android:layout_width="@dimen/zero"
-                    android:layout_height="@dimen/zero"
-                    android:nestedScrollingEnabled="true"
-                    android:scrollbars="none"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header">
-
-                    <TextView
-                        android:id="@+id/tv_bottom_sheet_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="@dimen/margin_8dp"
-                        tools:text="@string/bottomsheet_description" />
-                </ScrollView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
+        style="@style/myOutlinedTextInputLayoutStyle"
+        android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:hint="@string/wiki_hint"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconDrawable="@drawable/ic_search"
+        app:endIconMode="custom"
+        app:helperText="@string/search_helper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconContentDescription="@string/start_icon_description"
+        app:startIconDrawable="@drawable/ic_wiki">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textCursorDrawable="@null" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/fab_description"
-        app:layout_anchor="@id/bottom_app_bar"
-        app:srcCompat="@drawable/ic_plus" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_gravity="center"
+        app:checkedChip="@id/chip_today"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_layout"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_before_yesterday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_before_yesterday" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_yesterday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_yesterday" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_today" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/apod_coordinator"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_group">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/date_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_4dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?colorOnPrimaryContainer"
+                android:paddingHorizontal="@dimen/margin_4dp"
+                tools:ignore="PrivateResource">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date_of_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/date_example" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.ineedyourcode.nasarog.utils.SquareImageView
+            android:id="@+id/iv_picture_of_the_day"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/zero"
+            android:contentDescription="@string/APOD_description"
+            app:srcCompat="@drawable/no_image_icon" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sheet_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:background="@drawable/bottomsheet_background"
+            android:paddingBottom="@dimen/margin_4dp"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="@dimen/behavior_peekHeight"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <ImageView
+                android:id="@+id/bottom_sheet_line"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/bottomsheet_top_icon"
+                android:src="@drawable/ic_double_arrow_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bottom_sheet_description_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:paddingHorizontal="@dimen/margin_8dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line" />
+
+            <ScrollView
+                android:id="@+id/scroll_bottom_sheet_description"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/zero"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_description_header">
+
+                <TextView
+                    android:id="@+id/tv_bottom_sheet_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/margin_8dp" />
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/apod_spin_kit"
+        style="@style/SpinKitView.FoldingCube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:SpinKit_Color="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/apod_coordinator"
+        app:layout_constraintEnd_toEndOf="@id/apod_coordinator"
+        app:layout_constraintStart_toStartOf="@id/apod_coordinator"
+        app:layout_constraintTop_toTopOf="@id/apod_coordinator" />
+</androidx.constraintlayout.widget.ConstraintLayout>

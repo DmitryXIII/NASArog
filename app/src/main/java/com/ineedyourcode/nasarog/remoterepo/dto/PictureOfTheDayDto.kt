@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.remoterepo
+package com.ineedyourcode.nasarog.remoterepo.dto
 
 import com.google.gson.annotations.SerializedName
 

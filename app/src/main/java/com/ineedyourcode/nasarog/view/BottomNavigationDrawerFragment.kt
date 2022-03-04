@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentBottomNavigationDrawerBinding
+import com.ineedyourcode.nasarog.view.settings.SettingsFragment
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomNavigationDrawerBinding? = null
@@ -27,7 +28,10 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.bottomNavigationMenuLayout.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_menu_bottomnav_one -> {
-                    Toast.makeText(requireContext(), "CLICK ONE", Toast.LENGTH_SHORT).show()
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.navigation_container, SettingsFragment.newInstance())
+                        .commit()
                     dismiss()
                     true
                 }

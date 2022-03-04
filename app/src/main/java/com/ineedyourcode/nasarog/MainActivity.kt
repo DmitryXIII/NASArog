@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.edit
+import com.ineedyourcode.nasarog.view.navigation.NavigationFragment
 import com.ineedyourcode.nasarog.view.picoftheday.PictureOfTheDayFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, PictureOfTheDayFragment.newInstance())
+                .replace(R.id.main_fragment_container, NavigationFragment())
                 .commit()
         }
     }
