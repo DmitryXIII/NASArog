@@ -23,6 +23,8 @@
         <item name="materialButtonStyle">@style/myContainedButtonsStyle</item>
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
         <item name="chipStyle">@style/myChipChoiceStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerDropDownItemStyle</item>
+
     </style>
 
     <style name="Theme.NASArog_2" parent="Theme.NASArog">

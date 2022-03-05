@@ -20,7 +20,7 @@ class EarthPhotoViewModel(
         return liveData
     }
 
-    fun getEarthPhotoRequest() {
+    fun getEarthPhotoDatesRequest() {
         liveData.postValue(EarthPhotoState.Loading(null))
         retrofitRepository.getNasaRepository().getEarthPhotoDates()
             .enqueue(object : Callback<List<EarthPhotoDateDto>> {
@@ -30,6 +30,7 @@ class EarthPhotoViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let { listOfDates ->
+                            liveData.postValue(EarthPhotoState.DatesSuccess(listOfDates))
                             retrofitRepository.getNasaRepository()
                                 .getEarthPhoto(listOfDates[0].date)
                                 .enqueue(object :
@@ -40,7 +41,7 @@ class EarthPhotoViewModel(
                                     ) {
                                         if (response.isSuccessful && response.body() != null) {
                                             response.body()?.let {
-                                                liveData.postValue(EarthPhotoState.Success(it[0]))
+                                                liveData.postValue(EarthPhotoState.PhotoSuccess(it[0]))
                                             }
                                         } else {
                                             liveData.postValue(
@@ -59,14 +60,43 @@ class EarthPhotoViewModel(
                                     }
                                 })
                         }
-
                     }
                 }
 
                 override fun onFailure(call: Call<List<EarthPhotoDateDto>>, t: Throwable) {
+                }
+            })
+    }
 
+    fun getEarthPhotoRequest(date: String) {
+        liveData.postValue(EarthPhotoState.Loading(null))
+        retrofitRepository.getNasaRepository()
+            .getEarthPhoto(date)
+            .enqueue(object :
+                Callback<List<EarthPhotoItem>> {
+                override fun onResponse(
+                    call: Call<List<EarthPhotoItem>>,
+                    response: Response<List<EarthPhotoItem>>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        response.body()?.let {
+                            liveData.postValue(EarthPhotoState.PhotoSuccess(it[0]))
+                        }
+                    } else {
+                        liveData.postValue(
+                            EarthPhotoState.Error(
+                                NullPointerException("Пустой ответ сервера")
+                            )
+                        )
+                    }
                 }
 
+                override fun onFailure(
+                    call: Call<List<EarthPhotoItem>>,
+                    t: Throwable
+                ) {
+
+                }
             })
     }
 }

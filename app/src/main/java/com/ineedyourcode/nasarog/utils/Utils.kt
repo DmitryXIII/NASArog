@@ -30,10 +30,17 @@ fun getCurrentDate(): String {
     return dateFormat.format(currentDate.time)
 }
 
-fun convertDateFormat(vdate: String): String {
+fun convertNasaDateFormatToMyFormat(mDate: String): String {
     val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-    val date = inputFormat.parse(vdate)
+    val date = inputFormat.parse(mDate)
+    return outputFormat.format(date?.time)
+}
+
+fun convertMyDateFormatToNasaFormat(mDate: String): String {
+    val inputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val date = inputFormat.parse(mDate)
     return outputFormat.format(date?.time)
 }
 

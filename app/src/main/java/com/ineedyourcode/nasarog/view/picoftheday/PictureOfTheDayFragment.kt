@@ -43,10 +43,7 @@ class PictureOfTheDayFragment :
 
         viewModel.getPictureOfTheDayRequest()
 
-        // кастомный прогрессбар
-        binding.apodSpinKit.setIndeterminateDrawable(Circle() as Sprite);
-
-        binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
+        binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(getCurrentDate())
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent(Intent(Intent.ACTION_VIEW))).apply {
@@ -60,16 +57,16 @@ class PictureOfTheDayFragment :
             when (checkedId) {
                 R.id.chip_before_yesterday -> {
                     val date = getBeforeYesterdayDate()
-                    binding.tvDateOfPicture.text = convertDateFormat(date)
+                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
                     viewModel.getPictureOfTheDayRequest(date)
                 }
                 R.id.chip_yesterday -> {
                     val date = getYesterdayDate()
-                    binding.tvDateOfPicture.text = convertDateFormat(date)
+                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
                     viewModel.getPictureOfTheDayRequest(getYesterdayDate())
                 }
                 R.id.chip_today -> {
-                    binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
+                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(getCurrentDate())
                     viewModel.getPictureOfTheDayRequest()
                 }
             }
