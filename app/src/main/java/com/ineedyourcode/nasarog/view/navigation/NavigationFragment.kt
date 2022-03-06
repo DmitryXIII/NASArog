@@ -7,7 +7,6 @@ import com.ineedyourcode.nasarog.databinding.FragmentNavigationBinding
 import com.ineedyourcode.nasarog.utils.showSnackWithAction
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
-import com.ineedyourcode.nasarog.view.settings.SettingsFragment
 import com.ineedyourcode.nasarog.view.tabs.TabFragment
 
 class NavigationFragment :

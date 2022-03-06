@@ -2,9 +2,6 @@ package com.ineedyourcode.nasarog.utils
 
 import android.content.Context
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.ineedyourcode.nasarog.R
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,6 +25,14 @@ fun getCurrentDate(): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val currentDate = Calendar.getInstance()
     return dateFormat.format(currentDate.time)
+}
+
+fun getPreviousDate(dateIndex: Int): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val beforeYesterdayDate = Calendar.getInstance().apply {
+        add(Calendar.DATE, dateIndex)
+    }
+    return dateFormat.format(beforeYesterdayDate.time)
 }
 
 fun convertNasaDateFormatToMyFormat(mDate: String): String {

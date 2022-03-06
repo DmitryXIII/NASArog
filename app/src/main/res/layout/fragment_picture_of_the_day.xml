@@ -155,7 +155,7 @@
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/apod_spin_kit"
-        style="@style/SpinKitView.FoldingCube"
+        style="@style/SpinKitView.Circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"

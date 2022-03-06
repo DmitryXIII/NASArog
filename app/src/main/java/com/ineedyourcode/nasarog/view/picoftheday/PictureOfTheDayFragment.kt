@@ -3,13 +3,11 @@ package com.ineedyourcode.nasarog.view.picoftheday
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.github.ybq.android.spinkit.sprite.Sprite
-import com.github.ybq.android.spinkit.style.Circle
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*

@@ -9,7 +9,6 @@ import com.ineedyourcode.nasarog.remoterepo.dto.earthphotodto.EarthPhotoItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.NullPointerException
 
 class EarthPhotoViewModel(
     private val liveData: MutableLiveData<EarthPhotoState> = MutableLiveData(),

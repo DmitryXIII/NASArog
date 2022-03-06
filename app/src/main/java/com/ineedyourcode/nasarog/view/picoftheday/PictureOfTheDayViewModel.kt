@@ -8,16 +8,13 @@ import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.NullPointerException
 
 class PictureOfTheDayViewModel(
     private val liveData: MutableLiveData<PictureOfTheDayState> = MutableLiveData(),
     private val retrofitRepository: NasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    fun getLiveData(): LiveData<PictureOfTheDayState> {
-        return liveData
-    }
+    fun getLiveData(): LiveData<PictureOfTheDayState> = liveData
 
     fun getPictureOfTheDayRequest(date: String = "") {
         liveData.postValue(PictureOfTheDayState.Loading(null))

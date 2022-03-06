@@ -1,11 +1,10 @@
 package com.ineedyourcode.nasarog
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import com.ineedyourcode.nasarog.view.navigation.NavigationFragment
-import com.ineedyourcode.nasarog.view.picoftheday.PictureOfTheDayFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"

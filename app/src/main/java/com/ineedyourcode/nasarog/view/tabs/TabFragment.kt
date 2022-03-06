@@ -15,7 +15,7 @@ class TabFragment: BaseBindingFragment<FragmentTabsBinding>(FragmentTabsBinding:
             tab.text = when(position){
                 0 -> "Фото дня"
                 1 -> "Фото Земли"
-                2 -> "Фото дня"
+                2 -> "Фото Марса"
                 else -> ""
             }
         }.attach()

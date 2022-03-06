@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.ineedyourcode.nasarog.BuildConfig
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentEarthPhotoBinding
