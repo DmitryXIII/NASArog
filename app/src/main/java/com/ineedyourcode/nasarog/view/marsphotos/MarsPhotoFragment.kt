@@ -59,7 +59,6 @@ class MarsPhotoFragment :
                         IMAGE_CORNER_RADIUS
                     )
 
-
                     // загрузка первой фотографии из массива,
                     // отображение количества фотографий в формате x/y (x - текущая фотография, y - всего фотографий)
                     tvDateMarsPhoto.text = convertNasaDateFormatToMyFormat(state.marsPhoto.photos[loadedImageIndex].earthDate)

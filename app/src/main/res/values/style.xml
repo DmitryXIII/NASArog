@@ -19,6 +19,19 @@
         <item name="navigationIcon">@drawable/ic_burger</item>
     </style>
 
+    <style name="myBottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">?colorPrimaryInverse</item>
+        <item name="elevation">@dimen/margin_16dp</item>
+    </style>
+
+    <style name="myTabStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabBackground">?colorPrimaryInverse</item>
+        <item name="tabIndicatorColor">?colorOnPrimaryContainer</item>
+        <item name="tabSelectedTextColor">?colorOnPrimaryContainer</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabTextAppearance">@android:style/TextAppearance.Widget.TabWidget</item>
+    </style>
+
     <style name="myRadioButtonStyle" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
         <item name="buttonTint">?colorOnPrimaryContainer</item>
         <item name="android:textColor">?colorTertiaryContainer</item>
@@ -44,6 +57,8 @@
         <item name="android:background">?colorSecondaryContainer</item>
         <item name="android:paddingStart">@dimen/margin_4dp</item>
     </style>
+
+
 
     <style name="myOutlinedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_stroke_color</item>

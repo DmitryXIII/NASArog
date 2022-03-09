@@ -5,6 +5,7 @@ import android.view.View
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentNavigationBinding
 import com.ineedyourcode.nasarog.utils.showSnackWithAction
+import com.ineedyourcode.nasarog.utils.showSnackWithoutAction
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
 import com.ineedyourcode.nasarog.view.tabs.TabFragment
@@ -37,7 +38,7 @@ class NavigationFragment :
                     true
                 }
                 else -> {
-                    view.showSnackWithAction("111111111111111", "22222222") {}
+                    view.showSnackWithoutAction("Еще один экран")
                     true
                 }
             }

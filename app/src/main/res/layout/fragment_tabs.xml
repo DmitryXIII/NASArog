@@ -9,7 +9,6 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

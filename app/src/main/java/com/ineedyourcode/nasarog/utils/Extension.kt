@@ -13,8 +13,12 @@ fun View.showSnackWithAction(message: String, actionText: String, action: (View)
         }
 }
 
-fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int, cornerRadius: Float){
-    this.load(imagePath){
+fun View.showSnackWithoutAction(message: String) {
+    Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
+}
+
+fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int, cornerRadius: Float) {
+    this.load(imagePath) {
         crossfade(crossfadeValue)
         transformations(RoundedCornersTransformation(cornerRadius))
         build()

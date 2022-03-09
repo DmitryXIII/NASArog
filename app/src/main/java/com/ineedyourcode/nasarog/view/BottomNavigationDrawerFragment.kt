@@ -29,7 +29,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding.bottomNavigationMenuLayout.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_menu_bottomnav_one -> {
+                R.id.action_menu_bottomnav_themes -> {
                     parentFragmentManager
                         .beginTransaction()
                         .replace(R.id.navigation_container, SettingsFragment.newInstance())
