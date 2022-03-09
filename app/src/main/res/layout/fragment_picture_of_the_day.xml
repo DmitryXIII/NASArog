@@ -76,7 +76,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/apod_coordinator"
         android:layout_width="@dimen/zero"
-        android:visibility="invisible"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,8 +108,7 @@
             android:id="@+id/iv_picture_of_the_day"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero"
-            android:contentDescription="@string/APOD_description"
-            app:srcCompat="@drawable/no_image_icon" />
+            android:contentDescription="@string/APOD_description" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_sheet_container"

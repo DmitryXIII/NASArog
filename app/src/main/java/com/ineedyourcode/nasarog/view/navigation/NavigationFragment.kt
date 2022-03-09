@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentNavigationBinding
-import com.ineedyourcode.nasarog.utils.showSnackWithAction
 import com.ineedyourcode.nasarog.utils.showSnackWithoutAction
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment

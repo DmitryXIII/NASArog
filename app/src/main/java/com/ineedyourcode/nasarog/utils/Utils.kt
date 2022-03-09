@@ -1,7 +1,10 @@
 package com.ineedyourcode.nasarog.utils
 
 import android.content.Context
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isVisible
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,7 +52,19 @@ fun convertMyDateFormatToNasaFormat(mDate: String): String {
     return outputFormat.format(date?.time)
 }
 
-fun showToast(context: Context, message: String){
+fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT)
         .show()
+}
+
+fun changeVisibility(vararg views: View) {
+    for (view in views) {
+        view.isVisible = !view.isVisible
+    }
+}
+
+fun changeOnStateLoadingVisibility(vararg views: View) {
+    for (view in views) {
+        view.isVisible = view is ProgressBar
+    }
 }

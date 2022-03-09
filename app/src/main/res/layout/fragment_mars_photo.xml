@@ -7,6 +7,12 @@
     android:background="?colorPrimary"
     android:padding="@dimen/margin_4dp">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_mars_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="iv_mars_photo, iv_arrow_left, iv_arrow_right, mars_photo_date_card"/>
+
     <com.ineedyourcode.nasarog.utils.SquareImageView
         android:id="@+id/iv_mars_photo"
         android:layout_width="@dimen/zero"
