@@ -12,6 +12,9 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+
 
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 private const val CROSSFADE_DURATION = 500
@@ -33,12 +36,17 @@ class PictureOfTheDayFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val videoPl = binding.vvApod
+
+        lifecycle.addObserver(videoPl)
+
         setChips()
 
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
 
+        // для тестирования воспроизведения видео - viewModel.getPictureOfTheDayRequest("2022-02-09")
         viewModel.getPictureOfTheDayRequest()
 
         binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(getCurrentDate())
@@ -82,26 +90,46 @@ class PictureOfTheDayFragment :
             is PictureOfTheDayState.Loading -> {
                 binding.apodSpinKit.isVisible = true
                 binding.apodCoordinator.isVisible = false
+                binding.vvApod.isVisible = false
             }
             is PictureOfTheDayState.Success -> {
-                with(binding) {
-                    bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
-
-                    // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
-                    // по заданному коэффициенту
-                    scrollBottomSheetDescription.layoutParams.height =
-                        (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
-
-                    tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
-                    ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
-                        crossfade(CROSSFADE_DURATION)
-                        transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
-                        build()
+                when (state.pictureOfTheDay.mediaType) {
+                    "video" -> {
+                        binding.vvApod.addYouTubePlayerListener(object :
+                            AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+                                youTubePlayer.loadVideo(
+                                    getYouTubeVideoIdFromUrl(state.pictureOfTheDay.url), 0f
+                                )
+                            }
+                        })
+                        binding.apodSpinKit.isVisible = false
+                        binding.vvApod.isVisible = true
                     }
-                    apodSpinKit.isVisible = false
-                    apodCoordinator.isVisible = true
+                    "image" -> {
+                        with(binding) {
+                            bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
+
+                            // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
+                            // по заданному коэффициенту
+                            scrollBottomSheetDescription.layoutParams.height =
+                                (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
+
+                            tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
+                            ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
+                                crossfade(CROSSFADE_DURATION)
+                                transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
+                                build()
+                            }
+                            apodSpinKit.isVisible = false
+                            apodCoordinator.isVisible = true
+                        }
+                    }
                 }
             }
         }
     }
+
+    private fun getYouTubeVideoIdFromUrl(url: String): String =
+        url.substringAfterLast('/').substringBefore('?')
 }
