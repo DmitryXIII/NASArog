@@ -57,14 +57,22 @@ fun showToast(context: Context, message: String) {
         .show()
 }
 
-fun changeVisibility(vararg views: View) {
+fun setVisibilityOnStateSuccess(vararg views: View) {
     for (view in views) {
-        view.isVisible = !view.isVisible
+        if (view is ProgressBar) {
+            view.isVisible = false
+        } else {
+            view.visibility = View.VISIBLE
+        }
     }
 }
 
-fun changeOnStateLoadingVisibility(vararg views: View) {
+fun setVisibilityOnStateLoading(vararg views: View) {
     for (view in views) {
-        view.isVisible = view is ProgressBar
+        if (view is ProgressBar) {
+            view.isVisible = true
+        } else {
+            view.visibility = View.INVISIBLE
+        }
     }
 }

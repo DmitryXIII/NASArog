@@ -5,8 +5,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
-import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.ineedyourcode.nasarog.BuildConfig
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentEarthPhotoBinding
@@ -21,7 +19,6 @@ class EarthPhotoFragment :
     BaseBindingFragment<FragmentEarthPhotoBinding>(FragmentEarthPhotoBinding::inflate) {
 
     private val listOfDates = mutableListOf<String>()
-    private var isFirstLoading = true
     private val viewModel: EarthPhotoViewModel by lazy {
         ViewModelProvider(this).get(EarthPhotoViewModel::class.java)
     }
@@ -37,74 +34,59 @@ class EarthPhotoFragment :
     }
 
     private fun renderData(state: EarthPhotoState) {
-        when (state) {
-            is EarthPhotoState.Error -> {
-                view?.showSnackWithoutAction(state.error.message.toString())
-            }
-            EarthPhotoState.Loading -> {
-                with(binding) {
-                    changeOnStateLoadingVisibility(earthPhotoSpinKit, groupEarthPhoto)
-                    if (isFirstLoading) {
-                        spinnerDateEarthPhoto.visibility = View.INVISIBLE
-                        isFirstLoading = !isFirstLoading
+        with(binding) {
+            when (state) {
+                is EarthPhotoState.Error -> {
+                    view?.showSnackWithoutAction(state.error.message.toString())
+                }
+                EarthPhotoState.Loading -> {
+                    setVisibilityOnStateLoading(earthPhotoSpinKit, groupEarthPhoto)
+                }
+
+                is EarthPhotoState.PhotoSuccess -> {
+                    tvDateEarthPhoto.text =
+                        convertNasaDateFormatToMyFormat(state.earthPhoto.date)
+                    ivEarthPhoto.loadWithTransformAndCallback(
+                        (convertDateToEarthUrlDateFormat(
+                            state.earthPhoto.date,
+                            state.earthPhoto.image
+                        )),
+                        CROSSFADE_DURATION,
+                        IMAGE_CORNER_RADIUS
+                    ) {
+                        setVisibilityOnStateSuccess(earthPhotoSpinKit, groupEarthPhoto)
                     }
                 }
-            }
+                is EarthPhotoState.DatesSuccess -> {
+                    for (date in state.mListOfDates) {
+                        listOfDates.add(convertNasaDateFormatToMyFormat(date.date))
+                    }
 
-            is EarthPhotoState.PhotoSuccess -> {
-                binding.tvDateEarthPhoto.text =
-                    convertNasaDateFormatToMyFormat(state.earthPhoto.date)
-                binding.ivEarthPhoto.load(
-                    convertDateToEarthUrlDateFormat(state.earthPhoto.date, state.earthPhoto.image)
-                ) {
-                    crossfade(CROSSFADE_DURATION)
-                    transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
-                    build()
-                    listener(onSuccess = { _, _ ->
-                        changeVisibility(
-                            binding.earthPhotoSpinKit,
-                            binding.groupEarthPhoto,
-                            binding.spinnerDateEarthPhoto
-                        )
-                    }, onError = { _, throwable: Throwable ->
-                        view?.showSnackWithoutAction(throwable.message.toString())
-                    })
-                }
-            }
-            is EarthPhotoState.DatesSuccess -> {
-                for (date in state.listOfDates) {
-                    this.listOfDates.add(convertNasaDateFormatToMyFormat(date.date))
-                }
+                    spinnerDateEarthPhoto.visibility = View.VISIBLE
 
-                binding.spinnerDateEarthPhoto.visibility = View.INVISIBLE
-
-                binding.spinnerDateEarthPhoto.adapter = ArrayAdapter(
-                    requireContext(),
-                    R.layout.spinner_item,
-                    listOfDates
-                ).apply {
-                    setDropDownViewResource(R.layout.spinner_dropdown_item)
-                }
-
-                binding.spinnerDateEarthPhoto.onItemSelectedListener =
-                    object : AdapterView.OnItemSelectedListener {
-                        override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                        override fun onItemSelected(
-                            parent: AdapterView<*>?,
-                            view: View?,
-                            position: Int,
-                            id: Long
-                        ) {
-                            viewModel.getEarthPhotoRequest(
-                                convertMyDateFormatToNasaFormat(
-                                    parent?.getItemAtPosition(
-                                        position
-                                    ).toString()
-                                )
-                            )
+                    spinnerDateEarthPhoto.adapter =
+                        ArrayAdapter(requireContext(), R.layout.spinner_item, listOfDates).apply {
+                            setDropDownViewResource(R.layout.spinner_dropdown_item)
                         }
-                    }
+
+                    spinnerDateEarthPhoto.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long
+                            ) {
+                                viewModel.getEarthPhotoRequest(
+                                    convertMyDateFormatToNasaFormat(
+                                        parent?.getItemAtPosition(position).toString()
+                                    )
+                                )
+                            }
+                        }
+                }
             }
         }
     }

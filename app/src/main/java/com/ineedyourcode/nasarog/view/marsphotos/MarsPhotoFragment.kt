@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentMarsPhotoBinding
 import com.ineedyourcode.nasarog.remoterepo.dto.marsphotodto.MarsDto
-import com.ineedyourcode.nasarog.utils.changeOnStateLoadingVisibility
-import com.ineedyourcode.nasarog.utils.changeVisibility
 import com.ineedyourcode.nasarog.utils.convertNasaDateFormatToMyFormat
 import com.ineedyourcode.nasarog.utils.loadWithTransform
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateLoading
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateSuccess
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 
 
@@ -43,19 +43,17 @@ class MarsPhotoFragment :
     }
 
     private fun renderData(state: MarsPhotoState) {
-        when (state) {
-            MarsPhotoState.Loading -> {
-                with(binding) {
-                    changeOnStateLoadingVisibility(marsPhotoSpinKit, groupMarsPhoto)
+        with(binding) {
+            when (state) {
+                MarsPhotoState.Loading -> {
+                    setVisibilityOnStateLoading(marsPhotoSpinKit, groupMarsPhoto)
                 }
-            }
 
-            is MarsPhotoState.Error -> {
-                Log.d(LOG_TAG, state.error.message.toString())
-            }
+                is MarsPhotoState.Error -> {
+                    Log.d(LOG_TAG, state.error.message.toString())
+                }
 
-            is MarsPhotoState.MarsPhotoSuccess -> {
-                with(binding) {
+                is MarsPhotoState.MarsPhotoSuccess -> {
                     ivMarsPhoto.loadWithTransform(
                         state.marsPhoto.photos[loadedImageIndex].imgSrc,
                         CROSSFADE_DURATION,
@@ -86,7 +84,7 @@ class MarsPhotoFragment :
                             ARROW_BACK
                         ) // пролистывание фотографий назад
                     }
-                    changeVisibility(groupMarsPhoto, marsPhotoSpinKit)
+                    setVisibilityOnStateSuccess(groupMarsPhoto, marsPhotoSpinKit)
                 }
             }
         }

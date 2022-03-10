@@ -80,26 +80,24 @@ class PictureOfTheDayFragment :
     }
 
     private fun renderData(state: PictureOfTheDayState) {
-        when (state) {
-            is PictureOfTheDayState.Error -> {
-                view?.showSnackWithAction(
-                    state.error.localizedMessage ?: "",
-                    getString(R.string.repeat)
-                ) { viewModel.getPictureOfTheDayRequest() }
-            }
-            is PictureOfTheDayState.Loading -> {
-                with(binding) {
-                    changeOnStateLoadingVisibility(apodSpinKit, vvApod, apodCoordinator)
+        with(binding) {
+            when (state) {
+                is PictureOfTheDayState.Error -> {
+                    view?.showSnackWithAction(
+                        state.error.message.toString(),
+                        getString(R.string.repeat)
+                    ) { viewModel.getPictureOfTheDayRequest() }
                 }
-            }
-            is PictureOfTheDayState.Success -> {
-                when (state.pictureOfTheDay.mediaType) {
-                    MEDIA_TYPE_VIDEO -> {
-                        initYouTubeVideoPlayer(state.pictureOfTheDay.url)
-                        changeVisibility(binding.apodSpinKit, binding.vvApod)
-                    }
-                    MEDIA_TYPE_IMAGE -> {
-                        with(binding) {
+                is PictureOfTheDayState.Loading -> {
+                    setVisibilityOnStateLoading(apodSpinKit, vvApod, apodCoordinator)
+                }
+                is PictureOfTheDayState.Success -> {
+                    when (state.pictureOfTheDay.mediaType) {
+                        MEDIA_TYPE_VIDEO -> {
+                            initYouTubeVideoPlayer(state.pictureOfTheDay.url)
+                            setVisibilityOnStateSuccess(apodSpinKit, vvApod)
+                        }
+                        MEDIA_TYPE_IMAGE -> {
                             bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
 
                             // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
@@ -108,12 +106,17 @@ class PictureOfTheDayFragment :
                                 (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
 
                             tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
-                            ivPictureOfTheDay.loadWithTransform(
+
+                            ivPictureOfTheDay.loadWithTransformAndCallback(
                                 state.pictureOfTheDay.hdurl,
                                 CROSSFADE_DURATION,
                                 IMAGE_CORNER_RADIUS
-                            )
-                            changeVisibility(binding.apodSpinKit, apodCoordinator)
+                            ) {
+                                setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
+                            }
+                        }
+                        else -> {
+                            view?.showSnackWithoutAction(getString(R.string.msg_unknown_mediatype))
                         }
                     }
                 }
