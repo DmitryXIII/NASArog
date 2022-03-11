@@ -5,4 +5,6 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="behavior_peekHeight">24dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="text_input_stroke_width">1dp</dimen>
+    <dimen name="radius_16dp">16dp</dimen>
 </resources>

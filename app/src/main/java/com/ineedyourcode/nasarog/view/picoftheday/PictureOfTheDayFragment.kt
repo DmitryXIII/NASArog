@@ -18,6 +18,7 @@ import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment
+import com.ineedyourcode.nasarog.view.settings.SettingsFragment
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayState
 import com.ineedyourcode.nasarog.viewmodel.PictureOfTheDayViewModel
 
@@ -107,12 +108,12 @@ class PictureOfTheDayFragment :
                 R.id.chip_before_yesterday -> {
                     val date = getBeforeYesterdayDate()
                     binding.tvDateOfPicture.text = convertDateFormat(date)
-                    viewModel.getPictureOfTheDayFromDateRequest(date)
+                    viewModel.getPictureOfTheDayRequest(date)
                 }
                 R.id.chip_yesterday -> {
                     val date = getYesterdayDate()
                     binding.tvDateOfPicture.text = convertDateFormat(date)
-                    viewModel.getPictureOfTheDayFromDateRequest(getYesterdayDate())
+                    viewModel.getPictureOfTheDayRequest(getYesterdayDate())
                 }
                 R.id.chip_today -> {
                     binding.tvDateOfPicture.text = convertDateFormat(getCurrentDate())
@@ -172,7 +173,11 @@ class PictureOfTheDayFragment :
                 showToast(requireContext(), getString(R.string.favorite))
             }
             R.id.action_bottombar_settings -> {
-                showToast(requireContext(), getString(R.string.settings))
+                parentFragmentManager
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, SettingsFragment.newInstance())
+                    .addToBackStack("")
+                    .commit()
             }
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
