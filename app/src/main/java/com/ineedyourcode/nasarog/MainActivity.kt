@@ -1,10 +1,11 @@
 package com.ineedyourcode.nasarog
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import com.ineedyourcode.nasarog.view.picoftheday.PictureOfTheDayFragment
+import com.ineedyourcode.nasarog.view.navigation.NavigationFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
         setContentView(R.layout.activity_main)
 
         settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
@@ -26,9 +28,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, PictureOfTheDayFragment.newInstance())
+                .replace(R.id.main_fragment_container, NavigationFragment())
                 .commit()
         }
     }

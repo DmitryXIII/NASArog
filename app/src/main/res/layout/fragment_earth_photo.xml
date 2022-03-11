@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimary"
+    android:padding="@dimen/margin_4dp">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_date_earth_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:layout_marginVertical="@dimen/margin_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <com.ineedyourcode.nasarog.utils.SquareImageView
+        android:id="@+id/iv_earth_photo"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_date_earth_photo" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/earth_photo_date_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/iv_earth_photo"
+        app:layout_constraintStart_toStartOf="@id/iv_earth_photo"
+        app:layout_constraintTop_toTopOf="@id/iv_earth_photo"
+        tools:visibility="visible">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?colorOnPrimaryContainer"
+            android:paddingHorizontal="@dimen/margin_4dp"
+            tools:ignore="PrivateResource">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_date_earth_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/date_example" />
+        </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/earth_photo_spin_kit"
+        style="@style/SpinKitView.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:SpinKit_Color="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_earth_photo"
+        app:layout_constraintEnd_toEndOf="@+id/iv_earth_photo"
+        app:layout_constraintStart_toStartOf="@+id/iv_earth_photo"
+        app:layout_constraintTop_toTopOf="@+id/iv_earth_photo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

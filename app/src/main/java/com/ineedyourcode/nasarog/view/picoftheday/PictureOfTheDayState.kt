@@ -1,6 +1,6 @@
-package com.ineedyourcode.nasarog.viewmodel
+package com.ineedyourcode.nasarog.view.picoftheday
 
-import com.ineedyourcode.nasarog.remoterepo.PictureOfTheDayDto
+import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 
 sealed class PictureOfTheDayState {
     data class Loading(val progress: Int?) : PictureOfTheDayState()
