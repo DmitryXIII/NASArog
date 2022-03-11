@@ -9,6 +9,7 @@ import com.ineedyourcode.nasarog.view.navigation.NavigationFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"
+private const val KEY_FORCED_MODE_NIGHT = "FORCED_DARK_MODE"
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,19 +17,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         setContentView(R.layout.activity_main)
 
         settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
-
-        setTheme(getCurrentTheme())
 
         if (getCurrentTheme() == 0) {
             settingsPrefs.edit { putInt(KEY_CURRENT_THEME, R.style.Theme_NASArog) }
         }
 
+        setTheme(getCurrentTheme())
+
+        if (!settingsPrefs.contains(KEY_FORCED_MODE_NIGHT)) {
+            setIsDarkMode(false)
+        }
+
+        when (getIsDarkMode()) {
+            true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         if (savedInstanceState == null) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_fragment_container, NavigationFragment())
@@ -42,5 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     fun getCurrentTheme(): Int {
         return settingsPrefs.getInt(KEY_CURRENT_THEME, 0)
+    }
+
+    fun setIsDarkMode(isDarkMode: Boolean) {
+        settingsPrefs.edit { putBoolean(KEY_FORCED_MODE_NIGHT, isDarkMode) }
+    }
+
+    fun getIsDarkMode(): Boolean {
+        return settingsPrefs.getBoolean(KEY_FORCED_MODE_NIGHT, false)
     }
 }

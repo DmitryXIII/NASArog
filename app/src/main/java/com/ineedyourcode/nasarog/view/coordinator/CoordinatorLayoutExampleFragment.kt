@@ -10,14 +10,15 @@ import com.ineedyourcode.nasarog.view.BaseBindingFragment
  * Фрагмент с использованием кастомных бихейворов.
  * Делать бихейворы для работы с тулбаром не хотелось - слишком много информации и примеров на эту тему,
  * решил сделать что-то чисто свое.
- * Используется 2 кастомных бихейвора, оба прописаны в xml.
+ * Используется 2 кастомных бихейвора, реагируют на вертикальный свайп по экрану (черная полоса со стрелками - просто для наглядности).
  * Потрачено 3 кг нервов и 100500 часов, чтобы разобраться с системой координат,
  * но зато теперь имеется хоть какое-то представление о работе бихейворов.
+ * Адаптации под разные экраны пока нет - задача себе на будущее.
  */
 
 private const val TOP_Y_BORDER = 500f
 private const val BOTTOM_Y_BORDER = 1300f
-private const val ITEM_MOVING_RANGE = 150f
+private const val ITEM_MOVING_RANGE = 200f
 private const val FAB_MOVING_RANGE = BOTTOM_Y_BORDER - TOP_Y_BORDER
 
 class CoordinatorLayoutExampleFragment :

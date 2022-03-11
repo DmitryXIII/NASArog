@@ -15,27 +15,23 @@ class MyFabBehavior(
 ) :
     CoordinatorLayout.Behavior<View>(context, null) {
 
-    override fun onTouchEvent(parent: CoordinatorLayout, v: View, ev: MotionEvent): Boolean {
-
-        // поправка в координату Y касания (возникает из-за разных начал отсчета по оси Y)
-        val deltaTouchY = ev.rawY - ev.y
-
-        when (ev.action) {
+    override fun onTouchEvent(parent: CoordinatorLayout, fab: View, touch: MotionEvent): Boolean {
+        when (touch.action) {
             MotionEvent.ACTION_MOVE -> {
                 when {
                     // если касание внутри заданного диапазона, то кордината Y центра FAB = координате Y касания
-                    (ev.rawY - v.height / 2 - deltaTouchY) in topBorderY..bottomBorderY -> {
-                        v.y = ev.rawY - v.height / 2 - deltaTouchY
+                    (touch.y - fab.height / 2) in topBorderY..bottomBorderY -> {
+                        fab.y = touch.y - fab.height / 2
                     }
 
-                    // если касание ниже заданного диапазона, то кордината Y центра FAB = координате Y нижней границы
-                    (ev.rawY - v.height / 2 - deltaTouchY) > topBorderY -> {
-                        v.y = bottomBorderY
+                    // если касание ниже заданного диапазона, то fab.y = координате Y нижней границы
+                    (touch.y - fab.height / 2) >= bottomBorderY -> {
+                        fab.y = bottomBorderY
                     }
 
-                    // если касание выше заданного диапазона, то кордината Y центра FAB = координате Y верхней границы
-                    else -> {
-                        v.y = topBorderY
+                    // если касание выше заданного диапазона, то fab.y = координате Y верхней границы
+                    (touch.y - fab.height / 2) <= topBorderY -> {
+                        fab.y = topBorderY
                     }
                 }
             }
