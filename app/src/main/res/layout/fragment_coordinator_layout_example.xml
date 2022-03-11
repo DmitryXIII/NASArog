@@ -3,57 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:clickable="true"
-    android:focusable="true">
-
-    <ImageView
-        android:id="@+id/iv_bottom_left"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/moving_view_item_bottom_left"
-        app:layout_behavior=".view.coordinator.MyBehavior" />
-
-    <ImageView
-        android:id="@+id/iv_bottom_right"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/moving_view_item_bottom_right"
-        app:layout_behavior=".view.coordinator.MyBehavior" />
-
-    <ImageView
-        android:id="@+id/iv_top_left"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/moving_view_item_top_left"
-        app:layout_behavior=".view.coordinator.MyBehavior" />
-
-    <ImageView
-        android:id="@+id/iv_top_right"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/moving_view_item_top_right"
-        app:layout_behavior=".view.coordinator.MyBehavior" />
-
-    <View
-        android:id="@+id/vTop"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black" />
-
-    <View
-        android:id="@+id/vBottom"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black" />
+    android:background="@android:color/white">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:clickable="true"
-        android:focusable="true"
         android:src="@drawable/ic_plus"
-        app:layout_behavior=".view.coordinator.MyTouchBehavior" />
+        app:elevation="@dimen/zero" />
+
+    <ImageView
+        android:id="@+id/iv_bottom_left"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/moving_view_item_bottom_left" />
+
+    <ImageView
+        android:id="@+id/iv_bottom_right"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/moving_view_item_bottom_right" />
+
+    <ImageView
+        android:id="@+id/iv_top_left"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/moving_view_item_top_left" />
+
+    <ImageView
+        android:id="@+id/iv_top_right"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/moving_view_item_top_right" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:background="@color/black"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/margin_16dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="50dp"
+            android:src="@drawable/ic_double_arrow_up" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_double_arrow_down" />
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

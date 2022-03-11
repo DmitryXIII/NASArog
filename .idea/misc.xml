@@ -9,12 +9,14 @@
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_bookmark.xml" value="0.201" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_burger.xml" value="0.201" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_camera.xml" value="0.251" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_double_arrow_down.xml" value="0.251" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_double_arrow_up.xml" value="0.223" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_globe.xml" value="0.251" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_plus.xml" value="0.223" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_search.xml" value="0.309" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_settings.xml" value="0.2675" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_wiki.xml" value="0.1205" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/moving_area.xml" value="0.251" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/moving_view_item.xml" value="0.251" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/moving_view_item_bottom_left.xml" value="0.251" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/moving_view_item_bottom_right.xml" value="0.251" />
@@ -27,7 +29,7 @@
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_bottom_navigation_drawer.xml" value="0.1" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_chips.xml" value="0.25416666666666665" />
-        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_coordinator_layout_example.xml" value="0.136" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_coordinator_layout_example.xml" value="0.176" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_earth_photo.xml" value="0.176" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_mars_photo.xml" value="0.21614583333333334" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_navigation.xml" value="0.36666666666666664" />
