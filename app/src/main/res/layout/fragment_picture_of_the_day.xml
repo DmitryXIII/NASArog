@@ -64,6 +64,13 @@
             android:text="@string/chip_today" />
     </com.google.android.material.chip.ChipGroup>
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_apod_top"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        app:constraint_referenced_ids="chip_group, input_layout"
+        app:barrierDirection="bottom"/>
+
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/vv_apod"
         android:layout_width="match_parent"
@@ -76,12 +83,12 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/apod_coordinator"
         android:layout_width="@dimen/zero"
-        android:visibility="invisible"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chip_group">
+        app:layout_constraintTop_toTopOf="@id/barrier_apod_top">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/date_card"
@@ -109,8 +116,7 @@
             android:id="@+id/iv_picture_of_the_day"
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero"
-            android:contentDescription="@string/APOD_description"
-            app:srcCompat="@drawable/no_image_icon" />
+            android:contentDescription="@string/APOD_description" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_sheet_container"
@@ -168,7 +174,6 @@
         style="@style/SpinKitView.Circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:SpinKit_Color="?colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="@id/apod_coordinator"
         app:layout_constraintEnd_toEndOf="@id/apod_coordinator"

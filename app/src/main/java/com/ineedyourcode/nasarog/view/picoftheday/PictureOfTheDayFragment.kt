@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*
@@ -15,11 +13,12 @@ import com.ineedyourcode.nasarog.view.BaseBindingFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
-
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 private const val CROSSFADE_DURATION = 500
 private const val IMAGE_CORNER_RADIUS = 25f
 private const val BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT = 0.6
+private const val MEDIA_TYPE_VIDEO = "video"
+private const val MEDIA_TYPE_IMAGE = "image"
 
 
 class PictureOfTheDayFragment :
@@ -36,9 +35,10 @@ class PictureOfTheDayFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val videoPl = binding.vvApod
+        binding.vvApod.isVisible = false
+        binding.apodCoordinator.isVisible = false
 
-        lifecycle.addObserver(videoPl)
+        lifecycle.addObserver(binding.vvApod)
 
         setChips()
 
@@ -62,52 +62,42 @@ class PictureOfTheDayFragment :
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.chip_before_yesterday -> {
-                    val date = getBeforeYesterdayDate()
-                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
-                    viewModel.getPictureOfTheDayRequest(date)
+                    getApodImage(getBeforeYesterdayDate())
                 }
                 R.id.chip_yesterday -> {
-                    val date = getYesterdayDate()
-                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
-                    viewModel.getPictureOfTheDayRequest(getYesterdayDate())
+                    getApodImage(getYesterdayDate())
                 }
                 R.id.chip_today -> {
-                    binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(getCurrentDate())
-                    viewModel.getPictureOfTheDayRequest()
+                    getApodImage(getCurrentDate())
                 }
             }
         }
     }
 
+    private fun getApodImage(date: String) {
+        binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
+        viewModel.getPictureOfTheDayRequest(date)
+    }
+
     private fun renderData(state: PictureOfTheDayState) {
-        when (state) {
-            is PictureOfTheDayState.Error -> {
-                view?.showSnackWithAction(
-                    state.error.localizedMessage ?: "",
-                    getString(R.string.repeat)
-                ) { viewModel.getPictureOfTheDayRequest() }
-            }
-            is PictureOfTheDayState.Loading -> {
-                binding.apodSpinKit.isVisible = true
-                binding.apodCoordinator.isVisible = false
-                binding.vvApod.isVisible = false
-            }
-            is PictureOfTheDayState.Success -> {
-                when (state.pictureOfTheDay.mediaType) {
-                    "video" -> {
-                        binding.vvApod.addYouTubePlayerListener(object :
-                            AbstractYouTubePlayerListener() {
-                            override fun onReady(youTubePlayer: YouTubePlayer) {
-                                youTubePlayer.loadVideo(
-                                    getYouTubeVideoIdFromUrl(state.pictureOfTheDay.url), 0f
-                                )
-                            }
-                        })
-                        binding.apodSpinKit.isVisible = false
-                        binding.vvApod.isVisible = true
-                    }
-                    "image" -> {
-                        with(binding) {
+        with(binding) {
+            when (state) {
+                is PictureOfTheDayState.Error -> {
+                    view?.showSnackWithAction(
+                        state.error.message.toString(),
+                        getString(R.string.repeat)
+                    ) { viewModel.getPictureOfTheDayRequest() }
+                }
+                is PictureOfTheDayState.Loading -> {
+                    setVisibilityOnStateLoading(apodSpinKit, vvApod, apodCoordinator)
+                }
+                is PictureOfTheDayState.Success -> {
+                    when (state.pictureOfTheDay.mediaType) {
+                        MEDIA_TYPE_VIDEO -> {
+                            initYouTubeVideoPlayer(state.pictureOfTheDay.url)
+                            setVisibilityOnStateSuccess(apodSpinKit, vvApod)
+                        }
+                        MEDIA_TYPE_IMAGE -> {
                             bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
 
                             // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
@@ -116,18 +106,31 @@ class PictureOfTheDayFragment :
                                 (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
 
                             tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
-                            ivPictureOfTheDay.load(state.pictureOfTheDay.hdurl) {
-                                crossfade(CROSSFADE_DURATION)
-                                transformations(RoundedCornersTransformation(IMAGE_CORNER_RADIUS))
-                                build()
+
+                            ivPictureOfTheDay.loadWithTransformAndCallback(
+                                state.pictureOfTheDay.hdurl,
+                                CROSSFADE_DURATION,
+                                IMAGE_CORNER_RADIUS
+                            ) {
+                                setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                             }
-                            apodSpinKit.isVisible = false
-                            apodCoordinator.isVisible = true
+                        }
+                        else -> {
+                            view?.showSnackWithoutAction(getString(R.string.msg_unknown_mediatype))
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun initYouTubeVideoPlayer(url: String) {
+        binding.vvApod.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), 0f)
+            }
+        })
     }
 
     private fun getYouTubeVideoIdFromUrl(url: String): String =

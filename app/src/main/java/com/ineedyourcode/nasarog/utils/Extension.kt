@@ -24,3 +24,16 @@ fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int, cornerRa
         build()
     }
 }
+
+fun ImageView.loadWithTransformAndCallback(imagePath: String, crossfadeValue: Int, cornerRadius: Float, action: () -> Unit) {
+    this.load(imagePath) {
+        crossfade(crossfadeValue)
+        transformations(RoundedCornersTransformation(cornerRadius))
+        build()
+        listener(onSuccess = { _, _ ->
+            action()
+        }, onError = { _, throwable: Throwable ->
+            rootView.showSnackWithoutAction(throwable.message.toString())
+        })
+    }
+}

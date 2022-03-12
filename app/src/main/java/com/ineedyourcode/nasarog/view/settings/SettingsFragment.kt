@@ -26,15 +26,17 @@ class SettingsFragment :
         }
 
         binding.checkboxDarkTheme.apply {
-            isChecked = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+            isChecked = activity.getIsDarkMode()
 
             setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        activity.setIsDarkMode(true)
                     }
                     false -> {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        activity.setIsDarkMode(false)
                     }
                 }
             }
