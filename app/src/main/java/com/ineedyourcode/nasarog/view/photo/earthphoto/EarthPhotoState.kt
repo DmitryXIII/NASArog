@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.earthphoto
+package com.ineedyourcode.nasarog.view.photo.earthphoto
 
 import com.ineedyourcode.nasarog.remoterepo.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.remoterepo.dto.earthphotodto.EarthPhotoItem

@@ -1,8 +1,9 @@
-package com.ineedyourcode.nasarog.view.picoftheday
+package com.ineedyourcode.nasarog.view.photo.picoftheday
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ineedyourcode.nasarog.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.remoterepo.NasaRepository
 import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 import retrofit2.Call
@@ -11,14 +12,14 @@ import retrofit2.Response
 
 class PictureOfTheDayViewModel(
     private val liveData: MutableLiveData<PictureOfTheDayState> = MutableLiveData(),
-    private val retrofitRepository: NasaRepository = NasaRepository()
+    private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
     fun getLiveData(): LiveData<PictureOfTheDayState> = liveData
 
     fun getPictureOfTheDayRequest(date: String = "") {
         liveData.postValue(PictureOfTheDayState.Loading(null))
-        retrofitRepository.getNasaRepository().getPictureOfTheDay(date).enqueue(
+        retrofitRepository.getPictureOfTheDay(date,
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
                     call: Call<PictureOfTheDayDto>,

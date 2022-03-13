@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.earthphoto
+package com.ineedyourcode.nasarog.view.photo.earthphoto
 
 import android.os.Bundle
 import android.view.View

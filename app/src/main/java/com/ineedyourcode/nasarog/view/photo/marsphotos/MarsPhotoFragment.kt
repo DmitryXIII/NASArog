@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.marsphotos
+package com.ineedyourcode.nasarog.view.photo.marsphotos
 
 import android.os.Bundle
 import android.util.Log

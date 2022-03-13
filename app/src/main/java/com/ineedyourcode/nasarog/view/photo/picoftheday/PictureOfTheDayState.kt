@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.picoftheday
+package com.ineedyourcode.nasarog.view.photo.picoftheday
 
 import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 
