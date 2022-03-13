@@ -12,25 +12,35 @@ import retrofit2.http.Query
 
 interface INasaApi {
     @GET("planetary/apod")
-    fun getPictureOfTheDay(
-        @Query("date") date: String,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
-    ): Call<PictureOfTheDayDto>
+    fun getPictureOfTheDay(@Query("date") date: String): Call<PictureOfTheDayDto>
 
     @GET("EPIC/api/natural/date/{date}")
-    fun getEarthPhoto(
-        @Path("date") date: String,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
-    ): Call<List<EarthPhotoItem>>
+    fun getEarthPhoto(@Path("date") date: String): Call<List<EarthPhotoItem>>
 
     @GET("EPIC/api/natural/all")
-    fun getEarthPhotoDates(
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
-    ): Call<List<EarthPhotoDateDto>>
+    fun getEarthPhotoDates(): Call<List<EarthPhotoDateDto>>
 
     @GET("mars-photos/api/v1/rovers/curiosity/photos")
-    fun getMarsPhoto(
-        @Query("earth_date") earthDate: String,
-        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY,
-    ): Call<MarsDto>
+    fun getMarsPhoto(@Query("earth_date") earthDate: String): Call<MarsDto>
+
+
+
+
+//    @GET("planetary/apod")
+//    fun getPictureOfTheDay(
+//        @Query("date") date: String,
+//        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY
+//    ): Call<PictureOfTheDayDto>
+//
+//    @GET("EPIC/api/natural/date/{date}")
+//    fun getEarthPhoto(@Path("date") date: String,
+//                      @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY): Call<List<EarthPhotoItem>>
+//
+//    @GET("EPIC/api/natural/all")
+//    fun getEarthPhotoDates(
+//        @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY): Call<List<EarthPhotoDateDto>>
+//
+//    @GET("mars-photos/api/v1/rovers/curiosity/photos")
+//    fun getMarsPhoto(@Query("earth_date") earthDate: String,
+//                     @Query("api_key") apiKey: String = BuildConfig.NASA_API_KEY): Call<MarsDto>
 }
