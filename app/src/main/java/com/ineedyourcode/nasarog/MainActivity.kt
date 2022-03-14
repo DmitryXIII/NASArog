@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import com.ineedyourcode.nasarog.view.navigation.NavigationFragment
-import com.ineedyourcode.nasarog.view.settings.SettingsFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"
@@ -37,13 +35,6 @@ class MainActivity : AppCompatActivity() {
             true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.main_fragment_container, SettingsFragment())
-//                .commit()
-//        }
     }
 
     fun setCurrentTheme(theme: Int) {

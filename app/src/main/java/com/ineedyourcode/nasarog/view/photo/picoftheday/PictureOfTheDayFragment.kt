@@ -4,8 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*
@@ -20,9 +22,10 @@ private const val BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT = 0.6
 private const val MEDIA_TYPE_VIDEO = "video"
 private const val MEDIA_TYPE_IMAGE = "image"
 
-
 class PictureOfTheDayFragment :
     BaseBindingFragment<FragmentPictureOfTheDayBinding>(FragmentPictureOfTheDayBinding::inflate) {
+
+    private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -45,6 +48,10 @@ class PictureOfTheDayFragment :
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
+
+        apodBottomSheet = BottomSheetBehavior.from(binding.bottomSheetContainer)
+
+        setBottomSheetCallback()
 
         // для тестирования воспроизведения видео - viewModel.getPictureOfTheDayRequest("2022-02-09")
         viewModel.getPictureOfTheDayRequest()
@@ -71,6 +78,7 @@ class PictureOfTheDayFragment :
                     getApodImage(getCurrentDate())
                 }
             }
+            apodBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
     }
 
@@ -100,7 +108,7 @@ class PictureOfTheDayFragment :
                         MEDIA_TYPE_IMAGE -> {
                             bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
 
-                            // установка высоты лэйаута с описанием картинки в зависимости от высоты картинки
+                            // установка высоты bottomsheet с описанием картинки в зависимости от высоты картинки
                             // по заданному коэффициенту
                             scrollBottomSheetDescription.layoutParams.height =
                                 (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
@@ -135,4 +143,27 @@ class PictureOfTheDayFragment :
 
     private fun getYouTubeVideoIdFromUrl(url: String): String =
         url.substringAfterLast('/').substringBefore('?')
+
+    private fun setBottomSheetCallback() {
+        apodBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {}
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                binding.ivBottomSheetArrows.rotation = 180 * slideOffset
+            }
+        })
+
+        binding.bottomSheetContainer.setOnClickListener {
+            when (apodBottomSheet.state) {
+                BottomSheetBehavior.STATE_EXPANDED -> {
+                    apodBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+
+                }
+                BottomSheetBehavior.STATE_COLLAPSED -> {
+                    apodBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+                else -> {}
+            }
+        }
+    }
 }

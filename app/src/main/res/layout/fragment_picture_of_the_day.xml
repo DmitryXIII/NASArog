@@ -68,8 +68,8 @@
         android:id="@+id/barrier_apod_top"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
-        app:constraint_referenced_ids="chip_group, input_layout"
-        app:barrierDirection="bottom"/>
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="chip_group, input_layout" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/vv_apod"
@@ -86,9 +86,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier_apod_top">
+        app:layout_constraintTop_toTopOf="@id/barrier_apod_top"
+        app:layout_constraintVertical_bias="0.4">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/date_card"
@@ -130,8 +130,8 @@
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <ImageView
-                android:id="@+id/bottom_sheet_line"
-                android:layout_width="@dimen/zero"
+                android:id="@+id/iv_bottom_sheet_arrows"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/bottomsheet_top_icon"
                 android:src="@drawable/ic_double_arrow_up"
@@ -148,7 +148,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_bottom_sheet_arrows" />
 
             <ScrollView
                 android:id="@+id/scroll_bottom_sheet_description"
