@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentBottomNavigationDrawerBinding
@@ -30,10 +31,12 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         binding.bottomNavigationMenuLayout.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_menu_bottomnav_themes -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.navigation_container, SettingsFragment.newInstance())
-                        .commit()
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.navigation_container, SettingsFragment.newInstance())
+//                        .commit()
+
+                    findNavController().navigate(R.id.action_bottomNavigationDrawerFragment_to_settingsFragment)
                     dismiss()
                     true
                 }

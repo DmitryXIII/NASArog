@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_fragment_navigation_graph"
+    app:startDestination="@id/tabFragment">
+
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.ineedyourcode.nasarog.view.tabs.TabFragment"
+        android:label="TabFragment" />
+    <fragment
+        android:id="@+id/coordinatorLayoutExampleFragment"
+        android:name="com.ineedyourcode.nasarog.view.coordinator.CoordinatorLayoutExampleFragment"
+        android:label="CoordinatorLayoutExampleFragment" />
+    <dialog
+        android:id="@+id/bottomNavigationDrawerFragment"
+        android:name="com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment"
+        android:label="BottomNavigationDrawerFragment" >
+        <action
+            android:id="@+id/action_bottomNavigationDrawerFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ineedyourcode.nasarog.view.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>
