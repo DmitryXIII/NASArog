@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.photo.marsphotos
+package com.ineedyourcode.nasarog.view.tabs.photo.marsphotos
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

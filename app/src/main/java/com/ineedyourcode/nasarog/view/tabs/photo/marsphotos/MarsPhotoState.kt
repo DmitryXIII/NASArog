@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.photo.marsphotos
+package com.ineedyourcode.nasarog.view.tabs.photo.marsphotos
 
 import com.ineedyourcode.nasarog.remoterepo.dto.marsphotodto.MarsDto
 

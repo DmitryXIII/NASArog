@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.photo.earthphoto
+package com.ineedyourcode.nasarog.view.tabs.photo.earthphoto
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

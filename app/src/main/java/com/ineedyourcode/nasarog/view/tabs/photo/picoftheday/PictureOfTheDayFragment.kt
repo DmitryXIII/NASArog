@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.photo.picoftheday
+package com.ineedyourcode.nasarog.view.tabs.photo.picoftheday
 
 import android.content.Intent
 import android.net.Uri
