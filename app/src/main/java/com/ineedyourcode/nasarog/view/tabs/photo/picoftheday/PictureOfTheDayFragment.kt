@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
@@ -27,9 +27,7 @@ class PictureOfTheDayFragment :
 
     private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
 
-    private val viewModel: PictureOfTheDayViewModel by lazy {
-        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
-    }
+    private val podViewModel by viewModels<PictureOfTheDayViewModel>()
 
     companion object {
         fun newInstance() = PictureOfTheDayFragment()
@@ -45,7 +43,7 @@ class PictureOfTheDayFragment :
 
         setChips()
 
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
+        podViewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
 
@@ -54,7 +52,7 @@ class PictureOfTheDayFragment :
         setBottomSheetCallback()
 
         // для тестирования воспроизведения видео - viewModel.getPictureOfTheDayRequest("2022-02-09")
-        viewModel.getPictureOfTheDayRequest()
+        podViewModel.getPictureOfTheDayRequest()
 
         binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(getCurrentDate())
 
@@ -65,81 +63,77 @@ class PictureOfTheDayFragment :
         }
     }
 
-    private fun setChips() {
-        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.chip_before_yesterday -> {
-                    getApodImage(getBeforeYesterdayDate())
-                }
-                R.id.chip_yesterday -> {
-                    getApodImage(getYesterdayDate())
-                }
-                R.id.chip_today -> {
-                    getApodImage(getCurrentDate())
-                }
+    private fun setChips() = binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
+        when (checkedId) {
+            R.id.chip_before_yesterday -> {
+                getApodImage(getBeforeYesterdayDate())
             }
-            apodBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+            R.id.chip_yesterday -> {
+                getApodImage(getYesterdayDate())
+            }
+            R.id.chip_today -> {
+                getApodImage(getCurrentDate())
+            }
         }
+        apodBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     private fun getApodImage(date: String) {
         binding.tvDateOfPicture.text = convertNasaDateFormatToMyFormat(date)
-        viewModel.getPictureOfTheDayRequest(date)
+        podViewModel.getPictureOfTheDayRequest(date)
     }
 
-    private fun renderData(state: PictureOfTheDayState) {
-        with(binding) {
-            when (state) {
-                is PictureOfTheDayState.Error -> {
-                    view?.showSnackWithAction(
-                        state.error.message.toString(),
-                        getString(R.string.repeat)
-                    ) { viewModel.getPictureOfTheDayRequest() }
-                }
-                is PictureOfTheDayState.Loading -> {
-                    setVisibilityOnStateLoading(apodSpinKit, vvApod, apodCoordinator)
-                }
-                is PictureOfTheDayState.Success -> {
-                    when (state.pictureOfTheDay.mediaType) {
-                        MEDIA_TYPE_VIDEO -> {
-                            initYouTubeVideoPlayer(state.pictureOfTheDay.url)
-                            setVisibilityOnStateSuccess(apodSpinKit, vvApod)
-                        }
-                        MEDIA_TYPE_IMAGE -> {
-                            bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
+    private fun renderData(state: PictureOfTheDayState) = with(binding) {
+        when (state) {
+            is PictureOfTheDayState.Error -> {
+                view?.showSnackWithAction(
+                    state.error.message.toString(),
+                    getString(R.string.repeat)
+                ) { podViewModel.getPictureOfTheDayRequest() }
+            }
 
-                            // установка высоты bottomsheet с описанием картинки в зависимости от высоты картинки
-                            // по заданному коэффициенту
-                            scrollBottomSheetDescription.layoutParams.height =
-                                (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
+            is PictureOfTheDayState.Loading -> {
+                setVisibilityOnStateLoading(apodSpinKit, vvApod, apodCoordinator)
+            }
 
-                            tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
+            is PictureOfTheDayState.Success -> {
+                when (state.pictureOfTheDay.mediaType) {
+                    MEDIA_TYPE_VIDEO -> {
+                        initYouTubeVideoPlayer(state.pictureOfTheDay.url)
+                        setVisibilityOnStateSuccess(apodSpinKit, vvApod)
+                    }
+                    MEDIA_TYPE_IMAGE -> {
+                        bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
 
-                            ivPictureOfTheDay.loadWithTransformAndCallback(
-                                state.pictureOfTheDay.hdurl,
-                                CROSSFADE_DURATION,
-                                IMAGE_CORNER_RADIUS
-                            ) {
-                                setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
-                            }
+                        // установка высоты bottomsheet с описанием картинки в зависимости от высоты картинки
+                        // по заданному коэффициенту
+                        scrollBottomSheetDescription.layoutParams.height =
+                            (ivPictureOfTheDay.height * BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT).toInt()
+
+                        tvBottomSheetDescription.text = state.pictureOfTheDay.explanation
+
+                        ivPictureOfTheDay.loadWithTransformAndCallback(
+                            state.pictureOfTheDay.hdurl,
+                            CROSSFADE_DURATION,
+                            IMAGE_CORNER_RADIUS
+                        ) {
+                            setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                         }
-                        else -> {
-                            view?.showSnackWithoutAction(getString(R.string.msg_unknown_mediatype))
-                        }
+                    }
+                    else -> {
+                        view?.showSnackWithoutAction(getString(R.string.msg_unknown_mediatype))
                     }
                 }
             }
         }
     }
 
-    private fun initYouTubeVideoPlayer(url: String) {
-        binding.vvApod.addYouTubePlayerListener(object :
+    private fun initYouTubeVideoPlayer(url: String) = binding.vvApod.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), 0f)
             }
         })
-    }
 
     private fun getYouTubeVideoIdFromUrl(url: String): String =
         url.substringAfterLast('/').substringBefore('?')

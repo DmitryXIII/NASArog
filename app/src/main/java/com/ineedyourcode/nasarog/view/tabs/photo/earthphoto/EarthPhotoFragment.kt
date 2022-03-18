@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.ineedyourcode.nasarog.BuildConfig
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentEarthPhotoBinding
@@ -19,74 +19,73 @@ class EarthPhotoFragment :
     BaseBindingFragment<FragmentEarthPhotoBinding>(FragmentEarthPhotoBinding::inflate) {
 
     private val listOfDates = mutableListOf<String>()
-    private val viewModel: EarthPhotoViewModel by lazy {
-        ViewModelProvider(this).get(EarthPhotoViewModel::class.java)
-    }
+
+    private val earthPhotoViewModel by viewModels<EarthPhotoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
+        earthPhotoViewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
 
-        viewModel.getEarthPhotoDatesRequest()
+        earthPhotoViewModel.getEarthPhotoDatesRequest()
     }
 
-    private fun renderData(state: EarthPhotoState) {
-        with(binding) {
-            when (state) {
-                is EarthPhotoState.Error -> {
-                    view?.showSnackWithoutAction(state.error.message.toString())
+    private fun renderData(state: EarthPhotoState) = with(binding) {
+        when (state) {
+            is EarthPhotoState.Error -> {
+                view?.showSnackWithoutAction(state.error.message.toString())
+            }
+
+            EarthPhotoState.Loading -> {
+                setVisibilityOnStateLoading(earthPhotoSpinKit, groupEarthPhoto)
+            }
+
+            is EarthPhotoState.PhotoSuccess -> {
+                tvDateEarthPhoto.text =
+                    convertNasaDateFormatToMyFormat(state.earthPhoto.date)
+                ivEarthPhoto.loadWithTransformAndCallback(
+                    (convertDateToEarthUrlDateFormat(
+                        state.earthPhoto.date,
+                        state.earthPhoto.image
+                    )),
+                    CROSSFADE_DURATION,
+                    IMAGE_CORNER_RADIUS
+                ) {
+                    setVisibilityOnStateSuccess(earthPhotoSpinKit, groupEarthPhoto)
                 }
-                EarthPhotoState.Loading -> {
-                    setVisibilityOnStateLoading(earthPhotoSpinKit, groupEarthPhoto)
+            }
+
+            is EarthPhotoState.DatesSuccess -> {
+                for (date in state.mListOfDates) {
+                    listOfDates.add(convertNasaDateFormatToMyFormat(date.date))
                 }
 
-                is EarthPhotoState.PhotoSuccess -> {
-                    tvDateEarthPhoto.text =
-                        convertNasaDateFormatToMyFormat(state.earthPhoto.date)
-                    ivEarthPhoto.loadWithTransformAndCallback(
-                        (convertDateToEarthUrlDateFormat(
-                            state.earthPhoto.date,
-                            state.earthPhoto.image
-                        )),
-                        CROSSFADE_DURATION,
-                        IMAGE_CORNER_RADIUS
-                    ) {
-                        setVisibilityOnStateSuccess(earthPhotoSpinKit, groupEarthPhoto)
+                spinnerDateEarthPhoto.visibility = View.VISIBLE
+
+                spinnerDateEarthPhoto.adapter =
+                    ArrayAdapter(requireContext(), R.layout.spinner_item, listOfDates).apply {
+                        setDropDownViewResource(R.layout.spinner_dropdown_item)
                     }
-                }
-                is EarthPhotoState.DatesSuccess -> {
-                    for (date in state.mListOfDates) {
-                        listOfDates.add(convertNasaDateFormatToMyFormat(date.date))
-                    }
 
-                    spinnerDateEarthPhoto.visibility = View.VISIBLE
+                spinnerDateEarthPhoto.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-                    spinnerDateEarthPhoto.adapter =
-                        ArrayAdapter(requireContext(), R.layout.spinner_item, listOfDates).apply {
-                            setDropDownViewResource(R.layout.spinner_dropdown_item)
-                        }
-
-                    spinnerDateEarthPhoto.onItemSelectedListener =
-                        object : AdapterView.OnItemSelectedListener {
-                            override fun onNothingSelected(parent: AdapterView<*>?) {}
-
-                            override fun onItemSelected(
-                                parent: AdapterView<*>?,
-                                view: View?,
-                                position: Int,
-                                id: Long
-                            ) {
-                                viewModel.getEarthPhotoRequest(
-                                    convertMyDateFormatToNasaFormat(
-                                        parent?.getItemAtPosition(position).toString()
-                                    )
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            earthPhotoViewModel.getEarthPhotoRequest(
+                                convertMyDateFormatToNasaFormat(
+                                    parent?.getItemAtPosition(position).toString()
                                 )
-                            }
+                            )
                         }
-                }
+                    }
             }
         }
     }

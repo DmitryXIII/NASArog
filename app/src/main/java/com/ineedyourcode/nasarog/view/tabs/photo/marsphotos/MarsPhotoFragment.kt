@@ -3,6 +3,7 @@ package com.ineedyourcode.nasarog.view.tabs.photo.marsphotos
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentMarsPhotoBinding
@@ -28,64 +29,63 @@ class MarsPhotoFragment :
     // в ответе сервера приходит массив фотографий, этот индекс используется для пролистывания фотографий в фрагменте
     private var loadedImageIndex = ZERO_LOADED_IMAGE_INDEX
 
-    private val viewModel: MarsPhotoViewModel by lazy {
-        ViewModelProvider(this).get(MarsPhotoViewModel::class.java)
-    }
+    private val marsPhotoViewModel by viewModels<MarsPhotoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getLiveData().observe(viewLifecycleOwner) {
+        marsPhotoViewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
 
-        viewModel.getMarsPhotoRequest()
+        marsPhotoViewModel.getMarsPhotoRequest()
     }
 
-    private fun renderData(state: MarsPhotoState) {
-        with(binding) {
-            when (state) {
-                MarsPhotoState.Loading -> {
-                    setVisibilityOnStateLoading(marsPhotoSpinKit, groupMarsPhoto)
-                }
+    private fun renderData(state: MarsPhotoState) = with(binding) {
+        when (state) {
+            MarsPhotoState.Loading -> {
+                setVisibilityOnStateLoading(marsPhotoSpinKit, groupMarsPhoto)
+            }
 
-                is MarsPhotoState.Error -> {
-                    Log.d(LOG_TAG, state.error.message.toString())
-                }
+            is MarsPhotoState.Error -> {
+                Log.d(LOG_TAG, state.error.message.toString())
+            }
 
-                is MarsPhotoState.MarsPhotoSuccess -> {
-                    ivMarsPhoto.loadWithTransform(
-                        state.marsPhoto.photos[loadedImageIndex].imgSrc,
-                        CROSSFADE_DURATION,
-                        IMAGE_CORNER_RADIUS
+            is MarsPhotoState.MarsPhotoSuccess -> {
+                ivMarsPhoto.loadWithTransform(
+                    state.marsPhoto.photos[loadedImageIndex].imgSrc,
+                    CROSSFADE_DURATION,
+                    IMAGE_CORNER_RADIUS
+                )
+
+                // загрузка первой фотографии из массива,
+                // отображение количества фотографий в формате x/y (x - текущая фотография, y - всего фотографий)
+                tvDateMarsPhoto.text =
+                    convertNasaDateFormatToMyFormat(state.marsPhoto.photos[loadedImageIndex].earthDate)
+                tvNumberMarsPhoto.text =
+                    getString(
+                        R.string.mars_photo_number,
+                        FIRST_LOADED_IMAGE_INDEX,
+                        state.marsPhoto.photos.size
                     )
 
-                    // загрузка первой фотографии из массива,
-                    // отображение количества фотографий в формате x/y (x - текущая фотография, y - всего фотографий)
-                    tvDateMarsPhoto.text =
-                        convertNasaDateFormatToMyFormat(state.marsPhoto.photos[loadedImageIndex].earthDate)
-                    tvNumberMarsPhoto.text =
-                        getString(
-                            R.string.mars_photo_number,
-                            FIRST_LOADED_IMAGE_INDEX,
-                            state.marsPhoto.photos.size
-                        )
 
-                    ivArrowRight.setOnClickListener {
-                        setArrowClickListener(
-                            state.marsPhoto.photos,
-                            ARROW_FORWARD
-                        ) // пролистывание фотографий вперед
-                    }
-
-                    ivArrowLeft.setOnClickListener {
-                        setArrowClickListener(
-                            state.marsPhoto.photos,
-                            ARROW_BACK
-                        ) // пролистывание фотографий назад
-                    }
-                    setVisibilityOnStateSuccess(groupMarsPhoto, marsPhotoSpinKit)
+                // пролистывание фотографий вперед
+                ivArrowRight.setOnClickListener {
+                    setArrowClickListener(
+                        state.marsPhoto.photos,
+                        ARROW_FORWARD
+                    )
                 }
+
+                // пролистывание фотографий назад
+                ivArrowLeft.setOnClickListener {
+                    setArrowClickListener(
+                        state.marsPhoto.photos,
+                        ARROW_BACK
+                    )
+                }
+                setVisibilityOnStateSuccess(groupMarsPhoto, marsPhotoSpinKit)
             }
         }
     }
@@ -107,6 +107,7 @@ class MarsPhotoFragment :
                 }
             }
         }
+
         binding.tvNumberMarsPhoto.text =
             getString(R.string.mars_photo_number, (loadedImageIndex + 1), photosList.size)
         binding.ivMarsPhoto.loadWithTransform(
