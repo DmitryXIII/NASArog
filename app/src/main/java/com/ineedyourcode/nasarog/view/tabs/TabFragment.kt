@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ineedyourcode.nasarog.databinding.FragmentTabsBinding
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-class TabFragment: BaseBindingFragment<FragmentTabsBinding>(FragmentTabsBinding::inflate) {
+class TabFragment: BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

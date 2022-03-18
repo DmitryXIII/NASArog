@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentMarsPhotoBinding
 import com.ineedyourcode.nasarog.remoterepo.dto.marsphotodto.MarsDto
@@ -12,7 +11,7 @@ import com.ineedyourcode.nasarog.utils.convertNasaDateFormatToMyFormat
 import com.ineedyourcode.nasarog.utils.loadWithTransform
 import com.ineedyourcode.nasarog.utils.setVisibilityOnStateLoading
 import com.ineedyourcode.nasarog.utils.setVisibilityOnStateSuccess
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 
 private const val CROSSFADE_DURATION = 1000
@@ -24,7 +23,7 @@ private const val ZERO_LOADED_IMAGE_INDEX = 0
 private const val FIRST_LOADED_IMAGE_INDEX = 1
 
 class MarsPhotoFragment :
-    BaseBindingFragment<FragmentMarsPhotoBinding>(FragmentMarsPhotoBinding::inflate) {
+    BaseFragment<FragmentMarsPhotoBinding>(FragmentMarsPhotoBinding::inflate) {
 
     // в ответе сервера приходит массив фотографий, этот индекс используется для пролистывания фотографий в фрагменте
     private var loadedImageIndex = ZERO_LOADED_IMAGE_INDEX

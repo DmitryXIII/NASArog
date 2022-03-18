@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.ineedyourcode.nasarog.databinding.FragmentCoordinatorLayoutExampleBinding
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 /**
  * Фрагмент с использованием кастомных бихейворов.
@@ -22,7 +22,7 @@ private const val ITEM_MOVING_RANGE = 200f
 private const val FAB_MOVING_RANGE = BOTTOM_Y_BORDER - TOP_Y_BORDER
 
 class CoordinatorLayoutExampleFragment :
-    BaseBindingFragment<FragmentCoordinatorLayoutExampleBinding>(
+    BaseFragment<FragmentCoordinatorLayoutExampleBinding>(
         FragmentCoordinatorLayoutExampleBinding::inflate
     ) {
 

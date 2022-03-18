@@ -9,14 +9,14 @@ import com.ineedyourcode.nasarog.BuildConfig
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentEarthPhotoBinding
 import com.ineedyourcode.nasarog.utils.*
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 private const val CROSSFADE_DURATION = 1000
 private const val IMAGE_CORNER_RADIUS = 25f
 private const val BASE_EARTH_PHOTO_URL = "https://api.nasa.gov/EPIC/archive/natural/"
 
 class EarthPhotoFragment :
-    BaseBindingFragment<FragmentEarthPhotoBinding>(FragmentEarthPhotoBinding::inflate) {
+    BaseFragment<FragmentEarthPhotoBinding>(FragmentEarthPhotoBinding::inflate) {
 
     private val listOfDates = mutableListOf<String>()
 

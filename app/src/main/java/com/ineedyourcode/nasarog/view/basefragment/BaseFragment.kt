@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view
+package com.ineedyourcode.nasarog.view.basefragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseBindingFragment<VB : ViewBinding>(
+abstract class BaseFragment<VB : ViewBinding>(
     private val inflateBinding: (
         inflater: LayoutInflater,
         root: ViewGroup?,

@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentPictureOfTheDayBinding
 import com.ineedyourcode.nasarog.utils.*
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
@@ -23,7 +23,7 @@ private const val MEDIA_TYPE_VIDEO = "video"
 private const val MEDIA_TYPE_IMAGE = "image"
 
 class PictureOfTheDayFragment :
-    BaseBindingFragment<FragmentPictureOfTheDayBinding>(FragmentPictureOfTheDayBinding::inflate) {
+    BaseFragment<FragmentPictureOfTheDayBinding>(FragmentPictureOfTheDayBinding::inflate) {
 
     private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
 

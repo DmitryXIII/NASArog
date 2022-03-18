@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentSettingsBinding
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 class SettingsFragment :
-    BaseBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
+    BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
 
     companion object {
         fun newInstance() = SettingsFragment()

@@ -6,10 +6,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentNavigationBinding
-import com.ineedyourcode.nasarog.view.BaseBindingFragment
+import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 class NavigationFragment :
-    BaseBindingFragment<FragmentNavigationBinding>(FragmentNavigationBinding::inflate) {
+    BaseFragment<FragmentNavigationBinding>(FragmentNavigationBinding::inflate) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
