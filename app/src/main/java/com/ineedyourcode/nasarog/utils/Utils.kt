@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,29 +73,6 @@ fun setVisibilityOnStateLoading(vararg views: View) {
             view.isVisible = true
         } else {
             view.visibility = View.INVISIBLE
-        }
-    }
-}
-
-fun setBottomSheetCallback(bottomSheet: BottomSheetBehavior<*>, bottomSheetIcon: View, bottomSheetContainer: View) {
-    bottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onStateChanged(bottomSheet: View, newState: Int) {}
-
-        override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            bottomSheetIcon.rotation = 180 * slideOffset
-        }
-    })
-
-    bottomSheetContainer.setOnClickListener {
-        when (bottomSheet.state) {
-            BottomSheetBehavior.STATE_EXPANDED -> {
-                bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-
-            }
-            BottomSheetBehavior.STATE_COLLAPSED -> {
-                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-            else -> {}
         }
     }
 }

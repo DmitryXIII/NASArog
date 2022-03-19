@@ -3,6 +3,7 @@ package com.ineedyourcode.nasarog.view.tabs
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.tabs.TabLayoutMediator
+import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabsBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
@@ -13,9 +14,9 @@ class TabFragment: BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::inflat
         binding.viewPager2.adapter = PagerAdapter(requireActivity())
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             tab.text = when(position){
-                0 -> "Фото дня"
-                1 -> "Фото Земли"
-                2 -> "Фото Марса"
+                0 -> getString(R.string.tab_title_apod)
+                1 -> getString(R.string.tab_title_earth_photo)
+                2 -> getString(R.string.tab_title_mars_photo)
                 else -> ""
             }
         }.attach()
