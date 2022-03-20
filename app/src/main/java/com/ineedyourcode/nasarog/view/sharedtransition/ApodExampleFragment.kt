@@ -21,7 +21,6 @@ class ApodExampleFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         apodExampleViewModel.getLiveDataToday().observe(viewLifecycleOwner) {
             renderDataToday(it)
         }
@@ -49,7 +48,7 @@ class ApodExampleFragment :
             is ApodExampleState.TodaySuccess -> {
                 tvApodExampleTodayDate.text = getCurrentDate()
                 tvApodExampleTodayTitle.text = state.apodToday.title
-                ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 300, 0f) {
+                ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 0, 0f) {
                     setVisibilityOnStateSuccess(progressBarToday, cardApodExampleToday)
                     navigateWithTransition(
                         ivApodExampleToday,
@@ -82,7 +81,7 @@ class ApodExampleFragment :
                 tvApodExampleYesterdayTitle.text = state.apodYesterday.title
                 ivApodExampleYesterday.loadWithTransformAndCallback(
                     state.apodYesterday.hdurl,
-                    300,
+                    0,
                     0f
                 ) {
                     navigateWithTransition(
@@ -92,7 +91,10 @@ class ApodExampleFragment :
                         state.apodYesterday.hdurl,
                         state.apodYesterday.explanation
                     )
-                    setVisibilityOnStateSuccess(progressBarYesterday, cardApodExampleYesterday)
+                    setVisibilityOnStateSuccess(
+                        progressBarYesterday,
+                        cardApodExampleYesterday
+                    )
                 }
             }
 
@@ -117,7 +119,7 @@ class ApodExampleFragment :
                 tvApodExampleBeforeYesterdayTitle.text = state.apodBeforeYesterday.title
                 ivApodExampleBeforeYesterday.loadWithTransformAndCallback(
                     state.apodBeforeYesterday.hdurl,
-                    300,
+                    0,
                     0f
                 ) {
                     navigateWithTransition(
@@ -125,7 +127,8 @@ class ApodExampleFragment :
                         tvApodExampleBeforeYesterdayDate,
                         tvApodExampleBeforeYesterdayTitle,
                         state.apodBeforeYesterday.hdurl,
-                        state.apodBeforeYesterday.explanation
+                        state.apodBeforeYesterday.explanation,
+                        postponed = true
                     )
                     setVisibilityOnStateSuccess(
                         progressBarBeforeYesterday,
@@ -146,7 +149,8 @@ class ApodExampleFragment :
         date: TextView,
         title: TextView,
         hdurl: String,
-        explanation: String
+        explanation: String,
+        postponed: Boolean = false
     ) {
         image.setOnClickListener {
             val extras = FragmentNavigatorExtras(
@@ -161,7 +165,8 @@ class ApodExampleFragment :
                     ApodExampleDetailsFragment.KEY_DATE to date.text,
                     ApodExampleDetailsFragment.KEY_APOD_TITLE to title.text,
                     ApodExampleDetailsFragment.KEY_APOD_URL to hdurl,
-                    ApodExampleDetailsFragment.KEY_APOD_EXPLANATION to explanation
+                    ApodExampleDetailsFragment.KEY_APOD_EXPLANATION to explanation,
+                    ApodExampleDetailsFragment.KEY_IS_POSTPONED_TRANSITION to postponed
                 ),
                 null,
                 extras
