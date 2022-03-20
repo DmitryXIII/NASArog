@@ -12,6 +12,7 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentApodExampleBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+import kotlin.math.exp
 
 class ApodExampleFragment :
     BaseFragment<FragmentApodExampleBinding>(FragmentApodExampleBinding::inflate) {
@@ -48,7 +49,7 @@ class ApodExampleFragment :
             is ApodExampleState.TodaySuccess -> {
                 tvApodExampleTodayDate.text = getCurrentDate()
                 tvApodExampleTodayTitle.text = state.apodToday.title
-                ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 0, 0f) {
+                ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 200, 0f) {
                     setVisibilityOnStateSuccess(progressBarToday, cardApodExampleToday)
                     navigateWithTransition(
                         ivApodExampleToday,
@@ -81,7 +82,7 @@ class ApodExampleFragment :
                 tvApodExampleYesterdayTitle.text = state.apodYesterday.title
                 ivApodExampleYesterday.loadWithTransformAndCallback(
                     state.apodYesterday.hdurl,
-                    0,
+                    200,
                     0f
                 ) {
                     navigateWithTransition(
@@ -119,7 +120,7 @@ class ApodExampleFragment :
                 tvApodExampleBeforeYesterdayTitle.text = state.apodBeforeYesterday.title
                 ivApodExampleBeforeYesterday.loadWithTransformAndCallback(
                     state.apodBeforeYesterday.hdurl,
-                    0,
+                    200,
                     0f
                 ) {
                     navigateWithTransition(
@@ -150,13 +151,15 @@ class ApodExampleFragment :
         title: TextView,
         hdurl: String,
         explanation: String,
-        postponed: Boolean = false
+        postponed: Boolean = false,
+        explanationView: TextView = binding.tvEmptyExplanation
     ) {
         image.setOnClickListener {
             val extras = FragmentNavigatorExtras(
                 image to "transition_image_big",
                 date to "transition_details_date_big",
-                title to "transition_details_title_big"
+                title to "transition_details_title_big",
+                explanationView to "transition_details_explanation_big"
             )
 
             findNavController().navigate(
