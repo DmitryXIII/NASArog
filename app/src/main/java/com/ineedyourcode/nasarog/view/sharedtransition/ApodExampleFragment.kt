@@ -33,8 +33,8 @@ class ApodExampleFragment :
         apodExampleViewModel.getLiveDataBeforeYesterday().observe(viewLifecycleOwner) {
             renderDataBeforeYesterday(it)
         }
-        apodExampleViewModel.getApod()
 
+        apodExampleViewModel.getApod()
     }
 
     private fun renderDataToday(state: ApodExampleState) = with(binding) {
@@ -42,18 +42,18 @@ class ApodExampleFragment :
             ApodExampleState.TodayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarToday,
-                    groupToday
+                    cardApodExampleToday
                 )
             }
 
             is ApodExampleState.TodaySuccess -> {
-                tvApodExampleToday.text = getCurrentDate()
+                tvApodExampleTodayDate.text = getCurrentDate()
                 tvApodExampleTodayTitle.text = state.apodToday.title
                 ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 300, 0f) {
-                    setVisibilityOnStateSuccess(progressBarToday, groupToday)
+                    setVisibilityOnStateSuccess(progressBarToday, cardApodExampleToday)
                     navigateWithTransition(
                         ivApodExampleToday,
-                        tvApodExampleToday,
+                        tvApodExampleTodayDate,
                         tvApodExampleTodayTitle,
                         state.apodToday.hdurl,
                         state.apodToday.explanation
@@ -73,12 +73,12 @@ class ApodExampleFragment :
             ApodExampleState.YesterdayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarYesterday,
-                    groupYesterday
+                    cardApodExampleYesterday
                 )
             }
 
             is ApodExampleState.YesterdaySuccess -> {
-                tvApodExampleYesterday.text = getYesterdayDate()
+                tvApodExampleYesterdayDate.text = getYesterdayDate()
                 tvApodExampleYesterdayTitle.text = state.apodYesterday.title
                 ivApodExampleYesterday.loadWithTransformAndCallback(
                     state.apodYesterday.hdurl,
@@ -87,12 +87,12 @@ class ApodExampleFragment :
                 ) {
                     navigateWithTransition(
                         ivApodExampleYesterday,
-                        tvApodExampleYesterday,
+                        tvApodExampleYesterdayDate,
                         tvApodExampleYesterdayTitle,
                         state.apodYesterday.hdurl,
                         state.apodYesterday.explanation
                     )
-                    setVisibilityOnStateSuccess(progressBarYesterday, groupYesterday)
+                    setVisibilityOnStateSuccess(progressBarYesterday, cardApodExampleYesterday)
                 }
             }
 
@@ -108,12 +108,12 @@ class ApodExampleFragment :
             ApodExampleState.BeforeYesterdayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarBeforeYesterday,
-                    groupBeforeYesterday
+                    cardApodExampleBeforeYesterday
                 )
             }
 
             is ApodExampleState.BeforeYesterdaySuccess -> {
-                tvApodExampleBeforeYesterday.text = getBeforeYesterdayDate()
+                tvApodExampleBeforeYesterdayDate.text = getBeforeYesterdayDate()
                 tvApodExampleBeforeYesterdayTitle.text = state.apodBeforeYesterday.title
                 ivApodExampleBeforeYesterday.loadWithTransformAndCallback(
                     state.apodBeforeYesterday.hdurl,
@@ -122,14 +122,14 @@ class ApodExampleFragment :
                 ) {
                     navigateWithTransition(
                         ivApodExampleBeforeYesterday,
-                        tvApodExampleBeforeYesterday,
+                        tvApodExampleBeforeYesterdayDate,
                         tvApodExampleBeforeYesterdayTitle,
                         state.apodBeforeYesterday.hdurl,
                         state.apodBeforeYesterday.explanation
                     )
                     setVisibilityOnStateSuccess(
                         progressBarBeforeYesterday,
-                        groupBeforeYesterday
+                        cardApodExampleBeforeYesterday
                     )
                 }
             }

@@ -22,12 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group_today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="iv_apod_example_today, tv_apod_example_today, tv_apod_example_today_title" />
-
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/video_apod_example_today"
                 android:layout_width="@dimen/zero"
@@ -51,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_apod_example_today"
+                android:id="@+id/tv_apod_example_today_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_8dp"
@@ -70,15 +64,6 @@
                 android:transitionName="transition_apod_example_today_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar_today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -97,12 +82,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="iv_apod_example_yesterday, tv_apod_example_yesterday, tv_apod_example_yesterday_title" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/video_apod_example_yesterday"
@@ -127,7 +106,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_apod_example_yesterday"
+                android:id="@+id/tv_apod_example_yesterday_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_8dp"
@@ -146,15 +125,6 @@
                 android:transitionName="transition_tv_apod_example_yesterday_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -172,12 +142,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/group_before_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:constraint_referenced_ids="iv_apod_example_before_yesterday, tv_apod_example_before_yesterday, tv_apod_example_before_yesterday_title" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/video_apod_example_before_yesterday"
@@ -202,7 +166,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_apod_example_before_yesterday"
+                android:id="@+id/tv_apod_example_before_yesterday_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_8dp"
@@ -221,15 +185,39 @@
                 android:transitionName="transition_tv_apod_example_before_yesterday_title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progress_bar_before_yesterday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_bar_today"
+        style="@style/SpinKitView.MultiplePulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/card_apod_example_today"
+        app:layout_constraintEnd_toEndOf="@id/card_apod_example_today"
+        app:layout_constraintStart_toStartOf="@id/card_apod_example_today"
+        app:layout_constraintTop_toTopOf="@id/card_apod_example_today" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_bar_yesterday"
+        style="@style/SpinKitView.MultiplePulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/card_apod_example_yesterday"
+        app:layout_constraintEnd_toEndOf="@id/card_apod_example_yesterday"
+        app:layout_constraintStart_toStartOf="@id/card_apod_example_yesterday"
+        app:layout_constraintTop_toTopOf="@id/card_apod_example_yesterday" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/progress_bar_before_yesterday"
+        style="@style/SpinKitView.MultiplePulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/card_apod_example_before_yesterday"
+        app:layout_constraintEnd_toEndOf="@id/card_apod_example_before_yesterday"
+        app:layout_constraintStart_toStartOf="@id/card_apod_example_before_yesterday"
+        app:layout_constraintTop_toTopOf="@id/card_apod_example_before_yesterday" />
 </androidx.constraintlayout.widget.ConstraintLayout>
