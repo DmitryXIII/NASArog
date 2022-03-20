@@ -11,6 +11,11 @@
         android:title="@string/behaviors"/>
 
     <item
+        android:id="@+id/apodExampleFragment"
+        android:icon="@drawable/ic_globe"
+        android:title="@string/shared_transition"/>
+
+    <item
         android:id="@+id/bottomNavigationDrawerFragment"
         android:icon="@drawable/ic_burger"
         android:title="@string/menu_action_open_menu"/>

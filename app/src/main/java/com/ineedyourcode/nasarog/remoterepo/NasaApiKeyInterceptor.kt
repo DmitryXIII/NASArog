@@ -7,7 +7,7 @@ import okhttp3.Response
 class NasaApiKeyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val updatedUrl = chain.request().url().newBuilder()
+        val updatedUrl = chain.request().url.newBuilder()
             .addQueryParameter("api_key", BuildConfig.NASA_API_KEY)
             .build()
 

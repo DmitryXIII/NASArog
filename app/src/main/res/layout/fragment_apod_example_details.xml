@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimary"
+    android:orientation="vertical">
+
+    <com.ineedyourcode.nasarog.utils.SquareImageView
+        android:id="@+id/iv_apod_example_details"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:transitionName="transition_image_big" />
+
+    <TextView
+        android:id="@+id/tv_apod_example_details_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:transitionName="transition_details_date_big"
+        tools:text="@string/date_example" />
+
+    <TextView
+        android:id="@+id/tv_apod_example_details_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@android:color/white"
+        android:transitionName="transition_details_title_big"
+        tools:text="@string/apod_title_example" />
+
+    <TextView
+        android:id="@+id/tv_apod_example_details_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4dp"
+        android:scrollHorizontally="true"
+        android:textColor="@android:color/white"
+        tools:text="@tools:sample/lorem/random" />
+</LinearLayout>

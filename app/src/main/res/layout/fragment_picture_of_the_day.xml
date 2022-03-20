@@ -72,7 +72,7 @@
         app:constraint_referenced_ids="chip_group, input_layout" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/vv_apod"
+        android:id="@+id/video_apod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/apod_coordinator"

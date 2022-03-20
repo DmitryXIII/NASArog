@@ -36,10 +36,10 @@ class PictureOfTheDayFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vvApod.isVisible = false
+        binding.videoApod.isVisible = false
         binding.apodCoordinator.isVisible = false
 
-        lifecycle.addObserver(binding.vvApod)
+        lifecycle.addObserver(binding.videoApod)
 
         setChips()
 
@@ -93,14 +93,14 @@ class PictureOfTheDayFragment :
             }
 
             is PictureOfTheDayState.Loading -> {
-                setVisibilityOnStateLoading(apodSpinKit, vvApod, apodCoordinator)
+                setVisibilityOnStateLoading(apodSpinKit, videoApod, apodCoordinator)
             }
 
             is PictureOfTheDayState.Success -> {
                 when (state.pictureOfTheDay.mediaType) {
                     MEDIA_TYPE_VIDEO -> {
                         initYouTubeVideoPlayer(state.pictureOfTheDay.url)
-                        setVisibilityOnStateSuccess(apodSpinKit, vvApod)
+                        setVisibilityOnStateSuccess(apodSpinKit, videoApod)
                     }
                     MEDIA_TYPE_IMAGE -> {
                         bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
@@ -128,7 +128,7 @@ class PictureOfTheDayFragment :
         }
     }
 
-    private fun initYouTubeVideoPlayer(url: String) = binding.vvApod.addYouTubePlayerListener(object :
+    private fun initYouTubeVideoPlayer(url: String) = binding.videoApod.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), 0f)

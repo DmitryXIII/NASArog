@@ -58,8 +58,6 @@
         <item name="android:paddingStart">@dimen/margin_4dp</item>
     </style>
 
-
-
     <style name="myOutlinedTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/text_input_stroke_color</item>
         <item name="boxStrokeWidth">@dimen/text_input_stroke_width</item>

@@ -24,4 +24,16 @@
         android:id="@+id/settingsFragment"
         android:name="com.ineedyourcode.nasarog.view.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/apodExampleFragment"
+        android:name="com.ineedyourcode.nasarog.view.sharedtransition.ApodExampleFragment"
+        android:label="ApodExampleFragment" >
+        <action
+            android:id="@+id/action_apodExampleFragment_to_apodExampleDetailsFragment"
+            app:destination="@id/apodExampleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/apodExampleDetailsFragment"
+        android:name="com.ineedyourcode.nasarog.view.sharedtransition.ApodExampleDetailsFragment"
+        android:label="ApodExampleDetailsFragment" />
 </navigation>
