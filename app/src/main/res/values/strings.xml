@@ -33,4 +33,8 @@
     <string name="tab_title_earth_photo">Фото Земли</string>
     <string name="tab_title_mars_photo">Фото Марса</string>
     <string name="apod_title_example">Название APOD</string>
+    <string name="transition_apod_details">transition_apod_details</string>
+    <string name="transition_details_date">transition_details_date</string>
+    <string name="transition_details_title">transition_details_title</string>
+    <string name="transition_details_explanation">transition_details_explanation</string>
 </resources>

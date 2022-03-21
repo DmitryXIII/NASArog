@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorPrimary"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <com.ineedyourcode.nasarog.utils.SquareImageView
@@ -12,15 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        android:transitionName="transition_image_big" />
+        android:transitionName="@string/transition_apod_details" />
 
     <TextView
         android:id="@+id/tv_apod_example_details_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"
-        android:transitionName="transition_details_date_big"
+        android:transitionName="@string/transition_details_date"
         tools:text="@string/date_example" />
 
     <TextView
@@ -29,8 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@android:color/white"
-        android:transitionName="transition_details_title_big"
+        android:transitionName="@string/transition_details_title"
         tools:text="@string/apod_title_example" />
 
     <TextView
@@ -39,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_4dp"
         android:scrollHorizontally="true"
-        android:transitionName="transition_details_explanation_big"
-        android:textColor="@android:color/white"
+        android:transitionName="@string/transition_details_explanation"
         tools:text="@tools:sample/lorem/random" />
 </LinearLayout>

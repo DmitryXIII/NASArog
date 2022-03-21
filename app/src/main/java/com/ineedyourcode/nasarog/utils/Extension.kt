@@ -17,7 +17,7 @@ fun View.showSnackWithoutAction(message: String) {
     Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
 }
 
-fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int, cornerRadius: Float) {
+fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int = 0, cornerRadius: Float = 0f) {
     this.load(imagePath) {
         crossfade(true)
         crossfade(crossfadeValue)
@@ -25,7 +25,7 @@ fun ImageView.loadWithTransform(imagePath: String, crossfadeValue: Int, cornerRa
     }
 }
 
-fun ImageView.loadWithTransformAndCallback(imagePath: String, crossfadeValue: Int, cornerRadius: Float, action: () -> Unit) {
+fun ImageView.loadWithTransformAndCallback(imagePath: String, crossfadeValue: Int = 0, cornerRadius: Float = 0f, action: () -> Unit) {
     this.load(imagePath) {
         crossfade(true)
         crossfade(crossfadeValue)
