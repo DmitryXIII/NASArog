@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.tabs.photo.picoftheday
+package com.ineedyourcode.nasarog.view.tabspager.tabs.apod
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,15 +10,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PictureOfTheDayViewModel(
-    private val liveData: MutableLiveData<PictureOfTheDayState> = MutableLiveData(),
+class TabApodViewModel(
+    private val liveData: MutableLiveData<TabApodState> = MutableLiveData(),
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    fun getLiveData(): LiveData<PictureOfTheDayState> = liveData
+    fun getLiveData(): LiveData<TabApodState> = liveData
 
     fun getPictureOfTheDayRequest(date: String = "") {
-        liveData.postValue(PictureOfTheDayState.Loading(null))
+        liveData.postValue(TabApodState.Loading(null))
         retrofitRepository.getPictureOfTheDay(date,
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
@@ -27,15 +27,15 @@ class PictureOfTheDayViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveData.postValue(PictureOfTheDayState.Success(it))
+                            liveData.postValue(TabApodState.Success(it))
                         }
                     } else {
-                        liveData.postValue(PictureOfTheDayState.Error(NullPointerException("Пустой ответ сервера")))
+                        liveData.postValue(TabApodState.Error(NullPointerException("Пустой ответ сервера")))
                     }
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveData.postValue(PictureOfTheDayState.Error(Throwable("Ошибка связи с сервером")))
+                    liveData.postValue(TabApodState.Error(Throwable("Ошибка связи с сервером")))
                 }
             }
         )

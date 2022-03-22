@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.tabs.photo.marsphotos
+package com.ineedyourcode.nasarog.view.tabspager.tabs.marsphotos
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,18 +11,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MarsPhotoViewModel(
-    private val liveData: MutableLiveData<MarsPhotoState> = MutableLiveData(),
+class TabMarsPhotoViewModel(
+    private val liveData: MutableLiveData<TabMarsPhotoState> = MutableLiveData(),
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
     private var requestDate = getCurrentDate()
     private var dateIndex = 0
 
-    fun getLiveData(): MutableLiveData<MarsPhotoState> = liveData
+    fun getLiveData(): MutableLiveData<TabMarsPhotoState> = liveData
 
     fun getMarsPhotoRequest() {
-        liveData.postValue(MarsPhotoState.Loading)
+        liveData.postValue(TabMarsPhotoState.Loading)
         retrofitRepository.getMarsPhoto(requestDate, object : Callback<MarsDto> {
             override fun onResponse(call: Call<MarsDto>, response: Response<MarsDto>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -34,16 +34,16 @@ class MarsPhotoViewModel(
                             requestDate = getPreviousDate(dateIndex)
                             getMarsPhotoRequest()
                         } else {
-                            liveData.postValue(MarsPhotoState.MarsPhotoSuccess(it))
+                            liveData.postValue(TabMarsPhotoState.MarsPhotoSuccess(it))
                         }
                     }
                 } else {
-                    liveData.postValue(MarsPhotoState.Error(NullPointerException("Пустой ответ сервера")))
+                    liveData.postValue(TabMarsPhotoState.Error(NullPointerException("Пустой ответ сервера")))
                 }
             }
 
             override fun onFailure(call: Call<MarsDto>, t: Throwable) {
-                liveData.postValue(MarsPhotoState.Error(NullPointerException("Ошибка связи с сервером")))
+                liveData.postValue(TabMarsPhotoState.Error(NullPointerException("Ошибка связи с сервером")))
             }
         })
     }

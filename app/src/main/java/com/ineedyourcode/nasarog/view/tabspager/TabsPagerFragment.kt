@@ -1,13 +1,13 @@
-package com.ineedyourcode.nasarog.view.tabs
+package com.ineedyourcode.nasarog.view.tabspager
 
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ineedyourcode.nasarog.R
-import com.ineedyourcode.nasarog.databinding.FragmentTabsBinding
+import com.ineedyourcode.nasarog.databinding.FragmentTabsPagerBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-class TabFragment: BaseFragment<FragmentTabsBinding>(FragmentTabsBinding::inflate) {
+class TabsPagerFragment: BaseFragment<FragmentTabsPagerBinding>(FragmentTabsPagerBinding::inflate) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

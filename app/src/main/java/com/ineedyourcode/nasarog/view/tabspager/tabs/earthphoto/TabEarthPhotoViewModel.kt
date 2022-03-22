@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.tabs.photo.earthphoto
+package com.ineedyourcode.nasarog.view.tabspager.tabs.earthphoto
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,17 +11,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EarthPhotoViewModel(
-    private val liveData: MutableLiveData<EarthPhotoState> = MutableLiveData(),
+class TabEarthPhotoViewModel(
+    private val liveData: MutableLiveData<TabEarthPhotoState> = MutableLiveData(),
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    fun getLiveData(): LiveData<EarthPhotoState> {
+    fun getLiveData(): LiveData<TabEarthPhotoState> {
         return liveData
     }
 
     fun getEarthPhotoDatesRequest() {
-        liveData.postValue(EarthPhotoState.Loading)
+        liveData.postValue(TabEarthPhotoState.Loading)
         retrofitRepository.getEarthPhotoDates(object : Callback<List<EarthPhotoDateDto>> {
             override fun onResponse(
                 call: Call<List<EarthPhotoDateDto>>,
@@ -29,21 +29,21 @@ class EarthPhotoViewModel(
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let { listOfDates ->
-                        liveData.postValue(EarthPhotoState.DatesSuccess(listOfDates))
+                        liveData.postValue(TabEarthPhotoState.DatesSuccess(listOfDates))
                     }
                 } else {
-                    liveData.postValue(EarthPhotoState.Error(NullPointerException("Пустой ответ сервера")))
+                    liveData.postValue(TabEarthPhotoState.Error(NullPointerException("Пустой ответ сервера")))
                 }
             }
 
             override fun onFailure(call: Call<List<EarthPhotoDateDto>>, t: Throwable) {
-                liveData.postValue(EarthPhotoState.Error(Throwable("Ошибка связи с сервером")))
+                liveData.postValue(TabEarthPhotoState.Error(Throwable("Ошибка связи с сервером")))
             }
         })
     }
 
     fun getEarthPhotoRequest(date: String) {
-        liveData.postValue(EarthPhotoState.Loading)
+        liveData.postValue(TabEarthPhotoState.Loading)
         retrofitRepository.getEarthPhoto(date,
             object : Callback<List<EarthPhotoItem>> {
                 override fun onResponse(
@@ -52,15 +52,15 @@ class EarthPhotoViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveData.postValue(EarthPhotoState.PhotoSuccess(it[0]))
+                            liveData.postValue(TabEarthPhotoState.PhotoSuccess(it[0]))
                         }
                     } else {
-                        liveData.postValue(EarthPhotoState.Error(NullPointerException("Пустой ответ сервера")))
+                        liveData.postValue(TabEarthPhotoState.Error(NullPointerException("Пустой ответ сервера")))
                     }
                 }
 
                 override fun onFailure(call: Call<List<EarthPhotoItem>>, t: Throwable) {
-                    liveData.postValue(EarthPhotoState.Error(Throwable("Ошибка связи с сервером")))
+                    liveData.postValue(TabEarthPhotoState.Error(Throwable("Ошибка связи с сервером")))
                 }
             })
     }

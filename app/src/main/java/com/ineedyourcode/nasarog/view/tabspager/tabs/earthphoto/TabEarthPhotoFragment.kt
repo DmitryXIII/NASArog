@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.tabs.photo.earthphoto
+package com.ineedyourcode.nasarog.view.tabspager.tabs.earthphoto
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import com.ineedyourcode.nasarog.BuildConfig
 import com.ineedyourcode.nasarog.R
-import com.ineedyourcode.nasarog.databinding.FragmentEarthPhotoBinding
+import com.ineedyourcode.nasarog.databinding.FragmentTabEarthPhotoBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
@@ -15,12 +15,12 @@ private const val CROSSFADE_DURATION = 1000
 private const val IMAGE_CORNER_RADIUS = 25f
 private const val BASE_EARTH_PHOTO_URL = "https://api.nasa.gov/EPIC/archive/natural/"
 
-class EarthPhotoFragment :
-    BaseFragment<FragmentEarthPhotoBinding>(FragmentEarthPhotoBinding::inflate) {
+class TabEarthPhotoFragment :
+    BaseFragment<FragmentTabEarthPhotoBinding>(FragmentTabEarthPhotoBinding::inflate) {
 
     private val listOfDates = mutableListOf<String>()
 
-    private val earthPhotoViewModel by viewModels<EarthPhotoViewModel>()
+    private val earthPhotoViewModel by viewModels<TabEarthPhotoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,17 +32,17 @@ class EarthPhotoFragment :
         earthPhotoViewModel.getEarthPhotoDatesRequest()
     }
 
-    private fun renderData(state: EarthPhotoState) = with(binding) {
+    private fun renderData(state: TabEarthPhotoState) = with(binding) {
         when (state) {
-            is EarthPhotoState.Error -> {
+            is TabEarthPhotoState.Error -> {
                 view?.showSnackWithoutAction(state.error.message.toString())
             }
 
-            EarthPhotoState.Loading -> {
+            TabEarthPhotoState.Loading -> {
                 setVisibilityOnStateLoading(earthPhotoSpinKit, groupEarthPhoto)
             }
 
-            is EarthPhotoState.PhotoSuccess -> {
+            is TabEarthPhotoState.PhotoSuccess -> {
                 tvDateEarthPhoto.text =
                     convertNasaDateFormatToMyFormat(state.earthPhoto.date)
                 ivEarthPhoto.loadWithTransformAndCallback(
@@ -57,7 +57,7 @@ class EarthPhotoFragment :
                 }
             }
 
-            is EarthPhotoState.DatesSuccess -> {
+            is TabEarthPhotoState.DatesSuccess -> {
                 for (date in state.mListOfDates) {
                     listOfDates.add(convertNasaDateFormatToMyFormat(date.date))
                 }

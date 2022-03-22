@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/tabFragment"
-        android:name="com.ineedyourcode.nasarog.view.tabs.TabFragment"
+        android:name="com.ineedyourcode.nasarog.view.tabspager.TabsPagerFragment"
         android:label="TabFragment" />
     <fragment
         android:id="@+id/coordinatorLayoutExampleFragment"
