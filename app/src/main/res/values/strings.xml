@@ -37,4 +37,5 @@
     <string name="transition_details_date">transition_details_date</string>
     <string name="transition_details_title">transition_details_title</string>
     <string name="transition_details_explanation">transition_details_explanation</string>
+    <string name="postponed_transition">Postponed transition</string>
 </resources>
