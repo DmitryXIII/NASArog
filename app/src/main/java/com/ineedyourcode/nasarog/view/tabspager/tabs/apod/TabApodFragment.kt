@@ -7,7 +7,6 @@ import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
@@ -16,8 +15,6 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabApodBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 private const val CROSSFADE_DURATION = 500
@@ -46,15 +43,12 @@ class TabApodFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.videoApod.isVisible = false
-        binding.apodCoordinator.isVisible = false
-
-        lifecycle.addObserver(binding.videoApod)
+        lifecycle.addObserver(binding.youTubePlayerView)
 
         setChips()
 
         podViewModel.getLiveData().observe(viewLifecycleOwner) {
-            renderData(it, savedInstanceState)
+            renderData(it)
         }
 
         apodBottomSheet = BottomSheetBehavior.from(binding.bottomSheetContainer)
@@ -93,18 +87,22 @@ class TabApodFragment :
         podViewModel.getPictureOfTheDayRequest(date)
     }
 
-    private fun renderData(state: TabApodState, savedInstanceState: Bundle?) =
+    private fun renderData(state: TabApodState) =
         with(binding) {
             when (state) {
                 TabApodState.Loading -> {
-                    setVisibilityOnStateLoading(apodSpinKit, videoApod, apodCoordinator)
+                    setVisibilityOnStateLoading(apodSpinKit, youTubePlayerView, apodCoordinator)
                 }
 
                 is TabApodState.Success -> {
                     when (state.pictureOfTheDay.mediaType) {
                         MEDIA_TYPE_VIDEO -> {
-                            initYouTubeVideoPlayer(state.pictureOfTheDay.url)
-                            setVisibilityOnStateSuccess(apodSpinKit, videoApod)
+                            initYouTubeVideoPlayer(
+                                state.pictureOfTheDay.url,
+                                youTubePlayerView,
+                                VIDEO_START_PLAYING_SECOND
+                            )
+                            setVisibilityOnStateSuccess(apodSpinKit, youTubePlayerView)
                         }
                         MEDIA_TYPE_IMAGE -> {
                             bottomSheetDescriptionHeader.text = state.pictureOfTheDay.title
@@ -151,13 +149,8 @@ class TabApodFragment :
             clone(rootContainer)
             connect(R.id.input_layout, ConstraintSet.TOP, R.id.root_container, ConstraintSet.TOP)
             clear(R.id.input_layout, ConstraintSet.BOTTOM)
-            connect(
-                R.id.chip_group,
-                ConstraintSet.BOTTOM,
-                R.id.root_container,
-                ConstraintSet.BOTTOM
-            )
-            clear(R.id.chip_group, ConstraintSet.TOP)
+            connect(R.id.chip_group, ConstraintSet.BOTTOM, R.id.root_container, ConstraintSet.BOTTOM)
+            connect(R.id.chip_group, ConstraintSet.TOP, R.id.apod_coordinator, ConstraintSet.BOTTOM)
             applyTo(rootContainer)
         }
 
@@ -166,17 +159,6 @@ class TabApodFragment :
             duration = ANIMATION_DURATION
         })
     }
-
-    private fun initYouTubeVideoPlayer(url: String) =
-        binding.videoApod.addYouTubePlayerListener(object :
-            AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), VIDEO_START_PLAYING_SECOND)
-            }
-        })
-
-    private fun getYouTubeVideoIdFromUrl(url: String): String =
-        url.substringAfterLast('/').substringBefore('?')
 
     private fun setBottomSheetCallback() {
         apodBottomSheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {

@@ -19,9 +19,9 @@
         app:endIconDrawable="@drawable/ic_search"
         app:endIconMode="custom"
         app:helperText="@string/search_helper"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
         app:startIconContentDescription="@string/start_icon_description"
         app:startIconDrawable="@drawable/ic_wiki">
 
@@ -72,22 +72,26 @@
         app:constraint_referenced_ids="chip_group, input_layout" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/video_apod"
+        android:id="@+id/youTube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/apod_coordinator"
         app:layout_constraintEnd_toEndOf="@id/apod_coordinator"
         app:layout_constraintStart_toStartOf="@id/apod_coordinator"
-        app:layout_constraintTop_toTopOf="@id/apod_coordinator" />
+        app:layout_constraintTop_toTopOf="@id/apod_coordinator"
+        tools:visibility="visible" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/apod_coordinator"
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/chip_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_layout">
+        app:layout_constraintTop_toBottomOf="@id/input_layout"
+        tools:visibility="visible">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/date_card"
