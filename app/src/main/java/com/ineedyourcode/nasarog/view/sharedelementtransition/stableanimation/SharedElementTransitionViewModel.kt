@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedelementtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition.stableanimation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -42,7 +42,11 @@ class SharedElementTransitionViewModel(
                             liveDataToday.postValue(SharedElementTransitionState.TodaySuccess(it))
                         }
                     } else {
-                        liveDataToday.postValue(SharedElementTransitionState.TodayError(NullPointerException("Пустой ответ сервера")))
+                        liveDataToday.postValue(
+                            SharedElementTransitionState.TodayError(
+                                NullPointerException("Пустой ответ сервера")
+                            )
+                        )
                     }
                 }
 
@@ -63,7 +67,11 @@ class SharedElementTransitionViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataYesterday.postValue(SharedElementTransitionState.YesterdaySuccess(it))
+                            liveDataYesterday.postValue(
+                                SharedElementTransitionState.YesterdaySuccess(
+                                    it
+                                )
+                            )
                         }
                     } else {
                         liveDataYesterday.postValue(
@@ -75,7 +83,11 @@ class SharedElementTransitionViewModel(
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataYesterday.postValue(SharedElementTransitionState.YesterdayError(Throwable("Ошибка связи с сервером")))
+                    liveDataYesterday.postValue(
+                        SharedElementTransitionState.YesterdayError(
+                            Throwable("Ошибка связи с сервером")
+                        )
+                    )
                 }
             })
     }

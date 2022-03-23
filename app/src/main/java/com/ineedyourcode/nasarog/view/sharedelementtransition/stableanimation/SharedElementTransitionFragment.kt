@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedelementtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition.stableanimation
 
 import android.os.Bundle
 import android.view.View
@@ -13,6 +13,48 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+
+/**
+ * Описание ужаса, происходящего в коде этого фрагмента.
+ * Изначально была идея реализовать shared element transition в рамках navigation component.
+ * Задача усложнилась желанием выводить в shared element transition элементы, подгружаемые из сети (в данном случае - три разные картинки дня из NASA).
+ * ============
+ * ============
+ * 1. Первая проблема, с которой столкнулся: если viewModel запрашивает на сервере сразу три картинки, и liveData посылает в фрагмент данные,
+ * то в фрагменте наблюдатель (observer) принимает не все отправленные из viewModel данные (не все картинки могут подгрузиться). Пример такого поведения
+ * наблюдателя в фрагменте ХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХ. Исправил, создав в viewModel три разные liveData, каждая из которых отвечает за конкретную картинку.
+ * Соответственно, в этом фрагменте пришлось подписаться на три разные liveData, и немного раздуть State-класс.
+ * Подскажите, пожалуйста, есть ли способ корректно обрабатывать ответы от одной liveData?
+ *  ============
+ *  ============
+ * 2. Вторая возникшая проблема - плавность анимации при возвращении с фрагмента SharedElementTransitionDetailsFragment() обратно на этот фрагмент.
+ * Если пользоваться навигацией через fragment manager, то details-фрагмент можно было бы открыть через .add(...),
+ * и тогда не было проблем с потерей состояния этого фрагмента.
+ * Но navigation component фрагменты открываются через .replace(...), переопределение этого момента
+ * (заменить .replace() на .add()) - вопрос, на который я не нашел внятного ответа.
+ * Поэтому при возвращении с экрана details в этом фрагменте вся информация обнулялась и подгружалась заново из сети -
+ * пример такого поведения в фрагменте ХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХХ.
+ * В документации Google нашел про метод findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData,
+ * с помощью него в рамках navigation component можно передавать данные между фрагментами в обратном направлении в рамках multiple backstack
+ * (в моем случае - из details в этот фрагмент). Отсюда такое количество const val ключей и раздутый метод backStateEntryData?.observe(viewLifecycleOwner).
+ * В итоге мучительно дебага понял, что в navigation component:
+ * a) если переходить между фрагментами через bottomNavigationView, то это типа корневой backstack,
+ * фрагменты сохраняют свое состояние через savedInstanceState,
+ * но при этом пропадают сетевые данные из findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData.
+ * б) если переходить уже непосредственно из фрагмента на другой фрагмент, то это уже multiple backstack, в котором
+ * стартовый фрамент обнуляет свой savedInstanceState, и надо пользоваться findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData.
+ *  ============
+ *  ============
+ *  Баг, который я не смог устранить:
+ *  1. Перейти на этот фрагмент через bottomNavigationView.
+ *  2. Кликнуть любую картинку - откроется экран details.
+ *  3. При открытом details перейти через bottomNavigationView на любой другой экран.
+ *  4. Через bottomNavigationView вернуться обратно (нажать на иконку Shared element transition).
+ *  5. Откроется details, но в bottomNavigationView иконка не становится активной.
+ *  6. Через стрелку "назад" вернуться с экрана details (SharedElementTransitionDetailsFragment) на
+ *  этот фрагмент (SharedElementTransitionFragment) - иконка в bottomNavigationView становится активной.
+ *  Случайно, не знаете, как это исправить?
+ */
 
 class SharedElementTransitionFragment :
     BaseFragment<FragmentSharedElementTransitionBinding>(FragmentSharedElementTransitionBinding::inflate) {
@@ -240,7 +282,8 @@ class SharedElementTransitionFragment :
 
         image.setOnClickListener {
             mapOfArguments[SharedElementTransitionDetailsFragment.KEY_DATE_TYPE] = dateType
-            mapOfArguments[SharedElementTransitionDetailsFragment.KEY_IS_POSTPONED_TRANSITION] = postponed
+            mapOfArguments[SharedElementTransitionDetailsFragment.KEY_IS_POSTPONED_TRANSITION] =
+                postponed
 
             val extras = FragmentNavigatorExtras(
                 image to getString(R.string.transition_apod_details),

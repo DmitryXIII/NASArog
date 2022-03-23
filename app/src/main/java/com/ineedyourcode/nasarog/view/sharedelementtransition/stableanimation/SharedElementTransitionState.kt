@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedelementtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition.stableanimation
 
 import com.ineedyourcode.nasarog.remoterepo.dto.PictureOfTheDayDto
 
