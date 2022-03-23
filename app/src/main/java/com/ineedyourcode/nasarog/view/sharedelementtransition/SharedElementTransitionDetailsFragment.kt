@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -6,12 +6,12 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.ineedyourcode.nasarog.R
-import com.ineedyourcode.nasarog.databinding.FragmentApodExampleDetailsBinding
+import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionDetailsBinding
 import com.ineedyourcode.nasarog.utils.showToast
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-class ApodExampleDetailsFragment :
-    BaseFragment<FragmentApodExampleDetailsBinding>(FragmentApodExampleDetailsBinding::inflate) {
+class SharedElementTransitionDetailsFragment :
+    BaseFragment<FragmentSharedElementTransitionDetailsBinding>(FragmentSharedElementTransitionDetailsBinding::inflate) {
 
     companion object {
         const val KEY_ARGUMENTS_MAP = "KEY_MAP_VALUE"
@@ -40,46 +40,46 @@ class ApodExampleDetailsFragment :
 
         with(binding) {
             when (mapOfArguments[KEY_DATE_TYPE]) {
-                ApodExampleFragment.DATE_TYPE_TODAY -> {
+                SharedElementTransitionFragment.DATE_TYPE_TODAY -> {
                     tvApodExampleDetailsDate.text =
-                        mapOfArguments[ApodExampleFragment.KEY_TODAY_DATE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_TODAY_DATE].toString()
                     tvApodExampleDetailsTitle.text =
-                        mapOfArguments[ApodExampleFragment.KEY_TODAY_TITLE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_TODAY_TITLE].toString()
                     tvApodExampleDetailsExplanation.apply {
                         setTextIsSelectable(true)
-                        text = mapOfArguments[ApodExampleFragment.KEY_TODAY_EXPLANATION].toString()
+                        text = mapOfArguments[SharedElementTransitionFragment.KEY_TODAY_EXPLANATION].toString()
                     }
 
-                    ivApodExampleDetails.load(mapOfArguments[ApodExampleFragment.KEY_TODAY_HDURL].toString())
+                    ivApodExampleDetails.load(mapOfArguments[SharedElementTransitionFragment.KEY_TODAY_HDURL].toString())
                 }
 
-                ApodExampleFragment.DATE_TYPE_YESTERDAY -> {
+                SharedElementTransitionFragment.DATE_TYPE_YESTERDAY -> {
                     tvApodExampleDetailsDate.text =
-                        mapOfArguments[ApodExampleFragment.KEY_YESTERDAY_DATE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_YESTERDAY_DATE].toString()
                     tvApodExampleDetailsTitle.text =
-                        mapOfArguments[ApodExampleFragment.KEY_YESTERDAY_TITLE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_YESTERDAY_TITLE].toString()
                     tvApodExampleDetailsExplanation.apply {
                         setTextIsSelectable(true)
                         text =
-                            mapOfArguments[ApodExampleFragment.KEY_YESTERDAY_EXPLANATION].toString()
+                            mapOfArguments[SharedElementTransitionFragment.KEY_YESTERDAY_EXPLANATION].toString()
                     }
 
-                    ivApodExampleDetails.load(mapOfArguments[ApodExampleFragment.KEY_YESTERDAY_HDURL].toString())
+                    ivApodExampleDetails.load(mapOfArguments[SharedElementTransitionFragment.KEY_YESTERDAY_HDURL].toString())
                 }
 
-                ApodExampleFragment.DATE_TYPE_BEFORE_YESTERDAY -> {
+                SharedElementTransitionFragment.DATE_TYPE_BEFORE_YESTERDAY -> {
                     tvApodExampleDetailsDate.text =
-                        mapOfArguments[ApodExampleFragment.KEY_BEFORE_YESTERDAY_DATE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_BEFORE_YESTERDAY_DATE].toString()
                     tvApodExampleDetailsTitle.text =
-                        mapOfArguments[ApodExampleFragment.KEY_BEFORE_YESTERDAY_TITLE].toString()
+                        mapOfArguments[SharedElementTransitionFragment.KEY_BEFORE_YESTERDAY_TITLE].toString()
                     tvApodExampleDetailsExplanation.apply {
                         setTextIsSelectable(true)
                         text =
-                            mapOfArguments[ApodExampleFragment.KEY_BEFORE_YESTERDAY_EXPLANATION].toString()
+                            mapOfArguments[SharedElementTransitionFragment.KEY_BEFORE_YESTERDAY_EXPLANATION].toString()
                     }
 
                     if (mapOfArguments[KEY_IS_POSTPONED_TRANSITION] == true) {
-                        ivApodExampleDetails.load(mapOfArguments[ApodExampleFragment.KEY_BEFORE_YESTERDAY_HDURL].toString()) {
+                        ivApodExampleDetails.load(mapOfArguments[SharedElementTransitionFragment.KEY_BEFORE_YESTERDAY_HDURL].toString()) {
                             listener(onSuccess = { _, _ ->
                                 startPostponedEnterTransition()
                                 showToast(
@@ -95,7 +95,7 @@ class ApodExampleDetailsFragment :
             }
 
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
-                ApodExampleFragment.KEY_BACK_STACK_ENTRY_MAP,
+                SharedElementTransitionFragment.KEY_BACK_STACK_ENTRY_MAP,
                 mapOfArguments
             )
         }

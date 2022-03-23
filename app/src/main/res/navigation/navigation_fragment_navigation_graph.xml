@@ -26,7 +26,7 @@
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/apodExampleFragment"
-        android:name="com.ineedyourcode.nasarog.view.sharedtransition.ApodExampleFragment"
+        android:name="com.ineedyourcode.nasarog.view.sharedelementtransition.SharedElementTransitionFragment"
         android:label="ApodExampleFragment" >
         <action
             android:id="@+id/action_apodExampleFragment_to_apodExampleDetailsFragment"
@@ -34,6 +34,6 @@
     </fragment>
     <fragment
         android:id="@+id/apodExampleDetailsFragment"
-        android:name="com.ineedyourcode.nasarog.view.sharedtransition.ApodExampleDetailsFragment"
+        android:name="com.ineedyourcode.nasarog.view.sharedelementtransition.SharedElementTransitionDetailsFragment"
         android:label="ApodExampleDetailsFragment" />
 </navigation>

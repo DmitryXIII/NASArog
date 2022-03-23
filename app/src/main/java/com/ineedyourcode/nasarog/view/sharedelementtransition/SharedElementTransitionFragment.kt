@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition
 
 import android.os.Bundle
 import android.view.View
@@ -10,15 +10,15 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.ineedyourcode.nasarog.R
-import com.ineedyourcode.nasarog.databinding.FragmentApodExampleBinding
+import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-class ApodExampleFragment :
-    BaseFragment<FragmentApodExampleBinding>(FragmentApodExampleBinding::inflate) {
+class SharedElementTransitionFragment :
+    BaseFragment<FragmentSharedElementTransitionBinding>(FragmentSharedElementTransitionBinding::inflate) {
 
     private val mapOfArguments = HashMap<String, Any>()
-    private val apodExampleViewModel by viewModels<ApodExampleViewModel>()
+    private val apodExampleViewModel by viewModels<SharedElementTransitionViewModel>()
 
     companion object {
         const val DATE_TYPE_TODAY = "TODAY"
@@ -105,16 +105,16 @@ class ApodExampleFragment :
         }
     }
 
-    private fun renderDataToday(state: ApodExampleState) = with(binding) {
+    private fun renderDataToday(state: SharedElementTransitionState) = with(binding) {
         when (state) {
-            ApodExampleState.TodayLoading -> {
+            SharedElementTransitionState.TodayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarToday,
                     cardApodExampleToday
                 )
             }
 
-            is ApodExampleState.TodaySuccess -> {
+            is SharedElementTransitionState.TodaySuccess -> {
                 tvApodExampleTodayDate.text = getCurrentDate()
                 tvApodExampleTodayTitle.text = state.apodToday.title
                 ivApodExampleToday.loadWithTransformAndCallback(state.apodToday.hdurl, 200) {
@@ -134,7 +134,7 @@ class ApodExampleFragment :
                 )
             }
 
-            is ApodExampleState.TodayError -> {
+            is SharedElementTransitionState.TodayError -> {
                 view?.showSnackWithoutAction(state.error.message.toString())
             }
 
@@ -142,16 +142,16 @@ class ApodExampleFragment :
         }
     }
 
-    private fun renderDataYesterday(state: ApodExampleState) = with(binding) {
+    private fun renderDataYesterday(state: SharedElementTransitionState) = with(binding) {
         when (state) {
-            ApodExampleState.YesterdayLoading -> {
+            SharedElementTransitionState.YesterdayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarYesterday,
                     cardApodExampleYesterday
                 )
             }
 
-            is ApodExampleState.YesterdaySuccess -> {
+            is SharedElementTransitionState.YesterdaySuccess -> {
                 tvApodExampleYesterdayDate.text = getYesterdayDate()
                 tvApodExampleYesterdayTitle.text = state.apodYesterday.title
                 ivApodExampleYesterday.loadWithTransformAndCallback(
@@ -177,7 +177,7 @@ class ApodExampleFragment :
                 )
             }
 
-            is ApodExampleState.BeforeYesterdayError -> {
+            is SharedElementTransitionState.BeforeYesterdayError -> {
                 view?.showSnackWithoutAction(state.error.message.toString())
             }
 
@@ -185,16 +185,16 @@ class ApodExampleFragment :
         }
     }
 
-    private fun renderDataBeforeYesterday(state: ApodExampleState) = with(binding) {
+    private fun renderDataBeforeYesterday(state: SharedElementTransitionState) = with(binding) {
         when (state) {
-            ApodExampleState.BeforeYesterdayLoading -> {
+            SharedElementTransitionState.BeforeYesterdayLoading -> {
                 setVisibilityOnStateLoading(
                     progressBarBeforeYesterday,
                     cardApodExampleBeforeYesterday
                 )
             }
 
-            is ApodExampleState.BeforeYesterdaySuccess -> {
+            is SharedElementTransitionState.BeforeYesterdaySuccess -> {
                 tvApodExampleBeforeYesterdayDate.text = getBeforeYesterdayDate()
                 tvApodExampleBeforeYesterdayTitle.text = state.apodBeforeYesterday.title
                 ivApodExampleBeforeYesterday.loadWithTransformAndCallback(
@@ -221,7 +221,7 @@ class ApodExampleFragment :
                 }
             }
 
-            is ApodExampleState.YesterdayError -> {
+            is SharedElementTransitionState.YesterdayError -> {
                 view?.showSnackWithoutAction(state.error.message.toString())
             }
 
@@ -239,8 +239,8 @@ class ApodExampleFragment :
     ) {
 
         image.setOnClickListener {
-            mapOfArguments[ApodExampleDetailsFragment.KEY_DATE_TYPE] = dateType
-            mapOfArguments[ApodExampleDetailsFragment.KEY_IS_POSTPONED_TRANSITION] = postponed
+            mapOfArguments[SharedElementTransitionDetailsFragment.KEY_DATE_TYPE] = dateType
+            mapOfArguments[SharedElementTransitionDetailsFragment.KEY_IS_POSTPONED_TRANSITION] = postponed
 
             val extras = FragmentNavigatorExtras(
                 image to getString(R.string.transition_apod_details),
@@ -251,7 +251,7 @@ class ApodExampleFragment :
 
             findNavController().navigate(
                 R.id.action_apodExampleFragment_to_apodExampleDetailsFragment,
-                bundleOf(ApodExampleDetailsFragment.KEY_ARGUMENTS_MAP to mapOfArguments),
+                bundleOf(SharedElementTransitionDetailsFragment.KEY_ARGUMENTS_MAP to mapOfArguments),
                 null,
                 extras
             )

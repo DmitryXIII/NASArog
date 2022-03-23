@@ -3,14 +3,15 @@ package com.ineedyourcode.nasarog.view.tabspager.tabs.apod
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.TransitionManager
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.transition.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabApodBinding
@@ -30,6 +31,8 @@ class TabApodFragment :
     BaseFragment<FragmentTabApodBinding>(FragmentTabApodBinding::inflate) {
 
     private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
+
+    private var isFirstImageLoading = true
 
     private val podViewModel by viewModels<TabApodViewModel>()
 
@@ -122,7 +125,8 @@ class TabApodFragment :
                                 CROSSFADE_DURATION,
                                 IMAGE_CORNER_RADIUS
                             ) {
-                                if (savedInstanceState == null) {
+                                if (isFirstImageLoading) {
+                                    isFirstImageLoading = false
                                     animateApodUI(
                                         rootContainer,
                                         R.id.input_layout,
@@ -148,19 +152,17 @@ class TabApodFragment :
         rootContainerId: Int
     ) {
         ConstraintSet().apply {
-            with(this) {
-                clone(rootContainer)
-                connect(inputLayout, ConstraintSet.TOP, rootContainerId, ConstraintSet.TOP)
-                clear(inputLayout, ConstraintSet.BOTTOM)
-                connect(chipGroup, ConstraintSet.TOP, inputLayout, ConstraintSet.BOTTOM)
-                clear(chipGroup, ConstraintSet.BOTTOM)
-                applyTo(rootContainer)
-            }
+            clone(rootContainer)
+            connect(inputLayout, ConstraintSet.TOP, rootContainerId, ConstraintSet.TOP)
+            clear(inputLayout, ConstraintSet.BOTTOM)
+            connect(chipGroup, ConstraintSet.BOTTOM, rootContainerId, ConstraintSet.BOTTOM)
+            clear(chipGroup, ConstraintSet.TOP)
+            applyTo(rootContainer)
         }
 
         TransitionManager.beginDelayedTransition(rootContainer, ChangeBounds().apply {
-            this.interpolator = AnticipateOvershootInterpolator(1.5f)
-            this.duration = 1000
+            interpolator = AnticipateOvershootInterpolator(1.5f)
+            duration = 1000
         })
     }
 

@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.sharedtransition
+package com.ineedyourcode.nasarog.view.sharedelementtransition
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,16 +12,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApodExampleViewModel(
-    private val liveDataToday: MutableLiveData<ApodExampleState> = MutableLiveData(),
-    private val liveDataYesterday: MutableLiveData<ApodExampleState> = MutableLiveData(),
-    private val liveDataBeforeYesterday: MutableLiveData<ApodExampleState> = MutableLiveData(),
+class SharedElementTransitionViewModel(
+    private val liveDataToday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
+    private val liveDataYesterday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
+    private val liveDataBeforeYesterday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    fun getLiveDataToday(): LiveData<ApodExampleState> = liveDataToday
-    fun getLiveDataYesterday(): LiveData<ApodExampleState> = liveDataYesterday
-    fun getLiveDataBeforeYesterday(): LiveData<ApodExampleState> = liveDataBeforeYesterday
+    fun getLiveDataToday(): LiveData<SharedElementTransitionState> = liveDataToday
+    fun getLiveDataYesterday(): LiveData<SharedElementTransitionState> = liveDataYesterday
+    fun getLiveDataBeforeYesterday(): LiveData<SharedElementTransitionState> = liveDataBeforeYesterday
 
     fun getApod() {
         getApodToday()
@@ -30,7 +30,7 @@ class ApodExampleViewModel(
     }
 
      private fun getApodToday() {
-        liveDataToday.postValue(ApodExampleState.TodayLoading)
+        liveDataToday.postValue(SharedElementTransitionState.TodayLoading)
         retrofitRepository.getPictureOfTheDay("",
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
@@ -39,21 +39,21 @@ class ApodExampleViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataToday.postValue(ApodExampleState.TodaySuccess(it))
+                            liveDataToday.postValue(SharedElementTransitionState.TodaySuccess(it))
                         }
                     } else {
-                        liveDataToday.postValue(ApodExampleState.TodayError(NullPointerException("Пустой ответ сервера")))
+                        liveDataToday.postValue(SharedElementTransitionState.TodayError(NullPointerException("Пустой ответ сервера")))
                     }
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataToday.postValue(ApodExampleState.TodayError(Throwable("Ошибка связи с сервером")))
+                    liveDataToday.postValue(SharedElementTransitionState.TodayError(Throwable("Ошибка связи с сервером")))
                 }
             })
     }
 
     private fun getApodYesterday() {
-        liveDataYesterday.postValue(ApodExampleState.YesterdayLoading)
+        liveDataYesterday.postValue(SharedElementTransitionState.YesterdayLoading)
         retrofitRepository.getPictureOfTheDay(
             getYesterdayDate(),
             object : Callback<PictureOfTheDayDto> {
@@ -63,11 +63,11 @@ class ApodExampleViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataYesterday.postValue(ApodExampleState.YesterdaySuccess(it))
+                            liveDataYesterday.postValue(SharedElementTransitionState.YesterdaySuccess(it))
                         }
                     } else {
                         liveDataYesterday.postValue(
-                            ApodExampleState.YesterdayError(
+                            SharedElementTransitionState.YesterdayError(
                                 NullPointerException("Пустой ответ сервера")
                             )
                         )
@@ -75,13 +75,13 @@ class ApodExampleViewModel(
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataYesterday.postValue(ApodExampleState.YesterdayError(Throwable("Ошибка связи с сервером")))
+                    liveDataYesterday.postValue(SharedElementTransitionState.YesterdayError(Throwable("Ошибка связи с сервером")))
                 }
             })
     }
 
     private fun getApodBeforeYesterday() {
-        liveDataBeforeYesterday.postValue(ApodExampleState.BeforeYesterdayLoading)
+        liveDataBeforeYesterday.postValue(SharedElementTransitionState.BeforeYesterdayLoading)
         retrofitRepository.getPictureOfTheDay(
             getBeforeYesterdayDate(),
             object : Callback<PictureOfTheDayDto> {
@@ -92,14 +92,14 @@ class ApodExampleViewModel(
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
                             liveDataBeforeYesterday.postValue(
-                                ApodExampleState.BeforeYesterdaySuccess(
+                                SharedElementTransitionState.BeforeYesterdaySuccess(
                                     it
                                 )
                             )
                         }
                     } else {
                         liveDataBeforeYesterday.postValue(
-                            ApodExampleState.BeforeYesterdayError(
+                            SharedElementTransitionState.BeforeYesterdayError(
                                 NullPointerException("Пустой ответ сервера")
                             )
                         )
@@ -108,7 +108,7 @@ class ApodExampleViewModel(
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
                     liveDataBeforeYesterday.postValue(
-                        ApodExampleState.BeforeYesterdayError(
+                        SharedElementTransitionState.BeforeYesterdayError(
                             Throwable("Ошибка связи с сервером")
                         )
                     )

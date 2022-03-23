@@ -41,7 +41,7 @@
         app:checkedChip="@id/chip_today"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/input_layout"
+        app:layout_constraintTop_toBottomOf="parent"
         app:selectionRequired="true"
         app:singleSelection="true">
 
@@ -84,11 +84,10 @@
         android:id="@+id/apod_coordinator"
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chip_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/barrier_apod_top"
-        app:layout_constraintVertical_bias="0.4">
+        app:layout_constraintTop_toBottomOf="@id/input_layout">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/date_card"
