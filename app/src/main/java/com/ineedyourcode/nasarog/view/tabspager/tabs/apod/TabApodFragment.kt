@@ -5,13 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
-import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.transition.*
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabApodBinding
@@ -23,16 +22,20 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 private const val WIKI_URL = "https://ru.wikipedia.org/wiki/"
 private const val CROSSFADE_DURATION = 500
 private const val IMAGE_CORNER_RADIUS = 25f
-private const val BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT = 0.6
+private const val BOTTOMSHEET_PHOTO_DESCRIPTION_HEIGHT_COEFFICIENT = 0.75
 private const val MEDIA_TYPE_VIDEO = "video"
 private const val MEDIA_TYPE_IMAGE = "image"
+private const val ARROWS_ROTATION_ANGLE = 180
+private const val VIDEO_START_PLAYING_SECOND = 0f
+private const val ANIMATION_DURATION = 1000L
+private const val INTERPOLATOR_TENSION = 1.5f
 
 class TabApodFragment :
     BaseFragment<FragmentTabApodBinding>(FragmentTabApodBinding::inflate) {
 
     private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
 
-    private var isFirstImageLoading = true
+    private var isAnimationRequired = true
 
     private val podViewModel by viewModels<TabApodViewModel>()
 
@@ -93,14 +96,7 @@ class TabApodFragment :
     private fun renderData(state: TabApodState, savedInstanceState: Bundle?) =
         with(binding) {
             when (state) {
-                is TabApodState.Error -> {
-                    view?.showSnackWithAction(
-                        state.error.message.toString(),
-                        getString(R.string.repeat)
-                    ) { podViewModel.getPictureOfTheDayRequest() }
-                }
-
-                is TabApodState.Loading -> {
+                TabApodState.Loading -> {
                     setVisibilityOnStateLoading(apodSpinKit, videoApod, apodCoordinator)
                 }
 
@@ -125,44 +121,49 @@ class TabApodFragment :
                                 CROSSFADE_DURATION,
                                 IMAGE_CORNER_RADIUS
                             ) {
-                                if (isFirstImageLoading) {
-                                    isFirstImageLoading = false
-                                    animateApodUI(
-                                        rootContainer,
-                                        R.id.input_layout,
-                                        R.id.chip_group,
-                                        R.id.root_container
-                                    )
+                                if (isAnimationRequired) {
+                                    animateApodUI(rootContainer)
                                 }
+
                                 setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                             }
                         }
+
                         else -> {
                             view?.showSnackWithoutAction(getString(R.string.msg_unknown_mediatype))
                         }
                     }
                 }
+
+                is TabApodState.Error -> {
+                    view?.showSnackWithAction(
+                        state.error.message.toString(),
+                        getString(R.string.repeat)
+                    ) { podViewModel.getPictureOfTheDayRequest() }
+                }
             }
         }
 
-    private fun animateApodUI(
-        rootContainer: ConstraintLayout,
-        inputLayout: Int,
-        chipGroup: Int,
-        rootContainerId: Int
-    ) {
+    private fun animateApodUI(rootContainer: ConstraintLayout) {
+        isAnimationRequired = false
+
         ConstraintSet().apply {
             clone(rootContainer)
-            connect(inputLayout, ConstraintSet.TOP, rootContainerId, ConstraintSet.TOP)
-            clear(inputLayout, ConstraintSet.BOTTOM)
-            connect(chipGroup, ConstraintSet.BOTTOM, rootContainerId, ConstraintSet.BOTTOM)
-            clear(chipGroup, ConstraintSet.TOP)
+            connect(R.id.input_layout, ConstraintSet.TOP, R.id.root_container, ConstraintSet.TOP)
+            clear(R.id.input_layout, ConstraintSet.BOTTOM)
+            connect(
+                R.id.chip_group,
+                ConstraintSet.BOTTOM,
+                R.id.root_container,
+                ConstraintSet.BOTTOM
+            )
+            clear(R.id.chip_group, ConstraintSet.TOP)
             applyTo(rootContainer)
         }
 
         TransitionManager.beginDelayedTransition(rootContainer, ChangeBounds().apply {
-            interpolator = AnticipateOvershootInterpolator(1.5f)
-            duration = 1000
+            interpolator = AnticipateOvershootInterpolator(INTERPOLATOR_TENSION)
+            duration = ANIMATION_DURATION
         })
     }
 
@@ -170,7 +171,7 @@ class TabApodFragment :
         binding.videoApod.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), 0f)
+                youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), VIDEO_START_PLAYING_SECOND)
             }
         })
 
@@ -182,7 +183,7 @@ class TabApodFragment :
             override fun onStateChanged(bottomSheet: View, newState: Int) {}
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                binding.ivBottomSheetArrows.rotation = 180 * slideOffset
+                binding.ivBottomSheetArrows.rotation = ARROWS_ROTATION_ANGLE * slideOffset
             }
         })
 

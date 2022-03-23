@@ -18,7 +18,7 @@ class TabApodViewModel(
     fun getLiveData(): LiveData<TabApodState> = liveData
 
     fun getPictureOfTheDayRequest(date: String = "") {
-        liveData.postValue(TabApodState.Loading(null))
+        liveData.postValue(TabApodState.Loading)
         retrofitRepository.getPictureOfTheDay(date,
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
