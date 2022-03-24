@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable
 
 import android.os.Bundle
 import android.transition.TransitionInflater

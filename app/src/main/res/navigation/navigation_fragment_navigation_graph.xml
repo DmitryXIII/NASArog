@@ -2,16 +2,49 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_fragment_navigation_graph"
-    app:startDestination="@id/tabFragment">
-
+    app:startDestination="@id/tabsPagerFragment">
     <fragment
-        android:id="@+id/tabFragment"
+        android:id="@+id/tabsPagerFragment"
         android:name="com.ineedyourcode.nasarog.view.ui.tabspager.TabsPagerFragment"
-        android:label="TabFragment" />
+        android:label="TabsPagerFragment" />
+    <fragment
+        android:id="@+id/featuresListFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.features.FeaturesListFragment"
+        android:label="FeaturesMenuFragment" >
+        <action
+            android:id="@+id/action_featuresListFragment_to_coordinatorLayoutExampleFragment"
+            app:destination="@id/coordinatorLayoutExampleFragment" />
+        <action
+            android:id="@+id/action_featuresListFragment_to_sharedElementTransitionFragment"
+            app:destination="@id/sharedElementTransitionFragment" />
+        <action
+            android:id="@+id/action_featuresListFragment_to_notStableAnimationFragment"
+            app:destination="@id/notStableAnimationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
     <fragment
         android:id="@+id/coordinatorLayoutExampleFragment"
-        android:name="com.ineedyourcode.nasarog.view.ui.coordinator.CoordinatorLayoutExampleFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.features.custombehavior.CoordinatorLayoutExampleFragment"
         android:label="CoordinatorLayoutExampleFragment" />
+    <fragment
+        android:id="@+id/sharedElementTransitionFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionFragment"
+        android:label="SharedElementTransitionFragment" >
+        <action
+            android:id="@+id/action_sharedElementTransitionFragment_to_sharedElementTransitionDetailsFragment"
+            app:destination="@id/sharedElementTransitionDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharedElementTransitionDetailsFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionDetailsFragment"
+        android:label="SharedElementTransitionDetailsFragment" />
+    <fragment
+        android:id="@+id/notStableAnimationFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.notstable.NotStableAnimationFragment"
+        android:label="NotStableAnimationFragment" />
     <dialog
         android:id="@+id/bottomNavigationDrawerFragment"
         android:name="com.ineedyourcode.nasarog.view.ui.bottomnavdrawer.BottomNavigationDrawerFragment"
@@ -20,20 +53,4 @@
             android:id="@+id/action_bottomNavigationDrawerFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </dialog>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.ineedyourcode.nasarog.view.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
-    <fragment
-        android:id="@+id/apodExampleFragment"
-        android:name="com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable.SharedElementTransitionFragment"
-        android:label="ApodExampleFragment" >
-        <action
-            android:id="@+id/action_apodExampleFragment_to_apodExampleDetailsFragment"
-            app:destination="@id/apodExampleDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/apodExampleDetailsFragment"
-        android:name="com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable.SharedElementTransitionDetailsFragment"
-        android:label="ApodExampleDetailsFragment" />
 </navigation>

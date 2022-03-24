@@ -28,4 +28,6 @@
     <color name="colorOnTertiary_2">#FFFFFF</color>
     <color name="colorTertiaryContainer_2">#dcedc8</color>
     <color name="colorOnTertiaryContainer_2">#33691e</color>
+
+    <color name="unselected_item">#73000000</color>
 </resources>

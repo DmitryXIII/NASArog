@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.coordinator
+package com.ineedyourcode.nasarog.view.ui.features.custombehavior
 
 import android.content.Context
 import android.view.MotionEvent

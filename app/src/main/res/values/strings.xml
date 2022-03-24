@@ -38,4 +38,8 @@
     <string name="transition_details_title">transition_details_title</string>
     <string name="transition_details_explanation">transition_details_explanation</string>
     <string name="postponed_transition">Postponed transition</string>
+    <string name="btn_custom_behavior_title">Custom behavior example</string>
+    <string name="btn_shared_element_transition">Shared element transition</string>
+    <string name="btn_not_stable_shared_element_transition">Not stable shared element transition</string>
+    <string name="menu_action_features">Features</string>
 </resources>

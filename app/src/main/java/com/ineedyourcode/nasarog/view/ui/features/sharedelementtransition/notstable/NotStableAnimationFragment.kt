@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.sharedelementtransition.notstable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.notstable
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
-import com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable.SharedElementTransitionState
+import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionState
 
 /**
  * Фрагмент для демонстрации поведения observer, при котором приходят не все данные из liveData

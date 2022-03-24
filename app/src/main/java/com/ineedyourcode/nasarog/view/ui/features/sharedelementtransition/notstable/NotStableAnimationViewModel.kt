@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.notstable
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,20 +8,17 @@ import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
 import com.ineedyourcode.nasarog.utils.getYesterdayDate
+import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SharedElementTransitionViewModel(
-    private val liveDataToday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
-    private val liveDataYesterday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
-    private val liveDataBeforeYesterday: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
+class NotStableAnimationViewModel(
+    private val liveData: MutableLiveData<SharedElementTransitionState> = MutableLiveData(),
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    fun getLiveDataToday(): LiveData<SharedElementTransitionState> = liveDataToday
-    fun getLiveDataYesterday(): LiveData<SharedElementTransitionState> = liveDataYesterday
-    fun getLiveDataBeforeYesterday(): LiveData<SharedElementTransitionState> = liveDataBeforeYesterday
+    fun getLiveData(): LiveData<SharedElementTransitionState> = liveData
 
     fun getApod() {
         getApodToday()
@@ -29,8 +26,8 @@ class SharedElementTransitionViewModel(
         getApodBeforeYesterday()
     }
 
-     private fun getApodToday() {
-        liveDataToday.postValue(SharedElementTransitionState.TodayLoading)
+    private fun getApodToday() {
+        liveData.postValue(SharedElementTransitionState.TodayLoading)
         retrofitRepository.getPictureOfTheDay("",
             object : Callback<PictureOfTheDayDto> {
                 override fun onResponse(
@@ -39,10 +36,10 @@ class SharedElementTransitionViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataToday.postValue(SharedElementTransitionState.TodaySuccess(it))
+                            liveData.postValue(SharedElementTransitionState.TodaySuccess(it))
                         }
                     } else {
-                        liveDataToday.postValue(
+                        liveData.postValue(
                             SharedElementTransitionState.TodayError(
                                 NullPointerException("Пустой ответ сервера")
                             )
@@ -51,13 +48,13 @@ class SharedElementTransitionViewModel(
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataToday.postValue(SharedElementTransitionState.TodayError(Throwable("Ошибка связи с сервером")))
+                    liveData.postValue(SharedElementTransitionState.TodayError(Throwable("Ошибка связи с сервером")))
                 }
             })
     }
 
     private fun getApodYesterday() {
-        liveDataYesterday.postValue(SharedElementTransitionState.YesterdayLoading)
+        liveData.postValue(SharedElementTransitionState.YesterdayLoading)
         retrofitRepository.getPictureOfTheDay(
             getYesterdayDate(),
             object : Callback<PictureOfTheDayDto> {
@@ -67,14 +64,10 @@ class SharedElementTransitionViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataYesterday.postValue(
-                                SharedElementTransitionState.YesterdaySuccess(
-                                    it
-                                )
-                            )
+                            liveData.postValue(SharedElementTransitionState.YesterdaySuccess(it))
                         }
                     } else {
-                        liveDataYesterday.postValue(
+                        liveData.postValue(
                             SharedElementTransitionState.YesterdayError(
                                 NullPointerException("Пустой ответ сервера")
                             )
@@ -83,7 +76,7 @@ class SharedElementTransitionViewModel(
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataYesterday.postValue(
+                    liveData.postValue(
                         SharedElementTransitionState.YesterdayError(
                             Throwable("Ошибка связи с сервером")
                         )
@@ -93,7 +86,7 @@ class SharedElementTransitionViewModel(
     }
 
     private fun getApodBeforeYesterday() {
-        liveDataBeforeYesterday.postValue(SharedElementTransitionState.BeforeYesterdayLoading)
+        liveData.postValue(SharedElementTransitionState.BeforeYesterdayLoading)
         retrofitRepository.getPictureOfTheDay(
             getBeforeYesterdayDate(),
             object : Callback<PictureOfTheDayDto> {
@@ -103,14 +96,12 @@ class SharedElementTransitionViewModel(
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         response.body()?.let {
-                            liveDataBeforeYesterday.postValue(
-                                SharedElementTransitionState.BeforeYesterdaySuccess(
-                                    it
-                                )
+                            liveData.postValue(
+                                SharedElementTransitionState.BeforeYesterdaySuccess(it)
                             )
                         }
                     } else {
-                        liveDataBeforeYesterday.postValue(
+                        liveData.postValue(
                             SharedElementTransitionState.BeforeYesterdayError(
                                 NullPointerException("Пустой ответ сервера")
                             )
@@ -119,7 +110,7 @@ class SharedElementTransitionViewModel(
                 }
 
                 override fun onFailure(call: Call<PictureOfTheDayDto>, t: Throwable) {
-                    liveDataBeforeYesterday.postValue(
+                    liveData.postValue(
                         SharedElementTransitionState.BeforeYesterdayError(
                             Throwable("Ошибка связи с сервером")
                         )

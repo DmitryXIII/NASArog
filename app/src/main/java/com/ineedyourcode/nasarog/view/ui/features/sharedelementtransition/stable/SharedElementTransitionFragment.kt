@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable
 
 import android.os.Bundle
 import android.view.View
@@ -294,7 +294,7 @@ class SharedElementTransitionFragment :
             )
 
             findNavController().navigate(
-                R.id.action_apodExampleFragment_to_apodExampleDetailsFragment,
+                R.id.action_sharedElementTransitionFragment_to_sharedElementTransitionDetailsFragment,
                 bundleOf(SharedElementTransitionDetailsFragment.KEY_ARGUMENTS_MAP to mapOfArguments),
                 null,
                 extras
