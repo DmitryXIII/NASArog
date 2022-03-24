@@ -6,15 +6,15 @@
 
     <fragment
         android:id="@+id/tabFragment"
-        android:name="com.ineedyourcode.nasarog.view.tabspager.TabsPagerFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.tabspager.TabsPagerFragment"
         android:label="TabFragment" />
     <fragment
         android:id="@+id/coordinatorLayoutExampleFragment"
-        android:name="com.ineedyourcode.nasarog.view.coordinator.CoordinatorLayoutExampleFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.coordinator.CoordinatorLayoutExampleFragment"
         android:label="CoordinatorLayoutExampleFragment" />
     <dialog
         android:id="@+id/bottomNavigationDrawerFragment"
-        android:name="com.ineedyourcode.nasarog.view.BottomNavigationDrawerFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.bottomnavdrawer.BottomNavigationDrawerFragment"
         android:label="BottomNavigationDrawerFragment" >
         <action
             android:id="@+id/action_bottomNavigationDrawerFragment_to_settingsFragment"
@@ -22,11 +22,11 @@
     </dialog>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.ineedyourcode.nasarog.view.settings.SettingsFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.settings.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/apodExampleFragment"
-        android:name="com.ineedyourcode.nasarog.view.sharedelementtransition.stableanimation.SharedElementTransitionFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable.SharedElementTransitionFragment"
         android:label="ApodExampleFragment" >
         <action
             android:id="@+id/action_apodExampleFragment_to_apodExampleDetailsFragment"
@@ -34,6 +34,6 @@
     </fragment>
     <fragment
         android:id="@+id/apodExampleDetailsFragment"
-        android:name="com.ineedyourcode.nasarog.view.sharedelementtransition.stableanimation.SharedElementTransitionDetailsFragment"
+        android:name="com.ineedyourcode.nasarog.view.ui.sharedelementtransition.stable.SharedElementTransitionDetailsFragment"
         android:label="ApodExampleDetailsFragment" />
 </navigation>
