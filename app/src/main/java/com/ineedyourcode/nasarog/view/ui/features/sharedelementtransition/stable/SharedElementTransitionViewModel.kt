@@ -3,9 +3,9 @@ package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stabl
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
 import com.ineedyourcode.nasarog.utils.getYesterdayDate
 import retrofit2.Call

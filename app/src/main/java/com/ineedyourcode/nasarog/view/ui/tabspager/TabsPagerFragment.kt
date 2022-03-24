@@ -12,6 +12,7 @@ class TabsPagerFragment: BaseFragment<FragmentTabsPagerBinding>(FragmentTabsPage
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewPager2.adapter = PagerAdapter(requireActivity())
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             tab.text = when(position){
                 0 -> getString(R.string.tab_title_apod)

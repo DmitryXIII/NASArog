@@ -2,9 +2,9 @@ package com.ineedyourcode.nasarog.view.ui.tabspager.tabs.marsphotos
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
 import com.ineedyourcode.nasarog.utils.getCurrentDate
 import com.ineedyourcode.nasarog.utils.getPreviousDate
 import retrofit2.Call

@@ -3,9 +3,9 @@ package com.ineedyourcode.nasarog.view.ui.tabspager.tabs.apod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

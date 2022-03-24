@@ -16,7 +16,10 @@ import androidx.transition.TransitionManager
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabMarsPhotoBinding
 import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
-import com.ineedyourcode.nasarog.utils.*
+import com.ineedyourcode.nasarog.utils.convertNasaDateFormatToMyFormat
+import com.ineedyourcode.nasarog.utils.loadWithTransform
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateLoading
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateSuccess
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 private const val CROSSFADE_DURATION = 1000
@@ -32,6 +35,22 @@ private const val INTERPOLATOR_TENSION = 2f
 class TabMarsPhotoFragment :
     BaseFragment<FragmentTabMarsPhotoBinding>(FragmentTabMarsPhotoBinding::inflate) {
 
+    private var isFirstOnResume = true
+
+    // request вынесен из onViewCreated в onResume, т.к. в TabLayout у фрагмента onAttach срабатывает уже при
+    // открытой соседней вкладке. Соответственно, вкладка с этим фрагментом еще может быть не активна,
+    // но уже сработал onViewCreated, в котором запускается стартовая анимация, которую пользователь не видит.
+    // Плюс некорректно отрабатывает TransitionListener.
+    // Поэтому request отправляется при первом onResume, т.е. когда пользователь гарантированно открыл вкладку в TabLayout
+    override fun onResume() {
+        if (isFirstOnResume) {
+            marsPhotoViewModel.getMarsPhotoRequest()
+        }
+
+        isFirstOnResume = false
+        super.onResume()
+    }
+
     // в ответе сервера приходит массив фотографий, этот индекс используется для пролистывания фотографий в фрагменте
     private var loadedImageIndex = ZERO_LOADED_IMAGE_INDEX
 
@@ -43,8 +62,6 @@ class TabMarsPhotoFragment :
         marsPhotoViewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
         }
-
-        marsPhotoViewModel.getMarsPhotoRequest()
     }
 
     private fun renderData(stateTab: TabMarsPhotoState) = with(binding) {
@@ -54,6 +71,7 @@ class TabMarsPhotoFragment :
             }
 
             is TabMarsPhotoState.MarsPhotoSuccess -> {
+                Log.d("MARSTAG", "LOADING SUCCESS")
                 // стартовая анимация,
                 // загрузка первой фотографии из массива
                 animateMarsPhotoUi(
@@ -74,7 +92,6 @@ class TabMarsPhotoFragment :
                         FIRST_LOADED_IMAGE_INDEX,
                         stateTab.marsPhoto.photos.size
                     )
-
 
                 // пролистывание фотографий вперед
                 ivArrowRight.setOnClickListener {
@@ -133,7 +150,7 @@ class TabMarsPhotoFragment :
                         IMAGE_CORNER_RADIUS
                     )
 
-                    setVisibilityOnStateSuccess(groupMarsPhoto, marsPhotoSpinKit)
+                    setVisibilityOnStateSuccess(marsPhotoSpinKit, groupMarsPhoto)
                 }
 
                 override fun onTransitionCancel(transition: Transition) {}

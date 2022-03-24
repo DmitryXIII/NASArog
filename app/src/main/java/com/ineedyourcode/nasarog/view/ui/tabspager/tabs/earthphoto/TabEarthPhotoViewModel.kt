@@ -3,10 +3,10 @@ package com.ineedyourcode.nasarog.view.ui.tabspager.tabs.earthphoto
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
-import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDto
+import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
+import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
