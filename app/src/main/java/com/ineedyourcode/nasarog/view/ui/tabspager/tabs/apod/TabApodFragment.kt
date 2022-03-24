@@ -5,10 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.transition.ChangeBounds
+import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.ineedyourcode.nasarog.R
@@ -24,8 +28,10 @@ private const val MEDIA_TYPE_VIDEO = "video"
 private const val MEDIA_TYPE_IMAGE = "image"
 private const val ARROWS_ROTATION_ANGLE = 180
 private const val VIDEO_START_PLAYING_SECOND = 0f
-private const val ANIMATION_DURATION = 1000L
-private const val INTERPOLATOR_TENSION = 1.5f
+private const val DEFAULT_ANIMATION_DURATION = 1000L
+private const val APOD_COORDINATOR_ANIMATION_DURATION = 1000L
+private const val DEFAULT_INTERPOLATOR_TENSION = 5f
+private const val APOD_COORDINATOR_INTERPOLATOR_TENSION = 2f
 
 class TabApodFragment :
     BaseFragment<FragmentTabApodBinding>(FragmentTabApodBinding::inflate) {
@@ -120,10 +126,11 @@ class TabApodFragment :
                                 IMAGE_CORNER_RADIUS
                             ) {
                                 if (isAnimationRequired) {
-                                    animateApodUI(rootContainer)
+                                    animateApodUI(rootContainer, apodCoordinator)
+                                    setVisibilityOnStateSuccess(apodSpinKit)
+                                } else {
+                                    setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                                 }
-
-                                setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                             }
                         }
 
@@ -142,21 +149,47 @@ class TabApodFragment :
             }
         }
 
-    private fun animateApodUI(rootContainer: ConstraintLayout) {
+    private fun animateApodUI(rootContainer: ConstraintLayout, apodCoordinator: CoordinatorLayout) {
         isAnimationRequired = false
+
+        apodCoordinator.animate()
+            .scaleX(0f)
+            .scaleY(0f)
+            .duration = 1
 
         ConstraintSet().apply {
             clone(rootContainer)
             connect(R.id.input_layout, ConstraintSet.TOP, R.id.root_container, ConstraintSet.TOP)
             clear(R.id.input_layout, ConstraintSet.BOTTOM)
-            connect(R.id.chip_group, ConstraintSet.BOTTOM, R.id.root_container, ConstraintSet.BOTTOM)
+            connect(
+                R.id.chip_group,
+                ConstraintSet.BOTTOM,
+                R.id.root_container,
+                ConstraintSet.BOTTOM
+            )
             connect(R.id.chip_group, ConstraintSet.TOP, R.id.apod_coordinator, ConstraintSet.BOTTOM)
             applyTo(rootContainer)
         }
 
         TransitionManager.beginDelayedTransition(rootContainer, ChangeBounds().apply {
-            interpolator = AnticipateOvershootInterpolator(INTERPOLATOR_TENSION)
-            duration = ANIMATION_DURATION
+            interpolator = AnticipateOvershootInterpolator(DEFAULT_INTERPOLATOR_TENSION)
+            duration = DEFAULT_ANIMATION_DURATION
+            addListener(object : Transition.TransitionListener {
+                override fun onTransitionStart(transition: Transition) {}
+
+                override fun onTransitionEnd(transition: Transition) {
+                    apodCoordinator.isVisible = true
+                    apodCoordinator.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setInterpolator(OvershootInterpolator(APOD_COORDINATOR_INTERPOLATOR_TENSION))
+                        .duration = APOD_COORDINATOR_ANIMATION_DURATION
+                }
+
+                override fun onTransitionCancel(transition: Transition) {}
+                override fun onTransitionPause(transition: Transition) {}
+                override fun onTransitionResume(transition: Transition) {}
+            })
         })
     }
 
