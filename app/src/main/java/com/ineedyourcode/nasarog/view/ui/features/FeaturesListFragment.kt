@@ -12,9 +12,16 @@ class FeaturesListFragment : BaseFragment<FragmentFeaturesListBinding>(FragmentF
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnCustomBehavior.setOnClickListener {
+            findNavController().navigate(R.id.action_featuresListFragment_to_coordinatorLayoutExampleFragment)
+        }
+
         binding.btnSharedElementTransition.setOnClickListener {
             findNavController().navigate(R.id.action_featuresListFragment_to_sharedElementTransitionFragment)
         }
-    }
 
+        binding.btnSharedElementTransitionNotStable.setOnClickListener {
+            findNavController().navigate(R.id.action_featuresListFragment_to_notStableAnimationFragment)
+        }
+    }
 }

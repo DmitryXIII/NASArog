@@ -13,13 +13,25 @@
         android:label="FeaturesMenuFragment" >
         <action
             android:id="@+id/action_featuresListFragment_to_coordinatorLayoutExampleFragment"
-            app:destination="@id/coordinatorLayoutExampleFragment" />
+            app:destination="@id/coordinatorLayoutExampleFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_featuresListFragment_to_sharedElementTransitionFragment"
-            app:destination="@id/sharedElementTransitionFragment" />
+            app:destination="@id/sharedElementTransitionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_featuresListFragment_to_notStableAnimationFragment"
-            app:destination="@id/notStableAnimationFragment" />
+            app:destination="@id/notStableAnimationFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
