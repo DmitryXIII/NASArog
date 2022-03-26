@@ -30,4 +30,10 @@
     <color name="colorOnTertiaryContainer_2">#33691e</color>
 
     <color name="unselected_item">#73000000</color>
+
+    <color name="star_color_1">#80DEEA</color>
+    <color name="star_color_2">#FFF59D</color>
+    <color name="star_color_3">#EF9A9A</color>
+    <color name="star_color_4">#A5D6A7</color>
+    <color name="star_color_5">#FFFFFF</color>
 </resources>
