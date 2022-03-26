@@ -13,6 +13,7 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+import com.ineedyourcode.nasarog.view.ui.features.FeaturesListFragment
 
 /**
  * Описание ужаса, происходящего в коде этого фрагмента.
@@ -147,6 +148,10 @@ class SharedElementTransitionFragment :
 
             apodExampleViewModel.getApod()
         }
+
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+            FeaturesListFragment.KEY_BACK_STACK_ENTRY, true
+        )
     }
 
     private fun renderDataToday(state: SharedElementTransitionState) = with(binding) {

@@ -3,9 +3,11 @@ package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.notst
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+import com.ineedyourcode.nasarog.view.ui.features.FeaturesListFragment
 import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionState
 
 /**
@@ -25,6 +27,10 @@ class NotStableAnimationFragment :
         }
 
         notStableViewModel.getApod()
+
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(
+            FeaturesListFragment.KEY_BACK_STACK_ENTRY, true
+        )
     }
 
     private fun renderDataToday(state: SharedElementTransitionState) = with(binding) {

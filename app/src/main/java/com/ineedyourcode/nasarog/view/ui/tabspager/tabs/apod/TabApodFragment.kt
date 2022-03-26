@@ -155,7 +155,7 @@ class TabApodFragment :
         apodCoordinator.animate()
             .scaleX(0f)
             .scaleY(0f)
-            .duration = 1
+            .duration = 0
 
         ConstraintSet().apply {
             clone(rootContainer)

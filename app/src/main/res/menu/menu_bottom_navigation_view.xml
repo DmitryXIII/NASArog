@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/featuresListFragment"
-        android:icon="@drawable/ic_globe"
+        android:icon="@drawable/ic_features"
         android:title="@string/menu_action_features"/>
 
     <item
