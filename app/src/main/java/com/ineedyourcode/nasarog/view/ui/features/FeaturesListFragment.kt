@@ -1,7 +1,6 @@
 package com.ineedyourcode.nasarog.view.ui.features
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.animation.BounceInterpolator
@@ -11,7 +10,17 @@ import androidx.navigation.fragment.findNavController
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
-import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable.SharedElementTransitionFragment
+
+/**
+ * MultiBackstack из navigation component создает проблемы при воспроизведении анимации.
+ * Если перейти по кнопке в один из вложенных фрагментов и вернуться обратно, то
+ * обнуляется все, что связано с координатами на экране, из-за этого анимация начинает вести себя неправильно.
+ * Долго пытался поймать в жизненных циклах фрагмента разные состояния savedInstanceState и
+ * findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData, но так и не уловил момент, почему
+ * происходит обнуление координат.
+ * Оставлю себе это как факультатив на каникулах.
+ * Сейчас анимация отображается только при переходе на этот фрагмент через bottomNavigationView.
+ */
 
 class FeaturesListFragment :
     BaseFragment<FragmentFeaturesListBinding>(FragmentFeaturesListBinding::inflate) {
@@ -22,9 +31,9 @@ class FeaturesListFragment :
 
     private val viewList = mutableListOf<View>()
 
-    private var backEntry = false
+    private var savedInstance: Bundle? = null
 
-    private var isFirstOnResume = true
+    private var backEntry: Boolean? = false
 
     private var rangeX = 0f
     private var rangeY = 0f
@@ -49,44 +58,48 @@ class FeaturesListFragment :
     private var scene5DestinationX = 0f
 
     override fun onResume() {
-        with(binding) {
-            rangeX = rootContainer.width.toFloat() - animatedCircle1.width
-            rangeY = rootContainer.height.toFloat() - animatedCircle1.width
+        if (backEntry != true || savedInstance != null) {
+            with(binding) {
+                rangeX = rootContainer.width.toFloat() - animatedCircle1.width
+                rangeY = rootContainer.height.toFloat() - animatedCircle1.width
 
-            dotStartMovingDelay = animatedCircle1.width.toLong()
+                dotStartMovingDelay = animatedCircle1.width.toLong()
 
-            dot1startX = animatedCircle1.x
-            dot2startX = animatedCircle2.x
-            dot3startX = animatedCircle3.x
-            dot4startX = animatedCircle4.x
-            dot5startX = animatedCircle5.x
-            dotsStartY = animatedCircle1.y
+                dot1startX = animatedCircle1.x
+                dot2startX = animatedCircle2.x
+                dot3startX = animatedCircle3.x
+                dot4startX = animatedCircle4.x
+                dot5startX = animatedCircle5.x
+                dotsStartY = animatedCircle1.y
 
-            scene1DestinationY = rootContainer.y + rootContainer.height - animatedCircle1.height
-            scene3DestinationX = rootContainer.x + rootContainer.width - animatedCircle5.width
-            scene4DestinationY = rootContainer.y
-            scene5DestinationX = rootContainer.x
+                scene1DestinationY = rootContainer.y + rootContainer.height - animatedCircle1.height
+                scene3DestinationX = rootContainer.x + rootContainer.width - animatedCircle5.width
+                scene4DestinationY = rootContainer.y
+                scene5DestinationX = rootContainer.x
 
-            viewList.add(animatedCircle1)
-            viewList.add(animatedCircle2)
-            viewList.add(animatedCircle3)
-            viewList.add(animatedCircle4)
-            viewList.add(animatedCircle5)
-        }
-        if (isFirstOnResume) {
+                viewList.add(animatedCircle1)
+                viewList.add(animatedCircle2)
+                viewList.add(animatedCircle3)
+                viewList.add(animatedCircle4)
+                viewList.add(animatedCircle5)
+            }
+            backEntry = false
             animationScene1FallDown(viewList)
         }
-        isFirstOnResume = false
+
         super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        backEntry = findNavController()
-            .currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(KEY_BACK_STACK_ENTRY)?.value == true
+        savedInstance = savedInstanceState
 
-        Log.d("ATGANIM", "savedInstance - $savedInstanceState")
+        backEntry =
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+                KEY_BACK_STACK_ENTRY
+            )?.value
+
 
         binding.btnCustomBehavior.setOnClickListener {
             findNavController().navigate(R.id.action_featuresListFragment_to_coordinatorLayoutExampleFragment)
