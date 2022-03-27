@@ -15,7 +15,7 @@ class RecyclerViewViewModel(
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    private var requestDate = getCurrentDate()
+    private val requestDate = getCurrentDate()
 
     fun getLiveData(): MutableLiveData<AsteroidDataState> = liveData
 
@@ -25,7 +25,9 @@ class RecyclerViewViewModel(
             override fun onResponse(call: Call<AsteroidListDto>, response: Response<AsteroidListDto>) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let {
-                        liveData.postValue(AsteroidDataState.AsteroidDataSuccess(it))
+                        it.nearEarthObjects[requestDate]?.let {asteroidList ->
+                            liveData.postValue(AsteroidDataState.AsteroidDataSuccess(asteroidList))
+                        }
                     }
                 } else {
                     liveData.postValue(AsteroidDataState.Error(NullPointerException("Пустой ответ сервера")))

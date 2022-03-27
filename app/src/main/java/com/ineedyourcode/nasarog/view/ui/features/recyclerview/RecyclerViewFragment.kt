@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewBinding
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateLoading
+import com.ineedyourcode.nasarog.utils.setVisibilityOnStateSuccess
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-class RecyclerViewFragment: BaseFragment<FragmentFeaturesRecyclerViewBinding>(FragmentFeaturesRecyclerViewBinding::inflate) {
+class RecyclerViewFragment :
+    BaseFragment<FragmentFeaturesRecyclerViewBinding>(FragmentFeaturesRecyclerViewBinding::inflate) {
 
     private val viewModel by viewModels<RecyclerViewViewModel>()
 
@@ -21,12 +24,17 @@ class RecyclerViewFragment: BaseFragment<FragmentFeaturesRecyclerViewBinding>(Fr
     }
 
     private fun renderData(state: AsteroidDataState) {
-        when(state){
-            is AsteroidDataState.AsteroidDataSuccess -> {
-binding.text.text = state.toString()
+        with(binding) {
+            when (state) {
+                AsteroidDataState.Loading -> {
+                    setVisibilityOnStateLoading(recyclerViewSpinKit, text)
+                }
+                is AsteroidDataState.AsteroidDataSuccess -> {
+                    text.text = state.toString()
+                    setVisibilityOnStateSuccess(recyclerViewSpinKit, text)
+                }
+                is AsteroidDataState.Error -> {}
             }
-            is AsteroidDataState.Error -> {}
-            AsteroidDataState.Loading -> {}
         }
     }
 }
