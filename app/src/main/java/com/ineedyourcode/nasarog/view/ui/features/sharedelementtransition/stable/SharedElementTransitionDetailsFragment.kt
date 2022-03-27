@@ -6,12 +6,12 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.ineedyourcode.nasarog.R
-import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionDetailsBinding
+import com.ineedyourcode.nasarog.databinding.FragmentFeaturesSharedElementTransitionDetailsBinding
 import com.ineedyourcode.nasarog.utils.showToast
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 class SharedElementTransitionDetailsFragment :
-    BaseFragment<FragmentSharedElementTransitionDetailsBinding>(FragmentSharedElementTransitionDetailsBinding::inflate) {
+    BaseFragment<FragmentFeaturesSharedElementTransitionDetailsBinding>(FragmentFeaturesSharedElementTransitionDetailsBinding::inflate) {
 
     companion object {
         const val KEY_ARGUMENTS_MAP = "KEY_MAP_VALUE"

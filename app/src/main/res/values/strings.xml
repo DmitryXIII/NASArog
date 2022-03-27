@@ -42,4 +42,5 @@
     <string name="btn_shared_element_transition">Shared element transition</string>
     <string name="btn_not_stable_shared_element_transition">Not stable shared element transition</string>
     <string name="menu_action_features">Features</string>
+    <string name="btn_recycler_view">Recycler view</string>
 </resources>

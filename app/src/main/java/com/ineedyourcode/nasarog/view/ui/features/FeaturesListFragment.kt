@@ -2,6 +2,7 @@ package com.ineedyourcode.nasarog.view.ui.features
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.*
 import android.widget.FrameLayout
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
@@ -10,6 +11,7 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import kotlin.random.Random
+
 
 /**
  * MultiBackstack из navigation component создает проблемы при воспроизведении анимации.
@@ -104,6 +106,7 @@ class FeaturesListFragment :
             starsColorsList.add(R.drawable.space_star_color_5)
 
             dotsAnimationScene1FallDown(dotsList)
+
             for (starView in starsList) {
                 animationSpaceBackgroundScene1(starView)
             }
@@ -116,18 +119,22 @@ class FeaturesListFragment :
 
         savedInstance = savedInstanceState
 
-        for (i in 0..299) {
-            starsList.add(View(requireContext()).apply {
-                alpha = 0f
-            })
-            binding.rootFrame.addView(starsList[i])
-        }
-
         backEntry =
             findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
                 KEY_BACK_STACK_ENTRY
             )?.value
 
+        for (i in 0..299) {
+            starsList.add(View(requireContext()).apply {
+                alpha = 0f
+            })
+
+            starsList[i].parent?.let {
+                (starsList[i].parent as FrameLayout).removeView(starsList[i])
+            }
+
+            binding.rootFrame.addView(starsList[i])
+        }
 
         binding.btnCustomBehavior.setOnClickListener {
             findNavController().navigate(R.id.action_featuresListFragment_to_coordinatorLayoutExampleFragment)
@@ -139,6 +146,10 @@ class FeaturesListFragment :
 
         binding.btnSharedElementTransitionNotStable.setOnClickListener {
             findNavController().navigate(R.id.action_featuresListFragment_to_notStableAnimationFragment)
+        }
+
+        binding.btnRecyclerView.setOnClickListener {
+            findNavController().navigate(R.id.action_featuresListFragment_to_recyclerViewFragment)
         }
     }
 

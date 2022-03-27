@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.ineedyourcode.nasarog.databinding.FragmentSharedElementTransitionBinding
+import com.ineedyourcode.nasarog.databinding.FragmentFeaturesSharedElementTransitionBinding
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import com.ineedyourcode.nasarog.view.ui.features.FeaturesListFragment
@@ -15,7 +15,7 @@ import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable
  */
 
 class NotStableAnimationFragment :
-    BaseFragment<FragmentSharedElementTransitionBinding>(FragmentSharedElementTransitionBinding::inflate) {
+    BaseFragment<FragmentFeaturesSharedElementTransitionBinding>(FragmentFeaturesSharedElementTransitionBinding::inflate) {
 
     private val notStableViewModel by viewModels<NotStableAnimationViewModel>()
 
