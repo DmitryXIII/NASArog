@@ -17,13 +17,13 @@ class RecyclerViewFragment: BaseFragment<FragmentFeaturesRecyclerViewBinding>(Fr
             renderData(it)
         }
 
-        viewModel.getaAsteroidsDataRequest()
+        viewModel.getAsteroidsDataRequest()
     }
 
     private fun renderData(state: AsteroidDataState) {
         when(state){
             is AsteroidDataState.AsteroidDataSuccess -> {
-
+binding.text.text = state.toString()
             }
             is AsteroidDataState.Error -> {}
             AsteroidDataState.Loading -> {}

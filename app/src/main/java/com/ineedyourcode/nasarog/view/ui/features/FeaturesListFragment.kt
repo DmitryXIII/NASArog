@@ -119,11 +119,6 @@ class FeaturesListFragment :
 
         savedInstance = savedInstanceState
 
-        backEntry =
-            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
-                KEY_BACK_STACK_ENTRY
-            )?.value
-
         for (i in 0..299) {
             starsList.add(View(requireContext()).apply {
                 alpha = 0f
@@ -135,6 +130,11 @@ class FeaturesListFragment :
 
             binding.rootFrame.addView(starsList[i])
         }
+
+        backEntry =
+            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
+                KEY_BACK_STACK_ENTRY
+            )?.value
 
         binding.btnCustomBehavior.setOnClickListener {
             findNavController().navigate(R.id.action_featuresListFragment_to_coordinatorLayoutExampleFragment)

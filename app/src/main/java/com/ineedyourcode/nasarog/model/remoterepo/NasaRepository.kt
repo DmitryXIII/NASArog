@@ -2,7 +2,7 @@ package com.ineedyourcode.nasarog.model.remoterepo
 
 import com.google.gson.GsonBuilder
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
-import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidDto
+import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDto
 import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
@@ -43,7 +43,7 @@ class NasaRepository : INasaRepository {
     override fun getAsteroidsData(
         startDate: String,
         endDate: String,
-        callback: Callback<List<AsteroidDto>>
+        callback: Callback<AsteroidListDto>
     ) {
         retrofit.getAsteroidsData(startDate, endDate).enqueue(callback)
     }

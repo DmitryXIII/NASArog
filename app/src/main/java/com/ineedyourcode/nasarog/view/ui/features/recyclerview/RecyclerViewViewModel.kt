@@ -2,12 +2,10 @@ package com.ineedyourcode.nasarog.view.ui.features.recyclerview
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidDto
-import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
+import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
 import com.ineedyourcode.nasarog.utils.getCurrentDate
-import com.ineedyourcode.nasarog.utils.getPreviousDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,10 +19,10 @@ class RecyclerViewViewModel(
 
     fun getLiveData(): MutableLiveData<AsteroidDataState> = liveData
 
-    fun getaAsteroidsDataRequest() {
+    fun getAsteroidsDataRequest() {
         liveData.postValue(AsteroidDataState.Loading)
-        retrofitRepository.getAsteroidsData(requestDate, requestDate, object : Callback<List<AsteroidDto>> {
-            override fun onResponse(call: Call<List<AsteroidDto>>, response: Response<List<AsteroidDto>>) {
+        retrofitRepository.getAsteroidsData(requestDate, requestDate, object : Callback<AsteroidListDto> {
+            override fun onResponse(call: Call<AsteroidListDto>, response: Response<AsteroidListDto>) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let {
                         liveData.postValue(AsteroidDataState.AsteroidDataSuccess(it))
@@ -34,7 +32,7 @@ class RecyclerViewViewModel(
                 }
             }
 
-            override fun onFailure(call: Call<List<AsteroidDto>>, t: Throwable) {
+            override fun onFailure(call: Call<AsteroidListDto>, t: Throwable) {
                 liveData.postValue(AsteroidDataState.Error(NullPointerException("Ошибка связи с сервером")))
             }
         })

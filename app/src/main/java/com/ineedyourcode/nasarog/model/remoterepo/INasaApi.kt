@@ -1,7 +1,7 @@
 package com.ineedyourcode.nasarog.model.remoterepo
 
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
-import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidDto
+import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDto
 import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
@@ -27,5 +27,5 @@ interface INasaApi {
     fun getAsteroidsData(
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String
-    ): Call<List<AsteroidDto>>
+    ): Call<AsteroidListDto>
 }
