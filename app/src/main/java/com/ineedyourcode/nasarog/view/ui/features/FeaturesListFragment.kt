@@ -2,8 +2,10 @@ package com.ineedyourcode.nasarog.view.ui.features
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.*
+import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.BounceInterpolator
+import android.view.animation.LinearInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
@@ -11,7 +13,6 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import kotlin.random.Random
-
 
 /**
  * MultiBackstack из navigation component создает проблемы при воспроизведении анимации.
@@ -27,6 +28,10 @@ import kotlin.random.Random
  * Обе анимации (передвигающиеся круги и звездное небо) зациклены, из-за большого количества звезд на небе
  * на эмуляторе может подтормаживать, на реальном устройстве смотрится интереснее.
  */
+
+private const val STARS_NUMBER = 1000 // количество звезд на экране
+private const val STARS_BORNING_DURATION = 10000 // врямя стартовой отрисовки звезд (миллисекунды)
+private const val COMET_BORNING_CHANCE = 3 // вероятность рождения летящей кометы (%)
 
 class FeaturesListFragment :
     BaseFragment<FragmentFeaturesListBinding>(FragmentFeaturesListBinding::inflate) {
@@ -119,7 +124,7 @@ class FeaturesListFragment :
 
         savedInstance = savedInstanceState
 
-        for (i in 0..299) {
+        for (i in 0..STARS_NUMBER) {
             starsList.add(View(requireContext()).apply {
                 alpha = 0f
             })
@@ -346,7 +351,7 @@ class FeaturesListFragment :
             x = (0..spaceWidth.toInt()).random().toFloat()
             y = (0..spaceHeight.toInt()).random().toFloat()
             animate()
-                .setStartDelay((100..10000).random().toLong())
+                .setStartDelay((100..STARS_BORNING_DURATION).random().toLong())
                 .alpha(Random.nextFloat())
                 .setInterpolator(LinearInterpolator())
                 .withEndAction { animationSpaceBackgroundScene2(starView) }
@@ -375,15 +380,7 @@ class FeaturesListFragment :
             x = (0..spaceWidth.toInt()).random().toFloat()
             y = (0..spaceHeight.toInt()).random().toFloat()
             when (Random.nextFloat()) {
-                in 0f..0.85f -> {
-                    animate()
-                        .setStartDelay((0..1000).random().toLong())
-                        .alpha(Random.nextFloat())
-                        .setInterpolator(LinearInterpolator())
-                        .withEndAction { animationSpaceBackgroundScene2(starView) }
-                        .duration = (300..10000).random().toLong()
-                }
-                else -> {
+                in 0f..COMET_BORNING_CHANCE / 100f -> {
                     alpha = 0f
                     val flyingToX = if (Random.nextBoolean()) {
                         (0..(spaceWidth).toInt()).random().toFloat()
@@ -413,6 +410,14 @@ class FeaturesListFragment :
                                 .duration = flyingDuration
                         }
                         .duration = flyingDuration
+                }
+                else -> {
+                    animate()
+                        .setStartDelay((0..1000).random().toLong())
+                        .alpha(Random.nextFloat())
+                        .setInterpolator(LinearInterpolator())
+                        .withEndAction { animationSpaceBackgroundScene2(starView) }
+                        .duration = (300..10000).random().toLong()
                 }
             }
         }
