@@ -19,32 +19,31 @@ class RecyclerViewFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
-            override fun onAsteroidItemClick(asteroid: AsteroidListDto.AsteroidDto) {
-                showToast(requireContext(), asteroid.name)
-            }
-        })
-
         viewModel.getLiveData().observe(viewLifecycleOwner) {
-            renderData(it, adapter)
+            renderData(it)
         }
 
         viewModel.getAsteroidsDataRequest()
     }
 
-    private fun renderData(state: AsteroidDataState, mAdapter: RecyclerViewFragmentAdapter) {
+    private fun renderData(state: AsteroidDataState) {
         with(binding) {
             when (state) {
                 AsteroidDataState.Loading -> {
-                    setVisibilityOnStateLoading(recyclerViewSpinKit, recyclerView)
+                    setVisibilityOnStateLoading(recyclerViewSpinKit)
                 }
                 is AsteroidDataState.AsteroidDataSuccess -> {
-                    mAdapter.setData(state.asteroidList)
                     recyclerView.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = mAdapter
+                        adapter = RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
+                            override fun onAsteroidItemClick(asteroid: AsteroidListDto.AsteroidDto) {
+                                showToast(requireContext(), asteroid.name)
+                            }
+                        }).apply {
+                            setData(state.asteroidList)
+                        }
                     }
-                    setVisibilityOnStateSuccess(recyclerViewSpinKit, recyclerView)
+                    setVisibilityOnStateSuccess(recyclerViewSpinKit)
                 }
                 is AsteroidDataState.Error -> {}
             }

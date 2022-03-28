@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
+import com.ineedyourcode.nasarog.utils.TYPE_HAZARDOUS
+import com.ineedyourcode.nasarog.utils.TYPE_UNHAZARDOUS
+import com.ineedyourcode.nasarog.utils.convertNasaDateFormatToMyFormat
 
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -18,14 +21,14 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     override fun getItemViewType(position: Int): Int {
         return when (asteroidList[position].isPotentiallyHazardousAsteroid) {
-            true -> 1
-            false -> 2
+            true -> TYPE_HAZARDOUS
+            false -> TYPE_UNHAZARDOUS
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            1 -> {
+            TYPE_HAZARDOUS -> {
                 val binding = FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -42,10 +45,10 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)){
-            1 -> {
+            TYPE_HAZARDOUS -> {
                 (holder as HazardousAsteroidViewHolder).bind(asteroidList[position])
             }
-            2 -> {
+            TYPE_UNHAZARDOUS -> {
                 (holder as UnhazardousAsteroidViewHolder).bind(asteroidList[position])
             }
         }
@@ -58,7 +61,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
                 tvAsteroidName.text = asteroid.name
                 tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
-                tvCloseApproachDate.text = asteroid.closeApproachData.first().closeApproachDate
+                tvCloseApproachDate.text = convertNasaDateFormatToMyFormat(asteroid.closeApproachData.first().closeApproachDate)
                 ivUnhazardousItemIcon.setOnClickListener {
                     onClickListener.onAsteroidItemClick(asteroid)
                 }
@@ -71,7 +74,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
                 tvAsteroidName.text = asteroid.name
                 tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
-                tvCloseApproachDate.text = asteroid.closeApproachData.first().closeApproachDate
+                tvCloseApproachDate.text = convertNasaDateFormatToMyFormat(asteroid.closeApproachData.first().closeApproachDate)
                 ivHazardousItemIcon.setOnClickListener {
                     onClickListener.onAsteroidItemClick(asteroid)
                 }

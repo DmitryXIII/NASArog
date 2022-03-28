@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
 import com.ineedyourcode.nasarog.utils.getCurrentDate
+import com.ineedyourcode.nasarog.utils.getTwoDaysForwardDate
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,13 +16,11 @@ class RecyclerViewViewModel(
     private val retrofitRepository: INasaRepository = NasaRepository()
 ) : ViewModel() {
 
-    private val requestDate = getCurrentDate()
-
     fun getLiveData(): MutableLiveData<AsteroidDataState> = liveData
 
     fun getAsteroidsDataRequest() {
         liveData.postValue(AsteroidDataState.Loading)
-        retrofitRepository.getAsteroidsData(getBeforeYesterdayDate(), getCurrentDate(), object : Callback<AsteroidListDto> {
+        retrofitRepository.getAsteroidsData(getCurrentDate(), getTwoDaysForwardDate(), object : Callback<AsteroidListDto> {
             override fun onResponse(call: Call<AsteroidListDto>, response: Response<AsteroidListDto>) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let {

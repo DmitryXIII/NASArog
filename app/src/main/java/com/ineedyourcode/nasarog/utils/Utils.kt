@@ -11,6 +11,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.text.SimpleDateFormat
 import java.util.*
 
+const val TYPE_HAZARDOUS = 1
+const val TYPE_UNHAZARDOUS = 2
+
 fun getBeforeYesterdayDate(): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val beforeYesterdayDate = Calendar.getInstance().apply {
@@ -37,6 +40,14 @@ fun getPreviousDate(dateIndex: Int): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val beforeYesterdayDate = Calendar.getInstance().apply {
         add(Calendar.DATE, dateIndex)
+    }
+    return dateFormat.format(beforeYesterdayDate.time)
+}
+
+fun getTwoDaysForwardDate(): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val beforeYesterdayDate = Calendar.getInstance().apply {
+        add(Calendar.DATE, 2)
     }
     return dateFormat.format(beforeYesterdayDate.time)
 }
