@@ -43,4 +43,7 @@
     <string name="btn_not_stable_shared_element_transition">Not stable shared element transition</string>
     <string name="menu_action_features">Features</string>
     <string name="btn_recycler_view">Recycler view</string>
+    <string name="asteroid_name_title">Имя астероида:</string>
+    <string name="asteroid_magnitude_h_title">Магнитуда H:</string>
+    <string name="asteroid_close_approach_date_title">Дата приближения к Земле:</string>
 </resources>

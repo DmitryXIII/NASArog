@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:paddingHorizontal="@dimen/margin_4dp"
+    android:paddingTop="@dimen/margin_4dp"
+    tools:background="@color/black">
+
+    <ImageView
+        android:id="@+id/iv_unhazardous_item_icon"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/zero"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:src="@drawable/ic_features"
+        app:layout_constraintBottom_toBottomOf="@id/item_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/tv_asteroid_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_name_title"
+        app:layout_constraintBottom_toTopOf="@id/tv_asteroid_magnitude_h"
+        app:layout_constraintStart_toEndOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintTop_toTopOf="@id/iv_unhazardous_item_icon" />
+
+    <TextView
+        android:id="@+id/tv_asteroid_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_asteroid_magnitude_h"
+        app:layout_constraintStart_toEndOf="@id/tv_asteroid_name_title"
+        app:layout_constraintTop_toTopOf="@id/iv_unhazardous_item_icon"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tv_asteroid_magnitude_h_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_magnitude_h_title"
+        app:layout_constraintBottom_toTopOf="@id/tv_close_approach_date"
+        app:layout_constraintStart_toEndOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintTop_toBottomOf="@id/tv_asteroid_name" />
+
+    <TextView
+        android:id="@+id/tv_asteroid_magnitude_h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_close_approach_date"
+        app:layout_constraintStart_toEndOf="@id/tv_asteroid_magnitude_h_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_asteroid_name"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tv_close_approach_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_close_approach_date_title"
+        app:layout_constraintBottom_toBottomOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintStart_toEndOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintTop_toBottomOf="@id/tv_asteroid_magnitude_h" />
+
+    <TextView
+        android:id="@+id/tv_close_approach_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintStart_toEndOf="@id/tv_close_approach_date_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_asteroid_magnitude_h"
+        tools:text="@tools:sample/lorem" />
+
+    <View
+        android:id="@+id/item_divider"
+        android:layout_width="@dimen/zero"
+        android:layout_height="1px"
+        android:background="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
+import com.ineedyourcode.nasarog.utils.getBeforeYesterdayDate
 import com.ineedyourcode.nasarog.utils.getCurrentDate
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,13 +22,17 @@ class RecyclerViewViewModel(
 
     fun getAsteroidsDataRequest() {
         liveData.postValue(AsteroidDataState.Loading)
-        retrofitRepository.getAsteroidsData(requestDate, requestDate, object : Callback<AsteroidListDto> {
+        retrofitRepository.getAsteroidsData(getBeforeYesterdayDate(), getCurrentDate(), object : Callback<AsteroidListDto> {
             override fun onResponse(call: Call<AsteroidListDto>, response: Response<AsteroidListDto>) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let {
-                        it.nearEarthObjects[requestDate]?.let {asteroidList ->
-                            liveData.postValue(AsteroidDataState.AsteroidDataSuccess(asteroidList))
+                        val asteroidList = mutableListOf<AsteroidListDto.AsteroidDto>()
+                        it.nearEarthObjects.forEach {(_, asteroidListByDate) ->
+                            for (asteroid in asteroidListByDate) {
+                                asteroidList.add(asteroid)
+                            }
                         }
+                            liveData.postValue(AsteroidDataState.AsteroidDataSuccess(asteroidList))
                     }
                 } else {
                     liveData.postValue(AsteroidDataState.Error(NullPointerException("Пустой ответ сервера")))
