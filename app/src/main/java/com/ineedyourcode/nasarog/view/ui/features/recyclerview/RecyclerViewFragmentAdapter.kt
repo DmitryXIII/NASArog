@@ -11,7 +11,7 @@ import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.utils.*
 
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
     lateinit var asteroidList: List<AsteroidListDto.AsteroidDto>
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
@@ -22,7 +22,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         return asteroidList[position].type
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseAsteroidViewHolder {
         return when (viewType) {
             ITEM_TYPE_HAZARDOUS -> {
                 val binding = FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.inflate(
@@ -45,24 +45,14 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (getItemViewType(position)) {
-            ITEM_TYPE_HAZARDOUS -> {
-                (holder as HazardousAsteroidViewHolder).bind(asteroidList[position])
-            }
-            ITEM_TYPE_UNHAZARDOUS -> {
-                (holder as UnhazardousAsteroidViewHolder).bind(asteroidList[position])
-            }
-            ITEM_TYPE_HEADER -> {
-                (holder as HeaderViewHolder).bind(asteroidList[position])
-            }
-        }
+    override fun onBindViewHolder(holder: BaseAsteroidViewHolder, position: Int) {
+        holder.bind(asteroidList[position])
     }
 
     override fun getItemCount() = asteroidList.size
 
-    inner class UnhazardousAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+    inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
+        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
                 tvAsteroidName.text = asteroid.name
                 tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
@@ -75,8 +65,8 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         }
     }
 
-    inner class HazardousAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+    inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
+        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
                 tvAsteroidName.text = asteroid.name
                 tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
@@ -89,11 +79,15 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         }
     }
 
-    inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+    inner class HeaderViewHolder(view: View) : BaseAsteroidViewHolder(view) {
+        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
             FragmentFeaturesRecyclerViewHeaderItemBinding.bind(itemView).apply {
                 tvHeader.text = asteroid.name
             }
         }
+    }
+
+    abstract class BaseAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        abstract fun bind(asteroid: AsteroidListDto.AsteroidDto)
     }
 }
