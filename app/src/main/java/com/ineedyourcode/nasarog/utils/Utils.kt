@@ -11,8 +11,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val TYPE_HAZARDOUS = 1
-const val TYPE_UNHAZARDOUS = 2
+const val ITEM_TYPE_HAZARDOUS = 1
+const val ITEM_TYPE_UNHAZARDOUS = 2
+const val ITEM_TYPE_HEADER = 3
 
 fun getBeforeYesterdayDate(): String {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

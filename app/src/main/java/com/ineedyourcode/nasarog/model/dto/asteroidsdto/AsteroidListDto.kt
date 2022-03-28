@@ -18,7 +18,8 @@ data class AsteroidListDto(
         @SerializedName("is_potentially_hazardous_asteroid")
         val isPotentiallyHazardousAsteroid: Boolean,
         @SerializedName("close_approach_data")
-        val closeApproachData: List<CloseApproachData>
+        val closeApproachData: List<CloseApproachData>,
+        var type: Int
     ) {
         data class CloseApproachData(
             @SerializedName("close_approach_date")
