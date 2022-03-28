@@ -17,11 +17,11 @@ class RecyclerViewViewModel(
 
     fun getLiveData(): MutableLiveData<AsteroidDataState> = liveData
 
-    fun getAsteroidsDataRequest() {
+    fun getAsteroidsDataRequest(dateStart: String, dateEnd: String, header: String) {
         liveData.postValue(AsteroidDataState.Loading)
         retrofitRepository.getAsteroidsData(
-            getCurrentDate(),
-            getTwoDaysForwardDate(),
+            dateStart,
+            dateEnd,
             object : Callback<AsteroidListDto> {
                 override fun onResponse(
                     call: Call<AsteroidListDto>,
@@ -33,7 +33,7 @@ class RecyclerViewViewModel(
                             asteroidList.add(
                                 AsteroidListDto.AsteroidDto(
                                     "0",
-                                    "Header",
+                                    header,
                                     0f,
                                     false,
                                     listOf(),

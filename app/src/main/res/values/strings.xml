@@ -46,4 +46,5 @@
     <string name="asteroid_name_title">Имя астероида:</string>
     <string name="asteroid_magnitude_h_title">Магнитуда H:</string>
     <string name="asteroid_close_approach_date_title">Дата приближения к Земле:</string>
+    <string name="header">Астероиды, пролетающие рядом с Землей в период\nс %1$s по %2$s</string>
 </resources>

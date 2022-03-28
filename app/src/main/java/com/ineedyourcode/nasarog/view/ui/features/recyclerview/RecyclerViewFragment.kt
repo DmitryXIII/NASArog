@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
-import com.ineedyourcode.nasarog.utils.setVisibilityOnStateLoading
-import com.ineedyourcode.nasarog.utils.setVisibilityOnStateSuccess
-import com.ineedyourcode.nasarog.utils.showToast
+import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
 class RecyclerViewFragment :
@@ -23,7 +22,18 @@ class RecyclerViewFragment :
             renderData(it)
         }
 
-        viewModel.getAsteroidsDataRequest()
+        val dateStart = getCurrentDate()
+        val dateEnd = getTwoDaysForwardDate()
+
+        viewModel.getAsteroidsDataRequest(
+            dateStart,
+            dateEnd,
+            getString(
+                R.string.header,
+                convertNasaDateFormatToMyFormat(dateStart),
+                convertNasaDateFormatToMyFormat(dateEnd)
+            )
+        )
     }
 
     private fun renderData(state: AsteroidDataState) {
