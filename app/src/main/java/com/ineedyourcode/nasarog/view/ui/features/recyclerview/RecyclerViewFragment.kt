@@ -9,14 +9,25 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+import kotlin.random.Random
+import java.util.*
 
 class RecyclerViewFragment :
     BaseFragment<FragmentFeaturesRecyclerViewBinding>(FragmentFeaturesRecyclerViewBinding::inflate) {
 
     private val viewModel by viewModels<RecyclerViewViewModel>()
 
+    private lateinit var recyclerViewFragmentAdapter: RecyclerViewFragmentAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recyclerViewFragmentAdapter =
+            RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
+                override fun onAsteroidItemClick(asteroid: AsteroidListDto.AsteroidDto) {
+                    showToast(requireContext(), asteroid.name)
+                }
+            })
 
         viewModel.getLiveData().observe(viewLifecycleOwner) {
             renderData(it)
@@ -34,6 +45,11 @@ class RecyclerViewFragment :
                 convertNasaDateFormatToMyFormat(dateEnd)
             )
         )
+
+        binding.fabAddItem.setOnClickListener {
+            recyclerViewFragmentAdapter.appendItem(generateAsteroidItem())
+            binding.recyclerView.smoothScrollToPosition(recyclerViewFragmentAdapter.itemCount)
+        }
     }
 
     private fun renderData(state: AsteroidDataState) {
@@ -45,11 +61,7 @@ class RecyclerViewFragment :
                 is AsteroidDataState.AsteroidDataSuccess -> {
                     recyclerView.apply {
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
-                            override fun onAsteroidItemClick(asteroid: AsteroidListDto.AsteroidDto) {
-                                showToast(requireContext(), asteroid.name)
-                            }
-                        }).apply {
+                        adapter = recyclerViewFragmentAdapter.apply {
                             setData(state.asteroidList)
                         }
                     }
@@ -58,5 +70,24 @@ class RecyclerViewFragment :
                 is AsteroidDataState.Error -> {}
             }
         }
+    }
+
+    private fun generateAsteroidItem(): AsteroidListDto.AsteroidDto {
+        val generatedIsPotentiallyHazardousAsteroid = Random.nextBoolean()
+
+        return AsteroidListDto.AsteroidDto(
+            id = UUID.randomUUID().toString(),
+            name = "Кастомный астероид",
+            absoluteMagnitudeH = (((Random.nextFloat() * 20) + 5).toString().substring(0, 5)
+                .toFloat()),
+            isPotentiallyHazardousAsteroid = generatedIsPotentiallyHazardousAsteroid,
+            closeApproachData = listOf(
+                AsteroidListDto.AsteroidDto.CloseApproachData(getCurrentDate())
+            ),
+            type = when (generatedIsPotentiallyHazardousAsteroid) {
+                true -> 1
+                false -> 2
+            }
+        )
     }
 }

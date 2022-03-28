@@ -12,10 +12,10 @@ import com.ineedyourcode.nasarog.utils.*
 
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
-    lateinit var asteroidList: List<AsteroidListDto.AsteroidDto>
+    lateinit var asteroidList: MutableList<AsteroidListDto.AsteroidDto>
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
-        asteroidList = mAsteroidList
+        asteroidList = mAsteroidList.toMutableList()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -50,6 +50,11 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     override fun getItemCount() = asteroidList.size
+
+    fun appendItem(generatedAsteroidItem: AsteroidListDto.AsteroidDto) {
+        asteroidList.add(generatedAsteroidItem)
+        notifyItemInserted(asteroidList.size -1)
+    }
 
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
         override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
