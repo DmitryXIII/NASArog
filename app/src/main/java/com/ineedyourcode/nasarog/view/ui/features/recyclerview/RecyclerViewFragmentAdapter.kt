@@ -8,7 +8,9 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHazardo
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHeaderItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
-import com.ineedyourcode.nasarog.utils.*
+import com.ineedyourcode.nasarog.utils.ITEM_TYPE_HAZARDOUS
+import com.ineedyourcode.nasarog.utils.ITEM_TYPE_UNHAZARDOUS
+import com.ineedyourcode.nasarog.utils.convertNasaDateFormatToMyFormat
 
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
@@ -16,6 +18,11 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
         asteroidList = mAsteroidList.toMutableList()
+    }
+
+    fun appendItem(generatedAsteroidItem: AsteroidListDto.AsteroidDto) {
+        asteroidList.add(generatedAsteroidItem)
+        notifyItemInserted(asteroidList.size -1)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -50,11 +57,6 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     override fun getItemCount() = asteroidList.size
-
-    fun appendItem(generatedAsteroidItem: AsteroidListDto.AsteroidDto) {
-        asteroidList.add(generatedAsteroidItem)
-        notifyItemInserted(asteroidList.size -1)
-    }
 
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
         override fun bind(asteroid: AsteroidListDto.AsteroidDto) {

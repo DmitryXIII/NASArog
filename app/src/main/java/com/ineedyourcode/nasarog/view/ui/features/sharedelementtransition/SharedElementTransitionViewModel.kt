@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

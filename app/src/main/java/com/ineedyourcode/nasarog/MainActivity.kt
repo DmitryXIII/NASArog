@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import com.ineedyourcode.nasarog.view.ui.navigation.NavigationFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"
@@ -16,6 +17,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_fragment_container, NavigationFragment())
+                .commit()
+        }
 
         setContentView(R.layout.activity_main)
 

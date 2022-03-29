@@ -9,8 +9,8 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
-import kotlin.random.Random
 import java.util.*
+import kotlin.random.Random
 
 class RecyclerViewFragment :
     BaseFragment<FragmentFeaturesRecyclerViewBinding>(FragmentFeaturesRecyclerViewBinding::inflate) {

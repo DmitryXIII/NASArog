@@ -8,10 +8,12 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
-import androidx.navigation.fragment.findNavController
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
+import com.ineedyourcode.nasarog.view.ui.features.custombehavior.CoordinatorLayoutExampleFragment
+import com.ineedyourcode.nasarog.view.ui.features.recyclerview.RecyclerViewFragment
+import com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.SharedElementTransitionFragment
 import kotlin.random.Random
 
 /**
@@ -35,10 +37,6 @@ private const val COMET_BORNING_CHANCE = 3 // вероятность рожде�
 
 class FeaturesListFragment :
     BaseFragment<FragmentFeaturesListBinding>(FragmentFeaturesListBinding::inflate) {
-
-    companion object {
-        const val KEY_BACK_STACK_ENTRY = "KEY_BACK_STACK_ENTRY"
-    }
 
     private val starsList = mutableListOf<View>()
 
@@ -136,25 +134,28 @@ class FeaturesListFragment :
             binding.rootFrame.addView(starsList[i])
         }
 
-        backEntry =
-            findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
-                KEY_BACK_STACK_ENTRY
-            )?.value
-
         binding.btnCustomBehavior.setOnClickListener {
-            findNavController().navigate(R.id.action_featuresListFragment_to_coordinatorLayoutExampleFragment)
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.navigation_container, CoordinatorLayoutExampleFragment())
+                .addToBackStack("")
+                .commit()
         }
 
         binding.btnSharedElementTransition.setOnClickListener {
-            findNavController().navigate(R.id.action_featuresListFragment_to_sharedElementTransitionFragment)
-        }
-
-        binding.btnSharedElementTransitionNotStable.setOnClickListener {
-            findNavController().navigate(R.id.action_featuresListFragment_to_notStableAnimationFragment)
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.navigation_container, SharedElementTransitionFragment())
+                .addToBackStack("")
+                .commit()
         }
 
         binding.btnRecyclerView.setOnClickListener {
-            findNavController().navigate(R.id.action_featuresListFragment_to_recyclerViewFragment)
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.navigation_container, RecyclerViewFragment())
+                .addToBackStack("")
+                .commit()
         }
     }
 

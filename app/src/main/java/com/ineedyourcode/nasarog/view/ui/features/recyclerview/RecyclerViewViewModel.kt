@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.remoterepo.INasaRepository
 import com.ineedyourcode.nasarog.model.remoterepo.NasaRepository
-import com.ineedyourcode.nasarog.utils.*
+import com.ineedyourcode.nasarog.utils.ITEM_TYPE_HAZARDOUS
+import com.ineedyourcode.nasarog.utils.ITEM_TYPE_HEADER
+import com.ineedyourcode.nasarog.utils.ITEM_TYPE_UNHAZARDOUS
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

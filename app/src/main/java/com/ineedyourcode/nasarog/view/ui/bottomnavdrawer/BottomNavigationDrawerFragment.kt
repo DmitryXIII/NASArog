@@ -3,12 +3,15 @@ package com.ineedyourcode.nasarog.view.ui.bottomnavdrawer
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentBottomNavigationDrawerBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseBottomSheetDialogFragment
+import com.ineedyourcode.nasarog.view.ui.settings.SettingsFragment
 
-class BottomNavigationDrawerFragment : BaseBottomSheetDialogFragment<FragmentBottomNavigationDrawerBinding>(FragmentBottomNavigationDrawerBinding::inflate) {
+class BottomNavigationDrawerFragment :
+    BaseBottomSheetDialogFragment<FragmentBottomNavigationDrawerBinding>(
+        FragmentBottomNavigationDrawerBinding::inflate
+    ) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -16,7 +19,10 @@ class BottomNavigationDrawerFragment : BaseBottomSheetDialogFragment<FragmentBot
         binding.bottomNavigationMenuLayout.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_menu_bottomnav_themes -> {
-                    findNavController().navigate(R.id.action_bottomNavigationDrawerFragment_to_settingsFragment)
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.navigation_container, SettingsFragment())
+                        .commit()
                     dismiss()
                     true
                 }
