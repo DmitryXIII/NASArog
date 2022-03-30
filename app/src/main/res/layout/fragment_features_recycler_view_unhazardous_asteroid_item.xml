@@ -114,11 +114,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_move_item_icon"
+        android:id="@+id/ivMoveItemUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_burger"
+        android:src="@drawable/ic_double_arrow_up"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toEndOf="@id/ivMenuPanelBackArrow"
+        app:layout_constraintEnd_toStartOf="@id/iv_add_item_icon"
+        app:tint="@android:color/holo_green_light"/>
+
+    <ImageView
+        android:id="@+id/ivMoveItemDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_double_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toEndOf="@id/iv_add_item_icon"
+        app:layout_constraintEnd_toStartOf="@id/ivMoveItem"
+        app:tint="@android:color/holo_green_light"/>
+
+    <ImageView
+        android:id="@+id/ivMoveItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_8dp"
+        android:src="@drawable/ic_burger"
         app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
         app:layout_constraintEnd_toEndOf="@id/itemMenuPanel"
         app:layout_constraintTop_toTopOf="@id/itemMenuPanel"

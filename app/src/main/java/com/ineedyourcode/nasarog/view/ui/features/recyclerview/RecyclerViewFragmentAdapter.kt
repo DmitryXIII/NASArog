@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
@@ -28,8 +27,8 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
     lateinit var asteroidList: MutableList<AsteroidListDto.AsteroidDto>
 
-    var startPosition: Int = 0
-    var endPosition: Int = 0
+    private var startPosition: Int = 0
+    private var endPosition: Int = 0
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
         asteroidList = mAsteroidList.toMutableList()
@@ -129,6 +128,24 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                         R.id.layoutUnhazardousItem,
                         R.id.tv_asteroid_name_title
                     )
+                }
+
+                ivMoveItemUp.setOnClickListener {
+                    if (layoutPosition > 1) {
+                        asteroidList.removeAt(layoutPosition).apply {
+                            asteroidList.add(layoutPosition - 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition - 1)
+                    }
+                }
+
+                ivMoveItemDown.setOnClickListener {
+                    if (layoutPosition < asteroidList.size - 1) {
+                        asteroidList.removeAt(layoutPosition).apply {
+                            asteroidList.add(layoutPosition + 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition + 1)
+                    }
                 }
             }
         }
