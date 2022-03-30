@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewBinding
 import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
@@ -12,15 +13,19 @@ import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import java.util.*
 import kotlin.random.Random
 
+
 class RecyclerViewFragment :
     BaseFragment<FragmentFeaturesRecyclerViewBinding>(FragmentFeaturesRecyclerViewBinding::inflate) {
 
     private val viewModel by viewModels<RecyclerViewViewModel>()
 
     private lateinit var recyclerViewFragmentAdapter: RecyclerViewFragmentAdapter
+    private lateinit var recViewLayoutManager : LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recViewLayoutManager = LinearLayoutManager(requireContext())
 
         recyclerViewFragmentAdapter =
             RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
@@ -47,7 +52,7 @@ class RecyclerViewFragment :
         )
 
         binding.fabAddItem.setOnClickListener {
-            recyclerViewFragmentAdapter.appendItem(generateAsteroidItem())
+            recyclerViewFragmentAdapter.appendItem()
             binding.recyclerView.smoothScrollToPosition(recyclerViewFragmentAdapter.itemCount)
         }
     }
@@ -56,38 +61,24 @@ class RecyclerViewFragment :
         with(binding) {
             when (state) {
                 AsteroidDataState.Loading -> {
-                    setVisibilityOnStateLoading(recyclerViewSpinKit)
+                    setVisibilityOnStateLoading(recyclerViewSpinKit, recyclerView, fabAddItem)
                 }
                 is AsteroidDataState.AsteroidDataSuccess -> {
                     recyclerView.apply {
-                        layoutManager = LinearLayoutManager(requireContext())
+                        layoutManager = recViewLayoutManager
                         adapter = recyclerViewFragmentAdapter.apply {
                             setData(state.asteroidList)
                         }
+                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                                recyclerViewFragmentAdapter.getOnScreenPosition(recViewLayoutManager.findFirstVisibleItemPosition(), recViewLayoutManager.findLastVisibleItemPosition())
+                            }
+                        })
                     }
-                    setVisibilityOnStateSuccess(recyclerViewSpinKit)
+                    setVisibilityOnStateSuccess(recyclerViewSpinKit, recyclerView, fabAddItem)
                 }
                 is AsteroidDataState.Error -> {}
             }
         }
-    }
-
-    private fun generateAsteroidItem(): AsteroidListDto.AsteroidDto {
-        val generatedIsPotentiallyHazardousAsteroid = Random.nextBoolean()
-
-        return AsteroidListDto.AsteroidDto(
-            id = UUID.randomUUID().toString(),
-            name = "Кастомный астероид",
-            absoluteMagnitudeH = (((Random.nextFloat() * 20) + 5).toString().substring(0, 5)
-                .toFloat()),
-            isPotentiallyHazardousAsteroid = generatedIsPotentiallyHazardousAsteroid,
-            closeApproachData = listOf(
-                AsteroidListDto.AsteroidDto.CloseApproachData(getCurrentDate())
-            ),
-            type = when (generatedIsPotentiallyHazardousAsteroid) {
-                true -> 1
-                false -> 2
-            }
-        )
     }
 }

@@ -11,8 +11,8 @@
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_mars_photo"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="iv_mars_photo, mars_photo_date_layout" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -49,6 +49,7 @@
         android:id="@+id/iv_arrow_right"
         android:layout_width="30dp"
         android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_4dp"
         android:background="@drawable/arrow_background"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@id/guide_horizontal_0.5"
@@ -60,6 +61,7 @@
         android:id="@+id/iv_arrow_left"
         android:layout_width="30dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/margin_4dp"
         android:background="@drawable/arrow_background"
         android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@id/guide_horizontal_0.5"
@@ -67,15 +69,13 @@
         app:layout_constraintTop_toTopOf="@id/guide_horizontal_0.5"
         app:srcCompat="@drawable/ic_arrow_left" />
 
-
-
     <LinearLayout
         android:id="@+id/mars_photo_date_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_4dp"
-        android:orientation="vertical"
         android:background="@drawable/mars_photo_date_background"
+        android:orientation="vertical"
         android:paddingHorizontal="@dimen/margin_4dp"
         app:layout_constraintEnd_toEndOf="@id/iv_mars_photo"
         app:layout_constraintStart_toStartOf="@id/iv_mars_photo"
