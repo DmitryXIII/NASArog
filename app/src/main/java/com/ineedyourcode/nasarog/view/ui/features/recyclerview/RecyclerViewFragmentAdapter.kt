@@ -8,6 +8,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
@@ -96,8 +97,12 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 tvCloseApproachDate.text =
                     convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
 
-                if(asteroidList[layoutPosition].second) {
-
+                if (asteroidList[layoutPosition].second) {
+                    groupDetails.isVisible = false
+                    groupMenuPanel.isVisible = true
+                } else {
+                    groupDetails.isVisible = true
+                    groupMenuPanel.isVisible = false
                 }
 
                 ivUnhazardousItemIcon.setOnClickListener {
@@ -120,20 +125,28 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 }
 
                 ivMenuPanelBackArrow.setOnClickListener {
-                    closeItemMenuPanel(
-                        layoutUnhazardousItem,
-                        R.id.itemMenuPanel,
-                        R.id.layoutUnhazardousItem
-                    )
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
+                        it.first to false
+                    }
+                    notifyItemChanged(layoutPosition)
+//                    closeItemMenuPanel(
+//                        layoutUnhazardousItem,
+//                        R.id.itemMenuPanel,
+//                        R.id.layoutUnhazardousItem
+//                    )
                 }
 
                 ivMenuPanelOpenArrow.setOnClickListener {
-                    openItemMenuPanel(
-                        layoutUnhazardousItem,
-                        R.id.itemMenuPanel,
-                        R.id.layoutUnhazardousItem,
-                        R.id.tv_asteroid_name_title
-                    )
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
+                        it.first to true
+                    }
+                    notifyItemChanged(layoutPosition)
+//                    openItemMenuPanel(
+//                        layoutUnhazardousItem,
+//                        R.id.itemMenuPanel,
+//                        R.id.layoutUnhazardousItem,
+//                        R.id.tv_asteroid_name_title
+//                    )
                 }
 
                 ivMoveItemUp.setOnClickListener {
@@ -154,12 +167,12 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                     }
                 }
 
-                ivUnhazardousItemIcon.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
-                        it.first to !it.second
-                    }
-                    notifyItemChanged(layoutPosition)
-                }
+//                ivUnhazardousItemIcon.setOnClickListener {
+//                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
+//                        it.first to !it.second
+//                    }
+//                    notifyItemChanged(layoutPosition)
+//                }
             }
         }
     }

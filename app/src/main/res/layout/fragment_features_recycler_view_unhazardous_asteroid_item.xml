@@ -7,7 +7,7 @@
     android:layout_height="130dp"
     android:paddingHorizontal="@dimen/margin_4dp"
     android:paddingTop="@dimen/margin_4dp"
-    tools:background="@color/black">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/iv_unhazardous_item_icon"
@@ -19,6 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@android:color/holo_green_light" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivMenuPanelOpenArrow, tv_asteroid_name_title, tv_asteroid_name, tv_asteroid_magnitude_h_title, tv_asteroid_magnitude_h, tv_close_approach_date_title, tv_close_approach_date"/>
 
     <ImageView
         android:id="@+id/ivMenuPanelOpenArrow"
@@ -100,17 +106,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupMenuPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="itemMenuPanel, ivMoveItemUp, ivMoveItemDown, ivMoveItem, iv_add_item_icon, iv_delete_item_icon, ivMenuPanelBackArrow"/>
+
     <View
         android:id="@+id/itemMenuPanel"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
-        android:layout_marginStart="@dimen/margin_4dp"
         android:layout_marginBottom="@dimen/margin_4dp"
         android:background="#2E2E2E"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginStart="@dimen/margin_4dp"
         app:layout_constraintBottom_toTopOf="@id/item_divider"
-        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_unhazardous_item_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
