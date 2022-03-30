@@ -1,18 +1,11 @@
 package com.ineedyourcode.nasarog.view.ui.features.recyclerview
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Group
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
-import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHeaderItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding
@@ -28,9 +21,6 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
     private var asteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
 
-    private var startPosition: Int = 0
-    private var endPosition: Int = 0
-
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
         for (asteroid in mAsteroidList) {
             asteroidList.add(Pair(asteroid, false))
@@ -41,13 +31,6 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         asteroidList.add(Pair(generateAsteroidItem(), false))
         notifyItemInserted(asteroidList.size - 1)
     }
-
-//    fun getOnScreenPosition(mStartPosition: Int, mEndPosition: Int) {
-//        startPosition = mStartPosition
-//        endPosition = mEndPosition
-//        Log.d("WWWWWWW", "startPos - $startPosition")
-//        Log.d("WWWWWWW", "endPos - $endPosition")
-//    }
 
     override fun getItemViewType(position: Int): Int {
         return asteroidList[position].first.type
@@ -85,68 +68,40 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
-//                Log.d("WWWWWWW", "IS RECYCLABLE $isRecyclable")
-//                Log.d("WWWWWWW", "layoutPosition $layoutPosition")
-//                Log.d("WWWWWWW", "absoluteAdapterPosition $absoluteAdapterPosition")
-//                Log.d("WWWWWWW", "adapterPosition $adapterPosition")
-//                Log.d("WWWWWWW", "bindingAdapterPosition $bindingAdapterPosition")
-//                Log.d("WWWWWWW", "position $position")
-//                Log.d("WWWWWWW", "oldPosition $oldPosition")
+
                 tvAsteroidName.text = asteroid.first.name
                 tvAsteroidMagnitudeH.text = asteroid.first.absoluteMagnitudeH.toString()
                 tvCloseApproachDate.text =
                     convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
 
-                if (asteroidList[layoutPosition].second) {
-                    groupDetails.isVisible = false
-                    groupMenuPanel.isVisible = true
-                } else {
-                    groupDetails.isVisible = true
-                    groupMenuPanel.isVisible = false
-                }
+                checkItemMenuPanel(
+                    asteroidList[layoutPosition].second,
+                    groupDetails,
+                    groupMenuPanel
+                )
 
-                ivUnhazardousItemIcon.setOnClickListener {
+                ivItemIcon.setOnClickListener {
                     onClickListener.onAsteroidItemClick(asteroid.first)
                 }
 
-                ivAddItemIcon.setOnClickListener {
+                ivAddItem.setOnClickListener {
                     asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
                     notifyItemInserted(layoutPosition)
                 }
 
-                ivDeleteItemIcon.setOnClickListener {
-                    closeItemMenuPanel(
-                        layoutUnhazardousItem,
-                        R.id.itemMenuPanel,
-                        R.id.layoutUnhazardousItem
-                    )
+                ivDeleteItem.setOnClickListener {
                     asteroidList.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
 
                 ivMenuPanelBackArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
-                        it.first to false
-                    }
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to false
                     notifyItemChanged(layoutPosition)
-//                    closeItemMenuPanel(
-//                        layoutUnhazardousItem,
-//                        R.id.itemMenuPanel,
-//                        R.id.layoutUnhazardousItem
-//                    )
                 }
 
                 ivMenuPanelOpenArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
-                        it.first to true
-                    }
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to true
                     notifyItemChanged(layoutPosition)
-//                    openItemMenuPanel(
-//                        layoutUnhazardousItem,
-//                        R.id.itemMenuPanel,
-//                        R.id.layoutUnhazardousItem,
-//                        R.id.tv_asteroid_name_title
-//                    )
                 }
 
                 ivMoveItemUp.setOnClickListener {
@@ -166,13 +121,6 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
                 }
-
-//                ivUnhazardousItemIcon.setOnClickListener {
-//                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
-//                        it.first to !it.second
-//                    }
-//                    notifyItemChanged(layoutPosition)
-//                }
             }
         }
     }
@@ -180,12 +128,58 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
+
                 tvAsteroidName.text = asteroid.first.name
                 tvAsteroidMagnitudeH.text = asteroid.first.absoluteMagnitudeH.toString()
                 tvCloseApproachDate.text =
                     convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
-                ivHazardousItemIcon.setOnClickListener {
+
+                checkItemMenuPanel(
+                    asteroidList[layoutPosition].second,
+                    groupDetails,
+                    groupMenuPanel
+                )
+
+                ivItemIcon.setOnClickListener {
                     onClickListener.onAsteroidItemClick(asteroid.first)
+                }
+
+                ivAddItem.setOnClickListener {
+                    asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
+                    notifyItemInserted(layoutPosition)
+                }
+
+                ivDeleteItem.setOnClickListener {
+                    asteroidList.removeAt(layoutPosition)
+                    notifyItemRemoved(layoutPosition)
+                }
+
+                ivMenuPanelBackArrow.setOnClickListener {
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to false
+                    notifyItemChanged(layoutPosition)
+                }
+
+                ivMenuPanelOpenArrow.setOnClickListener {
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to true
+                    notifyItemChanged(layoutPosition)
+                }
+
+                ivMoveItemUp.setOnClickListener {
+                    if (layoutPosition > 1) {
+                        asteroidList.removeAt(layoutPosition).apply {
+                            asteroidList.add(layoutPosition - 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition - 1)
+                    }
+                }
+
+                ivMoveItemDown.setOnClickListener {
+                    if (layoutPosition < asteroidList.size - 1) {
+                        asteroidList.removeAt(layoutPosition).apply {
+                            asteroidList.add(layoutPosition + 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition + 1)
+                    }
                 }
             }
         }
@@ -200,7 +194,9 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     abstract class BaseAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        abstract fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>)
+        open fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
+
+        }
     }
 
     private fun generateAsteroidItem(): AsteroidListDto.AsteroidDto {
@@ -222,63 +218,17 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         )
     }
 
-    private fun openItemMenuPanel(
-        layoutItem: ConstraintLayout,
-        menuPanelId: Int,
-        layoutItemId: Int,
-        asteroidTitleId: Int
+    private fun checkItemMenuPanel(
+        isPanelOpen: Boolean,
+        groupDetails: Group,
+        groupMenuPanel: Group
     ) {
-        ConstraintSet().apply {
-            clone(layoutItem)
-            clear(menuPanelId, ConstraintSet.START)
-            connect(
-                menuPanelId,
-                ConstraintSet.START,
-                asteroidTitleId,
-                ConstraintSet.START
-            )
-            connect(
-                menuPanelId,
-                ConstraintSet.END,
-                layoutItemId,
-                ConstraintSet.END
-            )
-            constrainWidth(menuPanelId, 0)
-            applyTo(layoutItem)
+        if (isPanelOpen) {
+            groupDetails.isVisible = false
+            groupMenuPanel.isVisible = true
+        } else {
+            groupDetails.isVisible = true
+            groupMenuPanel.isVisible = false
         }
-
-        TransitionManager.beginDelayedTransition(
-            layoutItem,
-            ChangeBounds().apply {
-                interpolator = DecelerateInterpolator()
-                duration = 300
-            })
-    }
-
-    private fun closeItemMenuPanel(
-        layoutItem: ConstraintLayout,
-        menuPanelId: Int,
-        layoutItemId: Int
-    ) {
-        ConstraintSet().apply {
-            clone(layoutItem)
-            clear(menuPanelId, ConstraintSet.START)
-            clear(menuPanelId, ConstraintSet.END)
-            connect(
-                menuPanelId,
-                ConstraintSet.START,
-                layoutItemId,
-                ConstraintSet.END
-            )
-            constrainWidth(menuPanelId, ConstraintSet.WRAP_CONTENT)
-            applyTo(layoutItem)
-        }
-
-        TransitionManager.beginDelayedTransition(
-            layoutItem,
-            ChangeBounds().apply {
-                interpolator = AccelerateInterpolator()
-                duration = 300
-            })
     }
 }
