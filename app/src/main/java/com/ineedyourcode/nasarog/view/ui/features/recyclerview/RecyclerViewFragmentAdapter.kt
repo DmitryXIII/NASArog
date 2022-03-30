@@ -25,29 +25,31 @@ import kotlin.random.Random
 
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
-    lateinit var asteroidList: MutableList<AsteroidListDto.AsteroidDto>
+    private var asteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
 
     private var startPosition: Int = 0
     private var endPosition: Int = 0
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
-        asteroidList = mAsteroidList.toMutableList()
+        for (asteroid in mAsteroidList) {
+            asteroidList.add(Pair(asteroid, false))
+        }
     }
 
     fun appendItem() {
-        asteroidList.add(generateAsteroidItem())
+        asteroidList.add(Pair(generateAsteroidItem(), false))
         notifyItemInserted(asteroidList.size - 1)
     }
 
-    fun getOnScreenPosition(mStartPosition: Int, mEndPosition: Int) {
-        startPosition = mStartPosition
-        endPosition = mEndPosition
-        Log.d("WWWWWWW", "startPos - $startPosition")
-        Log.d("WWWWWWW", "endPos - $endPosition")
-    }
+//    fun getOnScreenPosition(mStartPosition: Int, mEndPosition: Int) {
+//        startPosition = mStartPosition
+//        endPosition = mEndPosition
+//        Log.d("WWWWWWW", "startPos - $startPosition")
+//        Log.d("WWWWWWW", "endPos - $endPosition")
+//    }
 
     override fun getItemViewType(position: Int): Int {
-        return asteroidList[position].type
+        return asteroidList[position].first.type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseAsteroidViewHolder {
@@ -74,13 +76,13 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     override fun onBindViewHolder(holder: BaseAsteroidViewHolder, position: Int) {
-        holder.bind(asteroidList[position])
+        holder.bind(Pair(asteroidList[position].first, false))
     }
 
     override fun getItemCount() = asteroidList.size
 
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
-        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+        override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
 //                Log.d("WWWWWWW", "IS RECYCLABLE $isRecyclable")
 //                Log.d("WWWWWWW", "layoutPosition $layoutPosition")
@@ -89,17 +91,21 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 //                Log.d("WWWWWWW", "bindingAdapterPosition $bindingAdapterPosition")
 //                Log.d("WWWWWWW", "position $position")
 //                Log.d("WWWWWWW", "oldPosition $oldPosition")
-                tvAsteroidName.text = asteroid.name
-                tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
+                tvAsteroidName.text = asteroid.first.name
+                tvAsteroidMagnitudeH.text = asteroid.first.absoluteMagnitudeH.toString()
                 tvCloseApproachDate.text =
-                    convertNasaDateFormatToMyFormat(asteroid.closeApproachData.first().closeApproachDate)
+                    convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
+
+                if(asteroidList[layoutPosition].second) {
+
+                }
 
                 ivUnhazardousItemIcon.setOnClickListener {
-                    onClickListener.onAsteroidItemClick(asteroid)
+                    onClickListener.onAsteroidItemClick(asteroid.first)
                 }
 
                 ivAddItemIcon.setOnClickListener {
-                    asteroidList.add(layoutPosition, generateAsteroidItem())
+                    asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
                     notifyItemInserted(layoutPosition)
                 }
 
@@ -147,34 +153,41 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
                 }
+
+                ivUnhazardousItemIcon.setOnClickListener {
+                    asteroidList[layoutPosition] = asteroidList[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
+                }
             }
         }
     }
 
     inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
-        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+        override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
-                tvAsteroidName.text = asteroid.name
-                tvAsteroidMagnitudeH.text = asteroid.absoluteMagnitudeH.toString()
+                tvAsteroidName.text = asteroid.first.name
+                tvAsteroidMagnitudeH.text = asteroid.first.absoluteMagnitudeH.toString()
                 tvCloseApproachDate.text =
-                    convertNasaDateFormatToMyFormat(asteroid.closeApproachData.first().closeApproachDate)
+                    convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
                 ivHazardousItemIcon.setOnClickListener {
-                    onClickListener.onAsteroidItemClick(asteroid)
+                    onClickListener.onAsteroidItemClick(asteroid.first)
                 }
             }
         }
     }
 
     inner class HeaderViewHolder(view: View) : BaseAsteroidViewHolder(view) {
-        override fun bind(asteroid: AsteroidListDto.AsteroidDto) {
+        override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewHeaderItemBinding.bind(itemView).apply {
-                tvHeader.text = asteroid.name
+                tvHeader.text = asteroid.first.name
             }
         }
     }
 
     abstract class BaseAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        abstract fun bind(asteroid: AsteroidListDto.AsteroidDto)
+        abstract fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>)
     }
 
     private fun generateAsteroidItem(): AsteroidListDto.AsteroidDto {

@@ -69,11 +69,11 @@ class RecyclerViewFragment :
                         adapter = recyclerViewFragmentAdapter.apply {
                             setData(state.asteroidList)
                         }
-                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                                recyclerViewFragmentAdapter.getOnScreenPosition(recViewLayoutManager.findFirstVisibleItemPosition(), recViewLayoutManager.findLastVisibleItemPosition())
-                            }
-                        })
+//                        addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                                recyclerViewFragmentAdapter.getOnScreenPosition(recViewLayoutManager.findFirstVisibleItemPosition(), recViewLayoutManager.findLastVisibleItemPosition())
+//                            }
+//                        })
                     }
                     setVisibilityOnStateSuccess(recyclerViewSpinKit, recyclerView, fabAddItem)
                 }
