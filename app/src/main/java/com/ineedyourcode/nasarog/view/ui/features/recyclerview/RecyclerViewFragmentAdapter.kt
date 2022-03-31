@@ -294,8 +294,13 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        asteroidList.removeAt(fromPosition).apply { asteroidList.add(toPosition, this) }
-        notifyItemMoved(fromPosition, toPosition)
+        if (toPosition == 0) {
+            asteroidList.removeAt(fromPosition).apply { asteroidList.add(1, this) }
+            notifyItemMoved(fromPosition, 1)
+        } else {
+            asteroidList.removeAt(fromPosition).apply { asteroidList.add(toPosition, this) }
+            notifyItemMoved(fromPosition, toPosition)
+        }
     }
 
     override fun onItemDismiss(position: Int) {
