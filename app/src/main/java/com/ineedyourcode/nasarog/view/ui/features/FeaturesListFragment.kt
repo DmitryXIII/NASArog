@@ -7,6 +7,7 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.utils.showToast
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import com.ineedyourcode.nasarog.view.ui.features.custombehavior.CoordinatorLayoutExampleFragment
+import com.ineedyourcode.nasarog.view.ui.features.recyclerview.RecyclerViewFragment
 
 class FeaturesListFragment :
     BaseFragment<FragmentFeaturesListBinding>(FragmentFeaturesListBinding::inflate) {
@@ -24,6 +25,14 @@ class FeaturesListFragment :
 
         binding.btnSharedElementTransition.setOnClickListener {
             showToast(requireContext(), "Временно отключено")
+        }
+
+        binding.btnRecyclerView.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.navigation_container, RecyclerViewFragment())
+                .addToBackStack("")
+                .commit()
         }
     }
 }
