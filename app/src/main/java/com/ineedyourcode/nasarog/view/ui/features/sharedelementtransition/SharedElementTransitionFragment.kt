@@ -8,6 +8,11 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesSharedElementTransi
 import com.ineedyourcode.nasarog.utils.*
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
+//TODO:
+// - поправить загрузку видео на этот экран
+// - добавить shared element transition
+
+
 class SharedElementTransitionFragment :
     BaseFragment<FragmentFeaturesSharedElementTransitionBinding>(
         FragmentFeaturesSharedElementTransitionBinding::inflate

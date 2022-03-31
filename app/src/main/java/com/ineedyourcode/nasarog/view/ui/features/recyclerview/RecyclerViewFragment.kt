@@ -69,10 +69,11 @@ class RecyclerViewFragment :
         with(binding) {
             when (state) {
                 AsteroidDataState.Loading -> {
-                    setVisibilityOnStateLoading(recyclerViewSpinKit, recyclerView, fabAddItem)
+                    setVisibilityOnStateLoading(recyclerViewSpinKit, recyclerView, fabAddItem, searchingInputLayout)
                 }
                 is AsteroidDataState.AsteroidDataSuccess -> {
                     asteroidList = state.asteroidList
+
                     recyclerViewFragmentAdapter =
                         RecyclerViewFragmentAdapter(object : OnAsteroidItemClickListener {
                             override fun onAsteroidItemClick(asteroid: AsteroidListDto.AsteroidDto) {
@@ -83,16 +84,21 @@ class RecyclerViewFragment :
                                 itemTouchHelper.startDrag(view)
                             }
                         })
+
                     recyclerViewFragmentAdapter.setData(asteroidList)
+
                     recyclerView.apply {
                         layoutManager = recViewLayoutManager
                         adapter = recyclerViewFragmentAdapter
                     }
+
                     itemTouchHelper =
                         ItemTouchHelper(ItemTouchHelperCallback(recyclerViewFragmentAdapter))
                     itemTouchHelper.attachToRecyclerView(binding.recyclerView)
-                    setVisibilityOnStateSuccess(recyclerViewSpinKit, recyclerView, fabAddItem)
+
+                    setVisibilityOnStateSuccess(recyclerViewSpinKit, recyclerView, fabAddItem,searchingInputLayout)
                 }
+
                 is AsteroidDataState.Error -> {}
             }
         }
