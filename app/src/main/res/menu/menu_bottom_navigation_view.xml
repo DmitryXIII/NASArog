@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_bottom_nav_view_apod"
+        android:id="@+id/tabsPagerFragment"
         android:icon="@drawable/ic_camera"
         android:title="@string/menu_action_apod"/>
 
     <item
-        android:id="@+id/action_bottom_navigation_view_planets"
-        android:icon="@drawable/ic_globe"
-        android:title="@string/behaviors"/>
+        android:id="@+id/featuresListFragment"
+        android:icon="@drawable/ic_features"
+        android:title="@string/menu_action_features"/>
 
     <item
-        android:id="@+id/action_bottom_navigation_view_open_menu"
+        android:id="@+id/bottomNavigationDrawerFragment"
         android:icon="@drawable/ic_burger"
         android:title="@string/menu_action_open_menu"/>
 </menu>

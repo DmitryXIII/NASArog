@@ -28,4 +28,18 @@
     <string name="mars_photo_number">Фото # %1$d/%2$d</string>
     <string name="msg_unknown_mediatype">Неизвестный тип медиаданных</string>
     <string name="behaviors">Behaviors</string>
+    <string name="shared_transition">Shared transition</string>
+    <string name="tab_title_apod">Фото дня</string>
+    <string name="tab_title_earth_photo">Фото Земли</string>
+    <string name="tab_title_mars_photo">Фото Марса</string>
+    <string name="apod_title_example">Название APOD</string>
+    <string name="transition_apod_details">transition_apod_details</string>
+    <string name="transition_details_date">transition_details_date</string>
+    <string name="transition_details_title">transition_details_title</string>
+    <string name="transition_details_explanation">transition_details_explanation</string>
+    <string name="postponed_transition">Postponed transition</string>
+    <string name="btn_custom_behavior_title">Custom behavior example</string>
+    <string name="btn_shared_element_transition">Shared element transition</string>
+    <string name="btn_not_stable_shared_element_transition">Not stable shared element transition</string>
+    <string name="menu_action_features">Features</string>
 </resources>

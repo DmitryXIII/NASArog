@@ -5,6 +5,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,3 +79,18 @@ fun setVisibilityOnStateLoading(vararg views: View) {
         }
     }
 }
+
+fun getYouTubeVideoIdFromUrl(url: String): String =
+    url.substringAfterLast('/').substringBefore('?')
+
+fun initYouTubeVideoPlayer(
+    url: String,
+    youTubePlayerView: YouTubePlayerView,
+    startPlayingSecond: Float
+) =
+    youTubePlayerView.addYouTubePlayerListener(object :
+        AbstractYouTubePlayerListener() {
+        override fun onReady(youTubePlayer: YouTubePlayer) {
+            youTubePlayer.loadVideo(getYouTubeVideoIdFromUrl(url), startPlayingSecond)
+        }
+    })
