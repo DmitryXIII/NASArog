@@ -1,5 +1,6 @@
 package com.ineedyourcode.nasarog.view.ui.features.recyclerview
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,9 @@ import com.ineedyourcode.nasarog.utils.getCurrentDate
 import java.util.*
 import kotlin.random.Random
 
-class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener) :
-    RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>() {
+class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener, val onStartDragListener: OnStartDragListener) :
+    RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>(),
+    ItemTouchHelperAdapter {
     private var asteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
@@ -65,7 +67,8 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     override fun getItemCount() = asteroidList.size
 
-    inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
+    inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view),
+        ItemTouchHelperViewHolder {
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
 
@@ -123,9 +126,17 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.WHITE)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
-    inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view) {
+    inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view), ItemTouchHelperViewHolder {
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
 
@@ -183,6 +194,14 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 }
             }
         }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.WHITE)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
+        }
     }
 
     inner class HeaderViewHolder(view: View) : BaseAsteroidViewHolder(view) {
@@ -191,12 +210,18 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 tvHeader.text = asteroid.first.name
             }
         }
-    }
 
-    abstract class BaseAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        open fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
+        override fun onItemSelected() {
 
         }
+
+        override fun onItemClear() {
+
+        }
+    }
+
+    abstract class BaseAsteroidViewHolder(view: View) : RecyclerView.ViewHolder(view), ItemTouchHelperViewHolder {
+        abstract fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>)
     }
 
     private fun generateAsteroidItem(): AsteroidListDto.AsteroidDto {
@@ -230,5 +255,15 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
             groupDetails.isVisible = true
             groupMenuPanel.isVisible = false
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        asteroidList.removeAt(fromPosition).apply { asteroidList.add(toPosition, this) }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        asteroidList.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
