@@ -1,7 +1,6 @@
 package com.ineedyourcode.nasarog.view.ui.features.recyclerview
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.constraintlayout.widget.Group
 import androidx.core.view.MotionEventCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHeaderItemBinding
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding
@@ -24,37 +24,37 @@ import kotlin.random.Random
 class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListener, val onStartDragListener: OnStartDragListener) :
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>(),
     ItemTouchHelperAdapter {
-    private var asteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
-    private var tempAsteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
+    private var dataList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
+    private var tempDataList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
         for (asteroid in mAsteroidList) {
-            asteroidList.add(Pair(asteroid, false))
+            dataList.add(Pair(asteroid, false))
         }
-        tempAsteroidList = asteroidList
+        tempDataList = dataList
     }
 
     fun searchFilter(filteredList: List<AsteroidListDto.AsteroidDto>) {
         if (filteredList.isEmpty()) {
-            asteroidList = tempAsteroidList
+            dataList = tempDataList
             notifyDataSetChanged()
         } else {
-            asteroidList.clear()
+            dataList.clear()
             notifyDataSetChanged()
             for (asteroid in filteredList) {
-                asteroidList.add(Pair(asteroid, false))
-                notifyItemInserted(asteroidList.size - 1)
+                dataList.add(Pair(asteroid, false))
+                notifyItemInserted(dataList.size - 1)
             }
         }
     }
 
     fun appendItem() {
-        asteroidList.add(Pair(generateAsteroidItem(), false))
-        notifyItemInserted(asteroidList.size - 1)
+        dataList.add(Pair(generateAsteroidItem(), false))
+        notifyItemInserted(dataList.size - 1)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return asteroidList[position].first.type
+        return dataList[position].first.type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseAsteroidViewHolder {
@@ -81,10 +81,10 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     override fun onBindViewHolder(holder: BaseAsteroidViewHolder, position: Int) {
-        holder.bind(Pair(asteroidList[position].first, false))
+        holder.bind(Pair(dataList[position].first, false))
     }
 
-    override fun getItemCount() = asteroidList.size
+    override fun getItemCount() = dataList.size
 
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view),
         ItemTouchHelperViewHolder {
@@ -98,7 +98,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                     convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
 
                 checkItemMenuPanel(
-                    asteroidList[layoutPosition].second,
+                    dataList[layoutPosition].second,
                     groupDetails,
                     groupMenuPanel
                 )
@@ -108,38 +108,38 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 }
 
                 ivAddItem.setOnClickListener {
-                    asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
+                    dataList.add(layoutPosition, Pair(generateAsteroidItem(), false))
                     notifyItemInserted(layoutPosition)
                 }
 
                 ivDeleteItem.setOnClickListener {
-                    asteroidList.removeAt(layoutPosition)
+                    dataList.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
 
                 ivMenuPanelBackArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to false
+                    dataList[layoutPosition] = dataList[layoutPosition].first to false
                     notifyItemChanged(layoutPosition)
                 }
 
                 ivMenuPanelOpenArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to true
+                    dataList[layoutPosition] = dataList[layoutPosition].first to true
                     notifyItemChanged(layoutPosition)
                 }
 
                 ivMoveItemUp.setOnClickListener {
                     if (layoutPosition > 1) {
-                        asteroidList.removeAt(layoutPosition).apply {
-                            asteroidList.add(layoutPosition - 1, this)
+                        dataList.removeAt(layoutPosition).apply {
+                            dataList.add(layoutPosition - 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition - 1)
                     }
                 }
 
                 ivMoveItemDown.setOnClickListener {
-                    if (layoutPosition < asteroidList.size - 1) {
-                        asteroidList.removeAt(layoutPosition).apply {
-                            asteroidList.add(layoutPosition + 1, this)
+                    if (layoutPosition < dataList.size - 1) {
+                        dataList.removeAt(layoutPosition).apply {
+                            dataList.add(layoutPosition + 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
@@ -154,8 +154,9 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
             }
         }
 
+        @SuppressLint("ResourceAsColor")
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(itemView.context.resources.getColor(R.color.light_grey, itemView.context.theme))
         }
 
         override fun onItemClear() {
@@ -174,7 +175,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                     convertNasaDateFormatToMyFormat(asteroid.first.closeApproachData.first().closeApproachDate)
 
                 checkItemMenuPanel(
-                    asteroidList[layoutPosition].second,
+                    dataList[layoutPosition].second,
                     groupDetails,
                     groupMenuPanel
                 )
@@ -184,39 +185,39 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 }
 
                 ivAddItem.setOnClickListener {
-                    asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
+                    dataList.add(layoutPosition, Pair(generateAsteroidItem(), false))
                     notifyItemInserted(layoutPosition)
                     bindingAdapterPosition
                 }
 
                 ivDeleteItem.setOnClickListener {
-                    asteroidList.removeAt(layoutPosition)
+                    dataList.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
 
                 ivMenuPanelBackArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to false
+                    dataList[layoutPosition] = dataList[layoutPosition].first to false
                     notifyItemChanged(layoutPosition)
                 }
 
                 ivMenuPanelOpenArrow.setOnClickListener {
-                    asteroidList[layoutPosition] = asteroidList[layoutPosition].first to true
+                    dataList[layoutPosition] = dataList[layoutPosition].first to true
                     notifyItemChanged(layoutPosition)
                 }
 
                 ivMoveItemUp.setOnClickListener {
                     if (layoutPosition > 1) {
-                        asteroidList.removeAt(layoutPosition).apply {
-                            asteroidList.add(layoutPosition - 1, this)
+                        dataList.removeAt(layoutPosition).apply {
+                            dataList.add(layoutPosition - 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition - 1)
                     }
                 }
 
                 ivMoveItemDown.setOnClickListener {
-                    if (layoutPosition < asteroidList.size - 1) {
-                        asteroidList.removeAt(layoutPosition).apply {
-                            asteroidList.add(layoutPosition + 1, this)
+                    if (layoutPosition < dataList.size - 1) {
+                        dataList.removeAt(layoutPosition).apply {
+                            dataList.add(layoutPosition + 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
@@ -232,7 +233,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
         }
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(itemView.context.resources.getColor(R.color.light_grey, itemView.context.theme))
         }
 
         override fun onItemClear() {
@@ -295,16 +296,16 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (toPosition == 0) {
-            asteroidList.removeAt(fromPosition).apply { asteroidList.add(1, this) }
+            dataList.removeAt(fromPosition).apply { dataList.add(1, this) }
             notifyItemMoved(fromPosition, 1)
         } else {
-            asteroidList.removeAt(fromPosition).apply { asteroidList.add(toPosition, this) }
+            dataList.removeAt(fromPosition).apply { dataList.add(toPosition, this) }
             notifyItemMoved(fromPosition, toPosition)
         }
     }
 
     override fun onItemDismiss(position: Int) {
-        asteroidList.removeAt(position)
+        dataList.removeAt(position)
         notifyItemRemoved(position)
     }
 }

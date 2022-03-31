@@ -36,4 +36,6 @@
     <color name="star_color_3">#EF9A9A</color>
     <color name="star_color_4">#A5D6A7</color>
     <color name="star_color_5">#FFFFFF</color>
+
+    <color name="light_grey">#B4B4B4</color>
 </resources>

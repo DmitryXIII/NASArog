@@ -14,9 +14,9 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:hint="@string/asteroid_search_hint"
+        android:visibility="gone"
         app:endIconDrawable="@drawable/ic_search"
         app:endIconMode="custom"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
             android:id="@+id/input_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?colorOnPrimary"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="?colorOnPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -35,9 +35,9 @@
         android:id="@+id/recycler_view"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searching_input_layout" />
 
     <com.github.ybq.android.spinkit.SpinKitView
