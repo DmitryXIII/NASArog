@@ -49,27 +49,13 @@ class RecyclerViewFragment :
 
         binding.inputEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (s.toString() == "" || s.toString() == "null") {
-                    filteredAsteroidList.clear()
-                } else {
-                    for (asteroid in asteroidList) {
-                        if (asteroid.name.lowercase().contains(s.toString().lowercase())) {
-                            filteredAsteroidList.clear()
-                            if (!filteredAsteroidList.contains(asteroid)) {
-                                filteredAsteroidList.add(asteroid)
-                            }
-                        }
-                    }
-                }
-                recyclerViewFragmentAdapter.searchFilter(filteredAsteroidList)
+                searchForEnteredChars(s)
             }
         })
 
@@ -93,8 +79,8 @@ class RecyclerViewFragment :
                                 showToast(requireContext(), asteroid.name)
                             }
                         }, object : OnStartDragListener {
-                            override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
-                                itemTouchHelper.startDrag(viewHolder)
+                            override fun onStartDrag(view: RecyclerView.ViewHolder) {
+                                itemTouchHelper.startDrag(view)
                             }
                         })
                     recyclerViewFragmentAdapter.setData(asteroidList)
@@ -112,7 +98,17 @@ class RecyclerViewFragment :
         }
     }
 
-    class ItemTouchHelperCallback(val recyclerActivityAdapter: RecyclerViewFragmentAdapter) :
+    private fun searchForEnteredChars(s: Editable?) {
+        filteredAsteroidList.clear()
+        for (asteroid in asteroidList) {
+            if (asteroid.name.lowercase().contains(s.toString().lowercase())) {
+                filteredAsteroidList.add(asteroid)
+            }
+        }
+        recyclerViewFragmentAdapter.searchFilter(filteredAsteroidList)
+    }
+
+    class ItemTouchHelperCallback(private val recyclerActivityAdapter: RecyclerViewFragmentAdapter) :
         ItemTouchHelper.Callback() {
 
         override fun isLongPressDragEnabled(): Boolean {
