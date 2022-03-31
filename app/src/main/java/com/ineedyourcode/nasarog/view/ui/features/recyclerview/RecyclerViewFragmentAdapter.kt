@@ -1,10 +1,13 @@
 package com.ineedyourcode.nasarog.view.ui.features.recyclerview
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.Group
+import androidx.core.view.MotionEventCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding
@@ -69,6 +72,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
 
     inner class UnhazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view),
         ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewUnhazardousAsteroidItemBinding.bind(itemView).apply {
 
@@ -124,6 +128,13 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
                 }
+
+                ivMoveItem.setOnTouchListener { _, event ->
+                    if(MotionEventCompat.getActionMasked(event)== MotionEvent.ACTION_DOWN){
+                        onStartDragListener.onStartDrag(this@UnhazardousAsteroidViewHolder)
+                    }
+                    false
+                }
             }
         }
 
@@ -137,6 +148,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     }
 
     inner class HazardousAsteroidViewHolder(view: View) : BaseAsteroidViewHolder(view), ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(asteroid: Pair<AsteroidListDto.AsteroidDto, Boolean>) {
             FragmentFeaturesRecyclerViewHazardousAsteroidItemBinding.bind(itemView).apply {
 
@@ -158,6 +170,7 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                 ivAddItem.setOnClickListener {
                     asteroidList.add(layoutPosition, Pair(generateAsteroidItem(), false))
                     notifyItemInserted(layoutPosition)
+                    bindingAdapterPosition
                 }
 
                 ivDeleteItem.setOnClickListener {
@@ -191,6 +204,13 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
                         }
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
+                }
+
+                ivMoveItem.setOnTouchListener { _, event ->
+                    if(MotionEventCompat.getActionMasked(event)== MotionEvent.ACTION_DOWN){
+                        onStartDragListener.onStartDrag(this@HazardousAsteroidViewHolder)
+                    }
+                    false
                 }
             }
         }
