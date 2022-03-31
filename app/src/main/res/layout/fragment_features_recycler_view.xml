@@ -8,13 +8,36 @@
     android:clickable="true"
     android:focusable="true">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputLayout"
+        style="@style/myOutlinedTextInputLayoutStyle"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:hint="@string/asteroid_search_hint"
+        app:endIconDrawable="@drawable/ic_search"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@id/recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?colorOnPrimary"
+            android:singleLine="true"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="@dimen/zero"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/zero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputLayout" />
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/recycler_view_spin_kit"

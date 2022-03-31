@@ -25,10 +25,26 @@ class RecyclerViewFragmentAdapter(val onClickListener: OnAsteroidItemClickListen
     RecyclerView.Adapter<RecyclerViewFragmentAdapter.BaseAsteroidViewHolder>(),
     ItemTouchHelperAdapter {
     private var asteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
+    private var tempAsteroidList = mutableListOf<Pair<AsteroidListDto.AsteroidDto, Boolean>>()
 
     fun setData(mAsteroidList: List<AsteroidListDto.AsteroidDto>) {
         for (asteroid in mAsteroidList) {
             asteroidList.add(Pair(asteroid, false))
+        }
+        tempAsteroidList = asteroidList
+    }
+
+    fun searchFilter(filteredList: List<AsteroidListDto.AsteroidDto>) {
+        if (filteredList.isEmpty()) {
+            asteroidList = tempAsteroidList
+            notifyDataSetChanged()
+        } else {
+            asteroidList.clear()
+            notifyDataSetChanged()
+            for (asteroid in filteredList) {
+                asteroidList.add(Pair(asteroid, false))
+                notifyItemInserted(asteroidList.size - 1)
+            }
         }
     }
 
