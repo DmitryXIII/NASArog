@@ -48,4 +48,8 @@
     <string name="asteroid_close_approach_date_title">Дата приближения к Земле:</string>
     <string name="header">Астероиды, пролетающие рядом с Землей в период\nс %1$s по %2$s</string>
     <string name="asteroid_search_hint">Поиск астероида по имени</string>
+    <string name="span_text_example">This endpoint retrieves the Landsat 8 image for the supplied location and date. The response will include the date and URL to the image that is closest to the supplied date. The requested resource may not be available for the exact date in the request. You can retrieve a JSON that contains the inputs you provided and a URL to the resulting image through the assets endpoint. The assets endpoint no longer returns a list of potential images within your date range due to a change on the Google Earth Engine API side. The cloud score was an optional calculation that returns the percentage of the queried image that is covered by clouds, but it is not available in current versions of the API. If False If HTTP Request</string>
+    <string name="font_request_provider_authority">com.google.android.gms.fonts</string>
+    <string name="font_request_provider_package">com.google.android.gms</string>
+    <string name="spans">Spans</string>
 </resources>

@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/root_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/btn_custom_behavior"
@@ -44,13 +44,24 @@
         app:layout_constraintTop_toBottomOf="@id/btn_shared_element_transition"
         app:layout_constraintWidth_percent="0.8" />
 
+    <Button
+        android:id="@+id/btn_spans"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_16dp"
+        android:text="@string/spans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_recycler_view"
+        app:layout_constraintWidth_percent="0.8" />
+
     <View
         android:id="@+id/animated_circle_5"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:alpha="0"
-        android:backgroundTint="#DCEDC8"
         android:background="@drawable/circle_shape"
+        android:backgroundTint="#DCEDC8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/animated_circle_4"
@@ -61,8 +72,8 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:alpha="0"
-        android:backgroundTint="#C5E1A5"
         android:background="@drawable/circle_shape"
+        android:backgroundTint="#C5E1A5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/animated_circle_5"
         app:layout_constraintStart_toEndOf="@id/animated_circle_3"
@@ -73,8 +84,8 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:alpha="0"
-        android:backgroundTint="#9CCC65"
         android:background="@drawable/circle_shape"
+        android:backgroundTint="#9CCC65"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/animated_circle_4"
         app:layout_constraintStart_toEndOf="@id/animated_circle_2"
@@ -85,8 +96,8 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:alpha="0"
-        android:backgroundTint="#9CCC65"
         android:background="@drawable/circle_shape"
+        android:backgroundTint="#9CCC65"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/animated_circle_3"
         app:layout_constraintStart_toEndOf="@id/animated_circle_1"
@@ -105,12 +116,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/featuresListContainer"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
-        android:id="@+id/featuresListContainer"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
