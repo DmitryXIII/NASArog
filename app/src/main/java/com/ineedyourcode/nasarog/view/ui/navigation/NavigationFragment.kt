@@ -16,7 +16,7 @@ class NavigationFragment :
         super.onViewCreated(view, savedInstanceState)
 
         if (savedInstanceState == null) {
-            childFragmentManager
+            parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.navigation_container, TabsPagerFragment())
                 .commit()

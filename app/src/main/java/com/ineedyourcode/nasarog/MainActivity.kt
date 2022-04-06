@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_main)
+
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -45,8 +47,6 @@ class MainActivity : AppCompatActivity() {
             true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
-        setContentView(R.layout.activity_main)
     }
 
     fun setCurrentTheme(theme: Int) {

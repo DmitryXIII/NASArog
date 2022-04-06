@@ -23,6 +23,8 @@
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_search.xml" value="0.309" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_settings.xml" value="0.2675" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_splash_logo_foreground.xml" value="0.226" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_ux_button.xml" value="0.269" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_ux_text.xml" value="0.269" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/ic_wiki.xml" value="0.1205" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/mars_photo_date_background.xml" value="0.2335" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/drawable/moving_area.xml" value="0.251" />
@@ -74,6 +76,9 @@
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_tab_picture_of_the_day.xml" value="0.176" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_tabs.xml" value="0.36666666666666664" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_tabs_pager.xml" value="0.36666666666666664" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_ux_button.xml" value="0.36666666666666664" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_ux_container.xml" value="0.36666666666666664" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/fragment_ux_text.xml" value="0.36666666666666664" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/q.xml" value="0.25416666666666665" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/skeleton_imageview.xml" value="0.36666666666666664" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/layout/spinner_dropdown_item.xml" value="0.36666666666666664" />
@@ -85,6 +90,7 @@
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/menu/menu_bottom_navigation_drawer.xml" value="0.36666666666666664" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/menu/menu_bottom_navigation_view.xml" value="0.25416666666666665" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/menu/menu_navigation_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyAndroid/NASArog/app/src/main/res/menu/menu_ux_bottom_navigation_view.xml" value="0.1746031746031746" />
         <entry key="..\:/MyAndroid/NASArog/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1355" />
       </map>
     </option>

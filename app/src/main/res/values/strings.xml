@@ -52,4 +52,6 @@
     <string name="font_request_provider_authority">com.google.android.gms.fonts</string>
     <string name="font_request_provider_package">com.google.android.gms</string>
     <string name="spans">Spans</string>
+    <string name="menu_action_ux_button">UX кнопки</string>
+    <string name="menu_action_ux_text">UX текст</string>
 </resources>

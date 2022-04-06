@@ -10,6 +10,7 @@ import com.ineedyourcode.nasarog.view.ui.features.custombehavior.CoordinatorLayo
 import com.ineedyourcode.nasarog.view.ui.features.lottie.LottieFragment
 import com.ineedyourcode.nasarog.view.ui.features.recyclerview.RecyclerViewFragment
 import com.ineedyourcode.nasarog.view.ui.features.spans.SpansFragment
+import com.ineedyourcode.nasarog.view.ui.features.ux.UXNavigationContainerFragment
 
 class FeaturesListFragment :
     BaseFragment<FragmentFeaturesListBinding>(FragmentFeaturesListBinding::inflate) {
@@ -49,6 +50,14 @@ class FeaturesListFragment :
             parentFragmentManager
                 .beginTransaction()
                 .add(R.id.navigation_container, LottieFragment())
+                .addToBackStack("")
+                .commit()
+        }
+
+        binding.btnUxExample.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.main_fragment_container, UXNavigationContainerFragment())
                 .addToBackStack("")
                 .commit()
         }
