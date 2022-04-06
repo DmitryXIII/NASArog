@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        setContentView(R.layout.activity_main)
+
 
         settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
 
@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             true -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             false -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+
+        setContentView(R.layout.activity_main)
     }
 
     fun setCurrentTheme(theme: Int) {

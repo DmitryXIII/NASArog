@@ -43,4 +43,9 @@
         <item name="colorOnTertiaryContainer">@color/colorOnTertiaryContainer_2</item>
         <item name="fontFamily">@font/balsamiq_sans</item>
     </style>
+
+    <style name="Theme.NASArog_Splash" parent="Theme.NASArog">
+        <item name="android:windowBackground">@drawable/splash_logo</item>
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
 </resources>
