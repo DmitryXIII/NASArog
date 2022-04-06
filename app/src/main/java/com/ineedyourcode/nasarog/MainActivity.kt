@@ -1,9 +1,15 @@
 package com.ineedyourcode.nasarog
 
+import android.animation.ObjectAnimator
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.animation.doOnEnd
 import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ineedyourcode.nasarog.view.ui.navigation.NavigationFragment
@@ -19,6 +25,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         installSplashScreen()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            splashScreen.setOnExitAnimationListener { splashScreenView ->
+                splashScreenView.animate()
+                    .scaleX(5f)
+                    .scaleY(5f)
+                    .alpha(0f)
+                    .setInterpolator(AccelerateInterpolator())
+                    .withEndAction { splashScreenView.remove() }
+                    .duration = 300
+            }
+        }
 
         super.onCreate(savedInstanceState)
 

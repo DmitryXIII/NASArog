@@ -2,15 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOnPrimary"
+    android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_8dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="TEXT UX"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oldSchoolDesignContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modernDesignContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
