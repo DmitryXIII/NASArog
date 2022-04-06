@@ -55,6 +55,17 @@
         app:layout_constraintTop_toBottomOf="@id/btn_recycler_view"
         app:layout_constraintWidth_percent="0.8" />
 
+    <Button
+        android:id="@+id/btn_lottie"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_16dp"
+        android:text="Lottie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_spans"
+        app:layout_constraintWidth_percent="0.8" />
+
     <View
         android:id="@+id/animated_circle_5"
         android:layout_width="25dp"

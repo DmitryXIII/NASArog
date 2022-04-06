@@ -7,6 +7,7 @@ import com.ineedyourcode.nasarog.databinding.FragmentFeaturesListBinding
 import com.ineedyourcode.nasarog.utils.showToast
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 import com.ineedyourcode.nasarog.view.ui.features.custombehavior.CoordinatorLayoutExampleFragment
+import com.ineedyourcode.nasarog.view.ui.features.lottie.LottieFragment
 import com.ineedyourcode.nasarog.view.ui.features.recyclerview.RecyclerViewFragment
 import com.ineedyourcode.nasarog.view.ui.features.spans.SpansFragment
 
@@ -40,6 +41,14 @@ class FeaturesListFragment :
             parentFragmentManager
                 .beginTransaction()
                 .add(R.id.navigation_container, SpansFragment())
+                .addToBackStack("")
+                .commit()
+        }
+
+        binding.btnLottie.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.navigation_container, LottieFragment())
                 .addToBackStack("")
                 .commit()
         }

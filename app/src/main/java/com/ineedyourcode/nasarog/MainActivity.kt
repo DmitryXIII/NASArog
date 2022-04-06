@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-
-
         settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
 
         if (getCurrentTheme() == 0) {
