@@ -17,11 +17,14 @@ import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentFeaturesSpansBinding
 import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 
-private var rainbowColorIndex = 0
-private var textSize = 25
+
 
 class SpansFragment :
     BaseFragment<FragmentFeaturesSpansBinding>(FragmentFeaturesSpansBinding::inflate) {
+
+    private var rainbowColorIndex = 0
+    private var textSize = 25
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,98 +57,110 @@ class SpansFragment :
     }
 
     private fun initForegroundColorSpan(textView: TextView) {
-        var spannableStringForegroundColorSpan = SpannableString(textView.text)
-        textView.setText(spannableStringForegroundColorSpan, TextView.BufferType.SPANNABLE)
-        spannableStringForegroundColorSpan = textView.text as SpannableString
+        var spannableString = SpannableString(textView.text)
+        textView.setText(spannableString, TextView.BufferType.SPANNABLE)
+        spannableString = textView.text as SpannableString
 
         val rainbowColors = initRgbColorsList()
-        runRainbow(rainbowColors, textView, spannableStringForegroundColorSpan)
+        runRainbow(rainbowColors, textView, spannableString)
     }
 
     private fun initAbsoluteSizeSpan(textView: TextView) {
-        var spannableStringAbsoluteSizeSpan = SpannableString(textView.text)
-        textView.setText(spannableStringAbsoluteSizeSpan, TextView.BufferType.SPANNABLE)
-        spannableStringAbsoluteSizeSpan = textView.text as SpannableString
+        var spannableString = SpannableString(textView.text)
+        textView.setText(spannableString, TextView.BufferType.SPANNABLE)
+        spannableString = textView.text as SpannableString
 
-        runTextSizeUp(textView, spannableStringAbsoluteSizeSpan)
+        runTextSizeUp(textView, spannableString)
     }
 
     private fun initRelativeSizeSpan(textView: TextView) {
-        val spannableRelativeSizeSpan = SpannableString(textView.text)
-        spannableRelativeSizeSpan.setSpan(
+        val spannableString = SpannableString(textView.text)
+        spannableString.setSpan(
             RelativeSizeSpan(1.5f),
             0,
             textView.length(),
             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        textView.text = spannableRelativeSizeSpan
+        textView.text = spannableString
     }
 
     private fun initBackgroundColorSpan(textView: TextView) {
-        val spannableBackgroundColorSpan = SpannableString(textView.text)
-        spannableBackgroundColorSpan.setSpan(
+        val spannableString = SpannableString(textView.text)
+        spannableString.setSpan(
             BackgroundColorSpan(Color.DKGRAY),
             0,
             textView.length(),
             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        textView.text = spannableBackgroundColorSpan
+        textView.text = spannableString
     }
 
     private fun initTabStopSpan(textView: TextView) {
-        val spannableStringBuilderBulletSpan = SpannableStringBuilder(textView.text)
+        val spannableStringBuilder = SpannableStringBuilder(textView.text)
 
         for (i in 1..5) {
             if (i == 1) {
-                spannableStringBuilderBulletSpan.insert(0, "\t")
+                spannableStringBuilder.insert(0, "\t")
             }
-            if (i < 6) {
-                spannableStringBuilderBulletSpan.append("\n\t")
-            }
-            spannableStringBuilderBulletSpan.append(textView.text)
 
+            spannableStringBuilder.append("\n\t")
+            spannableStringBuilder.append(textView.text)
         }
 
         for (i in 0..6) {
-            spannableStringBuilderBulletSpan.setSpan(
+            spannableStringBuilder.setSpan(
                 TabStopSpan.Standard((i + 1) * 50),
                 textView.text.length * i,
                 textView.text.length * (i + 1),
                 0
             )
         }
-        textView.text = spannableStringBuilderBulletSpan
+        textView.text = spannableStringBuilder
     }
 
+    /**
+     * Скорость срабатывания SpannableString, видимо, имеет нижний предел,
+     * быстрее которого уже не может отрисовывать изменения.
+     * Здесь textView.animate() применяется только как эксперимент использования duration в качестве таймера для SpannableString.
+     * При коротких duration на экране разницы уже не заметно (визуально duration = 500, duration = 100 и даже duration = 0 смотрятся
+     * абсолютно одинаково). В массиве rainbowColors 1530 значений RGB, т.е. при duration = 1 я ожидал,
+     * что SpannableString переберет все цвета за 1.5 сек, но на практике такой скорости не получается добиться,
+     * независимо от выбора таймера (Timer, Handler.postDelayed(), CountDownTimer, .animate() - результат одинаковый)
+     */
     private fun runRainbow(
         rainbowColors: List<List<Int>>,
         textView: TextView,
-        spannableStringForegroundColorSpan: SpannableString
+        spannableString: SpannableString
     ) {
-        spannableStringForegroundColorSpan.setSpan(
-            ForegroundColorSpan(
-                Color.rgb(
-                    rainbowColors[rainbowColorIndex][0],
-                    rainbowColors[rainbowColorIndex][1],
-                    rainbowColors[rainbowColorIndex][2]
+        textView.animate()
+            .alpha(1f)
+            .withEndAction {
+                spannableString.setSpan(
+                    ForegroundColorSpan(
+                        Color.rgb(
+                            rainbowColors[rainbowColorIndex][0],
+                            rainbowColors[rainbowColorIndex][1],
+                            rainbowColors[rainbowColorIndex][2]
+                        )
+                    ), 0, textView.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
-            ), 0, textView.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        Handler(Looper.getMainLooper()).postDelayed({
-            rainbowColorIndex++
-            if (rainbowColorIndex > rainbowColors.size - 1) {
-                rainbowColorIndex = 0
+
+                rainbowColorIndex++
+                if (rainbowColorIndex > rainbowColors.size - 1) {
+                    rainbowColorIndex = 0
+                }
+                runRainbow(rainbowColors, textView, spannableString)
             }
-            runRainbow(rainbowColors, textView, spannableStringForegroundColorSpan)
-        }, 0L)
+            .duration = 0
     }
+
 
     private fun runTextSizeUp(
         textView: TextView,
-        spannableStringAbsoluteSizeSpan: SpannableString
+        spannableString: SpannableString
     ) {
         Handler(Looper.getMainLooper()).postDelayed({
-            spannableStringAbsoluteSizeSpan.setSpan(
+            spannableString.setSpan(
                 AbsoluteSizeSpan(textSize, true),
                 0,
                 textView.length(),
@@ -153,19 +168,19 @@ class SpansFragment :
             )
             textSize++
             if (textSize <= 30) {
-                runTextSizeUp(textView, spannableStringAbsoluteSizeSpan)
+                runTextSizeUp(textView, spannableString)
             } else {
-                runTextSizeDown(textView, spannableStringAbsoluteSizeSpan)
+                runTextSizeDown(textView, spannableString)
             }
         }, 50L)
     }
 
     private fun runTextSizeDown(
         textView: TextView,
-        spannableStringAbsoluteSizeSpan: SpannableString
+        spannableString: SpannableString
     ) {
         Handler(Looper.getMainLooper()).postDelayed({
-            spannableStringAbsoluteSizeSpan.setSpan(
+            spannableString.setSpan(
                 AbsoluteSizeSpan(textSize, true),
                 0,
                 textView.length(),
@@ -173,9 +188,9 @@ class SpansFragment :
             )
             textSize--
             if (textSize >= 25) {
-                runTextSizeDown(textView, spannableStringAbsoluteSizeSpan)
+                runTextSizeDown(textView, spannableString)
             } else {
-                runTextSizeUp(textView, spannableStringAbsoluteSizeSpan)
+                runTextSizeUp(textView, spannableString)
             }
         }, 50L)
     }
