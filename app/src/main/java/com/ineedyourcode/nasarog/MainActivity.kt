@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ineedyourcode.nasarog.view.ui.navigation.NavigationFragment
 
 private const val KEY_PREFERENCES = "SETTINGS"
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var settingsPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
