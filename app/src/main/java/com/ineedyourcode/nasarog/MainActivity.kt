@@ -3,8 +3,6 @@ package com.ineedyourcode.nasarog
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.view.animation.AccelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
