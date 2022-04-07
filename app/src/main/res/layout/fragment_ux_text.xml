@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
@@ -11,14 +12,168 @@
         android:id="@+id/oldSchoolDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5">
+        android:padding="@dimen/margin_16dp"
+        android:layout_weight="0.5"
+        android:background="@color/UX_background">
 
+        <TextView
+            android:id="@+id/uxOldSchoolTextHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_header"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_title"
+            android:textStyle="bold"
+            android:textColor="#BEFF00"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolTextDescription"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_description"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextFirstMonth"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolTextFirstMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_first_month"
+            android:background="#BEFF00"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextDescription"
+            app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolTextPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_price"
+            android:background="#D50000"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextFirstMonth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextPriceDescription"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolTextPriceDescription"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_price_description"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modernDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:padding="@dimen/margin_16dp"
+        android:background="@color/UX_background">
+
+        <TextView
+            android:id="@+id/uxModernTextHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_header"
+            android:textColor="@color/white_65"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_title"
+            android:textStyle="bold"
+            android:textColor="@color/white_87"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernTextDescription"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_description"
+            android:gravity="center"
+            android:textColor="@color/white_30"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernTextFirstMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_first_month"
+            android:textStyle="bold"
+            android:textColor="@color/white_65"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextDescription"
+            app:layout_constraintBottom_toTopOf="@id/uxModernTextPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernTextPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_price"
+            android:textStyle="bold"
+            android:textColor="@color/white_87"
+            android:textSize="50sp"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextFirstMonth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/uxModernTextPriceDescription"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernTextPriceDescription"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_price_description"
+            android:textColor="@color/white_30"
+            android:textSize="11sp"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

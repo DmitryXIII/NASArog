@@ -54,4 +54,10 @@
     <string name="spans">Spans</string>
     <string name="menu_action_ux_button">UX кнопки</string>
     <string name="menu_action_ux_text">UX текст</string>
+    <string name="ux_text_header">ПОДПИСКА</string>
+    <string name="ux_text_title">ПРЕМИУМ</string>
+    <string name="ux_text_description">В течение года: все каналы +\nкачество 4K</string>
+    <string name="ux_text_first_month">Первый месяц - бесплатно</string>
+    <string name="ux_text_price">9999 рублей*</string>
+    <string name="ux_text_price_description">* цена действительна при покупке подписки на 10 лет. При покупке на срок менее 10 лет цена составит 19999 рублей в месяц</string>
 </resources>
