@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/UX_background"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/margin_16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/oldSchoolDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@color/UX_background"
-        android:padding="@dimen/margin_16dp">
+        android:layout_weight="0.5">
 
         <TextView
             android:id="@+id/uxOldSchoolButtonHeader"
@@ -40,7 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/uxOldSchoolButtonHeader" />
-
 
         <TextView
             android:id="@+id/uxOldSchoolButtonPrice"
@@ -109,9 +106,8 @@
         android:id="@+id/modernDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@color/UX_background"
-        android:padding="@dimen/margin_16dp">
+        android:paddingTop="@dimen/margin_16dp"
+        android:layout_weight="0.5">
 
         <TextView
             android:id="@+id/uxModernButtonHeader"
@@ -157,6 +153,7 @@
             android:backgroundTint="@color/white_87"
             android:text="@string/ux_btn_year_buy"
             android:textColor="@color/UX_background"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/btnUxModernButtonPriceMonth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnUxModernButtonPriceMonth"
@@ -170,6 +167,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ux_btn_month_buy"
             android:textColor="@color/white_65"
+            android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@id/btnUxModernButtonLicense"
             app:layout_constraintEnd_toStartOf="@id/btnUxModernButtonPriceYear"
             app:layout_constraintStart_toStartOf="parent"

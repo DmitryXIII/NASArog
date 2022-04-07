@@ -16,9 +16,13 @@ private const val KEY_FORCED_MODE_NIGHT = "FORCED_DARK_MODE"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var settingsPrefs: SharedPreferences
-    private var isSplashScreenKeeping = true
+    private var isSplashScreenKeeping = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if (savedInstanceState == null) {
+            isSplashScreenKeeping = true
+        }
 
         installSplashScreen().apply {
             setKeepOnScreenCondition {
@@ -44,6 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
+
+        setTheme(getCurrentTheme())
+
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -51,13 +59,9 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        settingsPrefs = getSharedPreferences(KEY_PREFERENCES, MODE_PRIVATE)
-
         if (getCurrentTheme() == 0) {
             settingsPrefs.edit { putInt(KEY_CURRENT_THEME, R.style.Theme_NASArog) }
         }
-
-        setTheme(getCurrentTheme())
 
         if (!settingsPrefs.contains(KEY_FORCED_MODE_NIGHT)) {
             setIsDarkMode(false)

@@ -63,4 +63,13 @@
     <string name="ux_btn_year_buy">Купить на год</string>
     <string name="ux_btn_month_buy">Купить на месяц</string>
     <string name="ux_btn_licence">Условия договора</string>
+    <string name="ux_guide_title_modern">Современный подход</string>
+    <string name="ux_guide_title_old_school">"Устаревший подход"</string>
+    <string name="ux_button_guide_scene_5_content">"Нежелательная кнопка:\n- выполнена в едином с общим интерфейсом стиле, но не привлекает внимание\n- расположена в неудобной для пользователя зоне дисплея"</string>
+    <string name="ux_button_guide_scene_4_content">"Главная кнопка:\n- не \"режет взгляд\", но привлекает внимание\n- расположена в удобной для пользователя зоне дисплея"</string>
+    <string name="ux_button_guide_scene_2_content">Привлечение внимания к главной кнопке за счет ее размера и ярких цветов</string>
+    <string name="ux_button_guide_scene_3_content">"Так мы будем работать с кнопками после курса\n\"Android. Material design\""</string>
+    <string name="ux_button_guide_scene_1_content">"Так мы работали с кнопками до курса\n\"Android. Material design\""</string>
+    <string name="ux_text_guide_scene_1_content">"Так мы работали с текстом до курса\n\"Android. Material design\""</string>
+    <string name="ux_text_guide_scene_2_content">"Так мы будем работать с текстом после курса\n\"Android. Material design\""</string>
 </resources>
