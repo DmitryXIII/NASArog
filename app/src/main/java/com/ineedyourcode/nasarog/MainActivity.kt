@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
@@ -29,12 +30,14 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 setOnExitAnimationListener { viewProvider ->
                     viewProvider.iconView.animate()
-                        .scaleX(10f)
-                        .scaleY(10f)
+                        .scaleX(0f)
+                        .scaleY(0f)
+                        .duration = 200
+
+                    viewProvider.view.animate()
                         .alpha(0f)
-                        .setInterpolator(AccelerateInterpolator())
                         .withEndAction {viewProvider.remove()}
-                        .duration = 300
+                        .duration = 200
                 }
             }
         }
