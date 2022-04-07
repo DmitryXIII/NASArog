@@ -1,15 +1,11 @@
 package com.ineedyourcode.nasarog
 
-import android.animation.ObjectAnimator
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.animation.doOnEnd
 import androidx.core.content.edit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ineedyourcode.nasarog.view.ui.navigation.NavigationFragment
@@ -21,20 +17,25 @@ private const val KEY_FORCED_MODE_NIGHT = "FORCED_DARK_MODE"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var settingsPrefs: SharedPreferences
+    private var isSplashScreenKeeping = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        installSplashScreen()
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                isSplashScreenKeeping
+            }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            splashScreen.setOnExitAnimationListener { splashScreenView ->
-                splashScreenView.animate()
-                    .scaleX(5f)
-                    .scaleY(5f)
-                    .alpha(0f)
-                    .setInterpolator(AccelerateInterpolator())
-                    .withEndAction { splashScreenView.remove() }
-                    .duration = 300
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                setOnExitAnimationListener { viewProvider ->
+                    viewProvider.iconView.animate()
+                        .scaleX(10f)
+                        .scaleY(10f)
+                        .alpha(0f)
+                        .setInterpolator(AccelerateInterpolator())
+                        .withEndAction {viewProvider.remove()}
+                        .duration = 300
+                }
             }
         }
 
@@ -81,5 +82,9 @@ class MainActivity : AppCompatActivity() {
 
     fun getIsDarkMode(): Boolean {
         return settingsPrefs.getBoolean(KEY_FORCED_MODE_NIGHT, false)
+    }
+
+    fun closeSplashScreen() {
+        isSplashScreenKeeping = false
     }
 }

@@ -47,7 +47,7 @@
     <style name="Theme.NASArog.Starting" parent="Theme.SplashScreen">
         <item name="android:windowSplashScreenBackground">@android:color/holo_green_light</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo_foreground</item>
-        <item name="android:windowSplashScreenAnimationDuration">500</item>
+        <item name="android:windowSplashScreenAnimationDuration">10000</item>
         <item name="postSplashScreenTheme">@style/Theme.NASArog</item>
     </style>
 </resources>
