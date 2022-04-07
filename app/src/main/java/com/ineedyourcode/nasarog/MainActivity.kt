@@ -12,17 +12,14 @@ import com.ineedyourcode.nasarog.view.ui.navigation.NavigationFragment
 private const val KEY_PREFERENCES = "SETTINGS"
 private const val KEY_CURRENT_THEME = "CURRENT_THEME"
 private const val KEY_FORCED_MODE_NIGHT = "FORCED_DARK_MODE"
+private const val KEY_SPLASH_SCREEN_KEEP_ON_SCREEN = "KEY_SPLASH_SCREEN_KEEP_ON_SCREEN"
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var settingsPrefs: SharedPreferences
-    private var isSplashScreenKeeping = false
+    private var isSplashScreenKeeping = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        if (savedInstanceState == null) {
-            isSplashScreenKeeping = true
-        }
 
         installSplashScreen().apply {
             setKeepOnScreenCondition {
@@ -91,5 +88,19 @@ class MainActivity : AppCompatActivity() {
 
     fun closeSplashScreen() {
         isSplashScreenKeeping = false
+    }
+
+    // onSaveInstanceState и onRestoreInstanceState нужны для сохранения состояния setKeepOnScreenCondition,
+    // иначе при смены темы приложения активити пересоздается и интерфейс зависает,
+    // приложение думает, что SplashScreen должен быть на дисплее
+    // и ждет, пока isSplashScreenKeeping не будет false
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(KEY_SPLASH_SCREEN_KEEP_ON_SCREEN, isSplashScreenKeeping)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        isSplashScreenKeeping = savedInstanceState.getBoolean(KEY_SPLASH_SCREEN_KEEP_ON_SCREEN)
+        super.onRestoreInstanceState(savedInstanceState)
     }
 }
