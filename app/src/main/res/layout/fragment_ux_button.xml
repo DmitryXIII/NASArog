@@ -1,16 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorOnPrimary"
+    android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_8dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="BUTTON UX"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oldSchoolDesignContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/UX_background"
+        android:padding="@dimen/margin_16dp">
+
+        <TextView
+            android:id="@+id/uxOldSchoolButtonHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_header"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/uxOldSchoolButtonTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_title"
+            android:textColor="#BEFF00"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolButtonHeader" />
+
+
+        <TextView
+            android:id="@+id/uxOldSchoolButtonPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#D50000"
+            android:text="@string/ux_text_price"
+            android:textColor="@color/white_100"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolButtonTitle" />
+
+        <Button
+            android:id="@+id/btnUxOldSchoolButtonPriceYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#BEFF00"
+            android:padding="@dimen/margin_16dp"
+            android:text="@string/ux_btn_year_buy"
+            android:textAllCaps="false"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnUxOldSchoolButtonLicense"
+            app:layout_constraintEnd_toStartOf="@id/btnUxOldSchoolButtonPriceMonth"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolButtonPrice" />
+
+        <Button
+            android:id="@+id/btnUxOldSchoolButtonPriceMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#BEFF00"
+            android:text="@string/ux_btn_month_buy"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnUxOldSchoolButtonPriceYear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnUxOldSchoolButtonPriceYear"
+            app:layout_constraintTop_toTopOf="@id/btnUxOldSchoolButtonPriceYear" />
+
+        <Button
+            android:id="@+id/btnUxOldSchoolButtonLicense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="@string/ux_btn_licence"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnUxOldSchoolButtonPriceYear" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white_30" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/modernDesignContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/UX_background"
+        android:padding="@dimen/margin_16dp">
+
+        <TextView
+            android:id="@+id/uxModernButtonHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_header"
+            android:textColor="@color/white_65"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/uxModernButtonTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_text_title"
+            android:textColor="@color/white_87"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxModernButtonHeader" />
+
+        <TextView
+            android:id="@+id/uxModernButtonPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_24dp"
+            android:text="@string/ux_text_price"
+            android:textColor="@color/white_87"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btnUxModernButtonPriceMonth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxModernButtonTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUxModernButtonPriceYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white_87"
+            android:text="@string/ux_btn_year_buy"
+            android:textColor="@color/UX_background"
+            app:layout_constraintBottom_toBottomOf="@id/btnUxModernButtonPriceMonth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnUxModernButtonPriceMonth"
+            app:layout_constraintTop_toTopOf="@id/btnUxModernButtonPriceMonth"
+            app:rippleColor="@color/UX_background" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUxModernButtonPriceMonth"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_btn_month_buy"
+            android:textColor="@color/white_65"
+            app:layout_constraintBottom_toTopOf="@id/btnUxModernButtonLicense"
+            app:layout_constraintEnd_toStartOf="@id/btnUxModernButtonPriceYear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxModernButtonPrice"
+            app:rippleColor="@color/white_30"
+            app:strokeColor="@color/white_65"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUxModernButtonLicense"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ux_btn_licence"
+            android:textColor="@color/white_30"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnUxModernButtonPriceMonth"
+            app:rippleColor="@color/white_30" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

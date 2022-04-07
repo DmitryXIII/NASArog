@@ -60,4 +60,7 @@
     <string name="ux_text_first_month">Первый месяц - бесплатно</string>
     <string name="ux_text_price">9999 рублей*</string>
     <string name="ux_text_price_description">* цена действительна при покупке подписки на 10 лет. При покупке на срок менее 10 лет цена составит 19999 рублей в месяц</string>
+    <string name="ux_btn_year_buy">Купить на год</string>
+    <string name="ux_btn_month_buy">Купить на месяц</string>
+    <string name="ux_btn_licence">Условия договора</string>
 </resources>

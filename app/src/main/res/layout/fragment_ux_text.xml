@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:clickable="true"
     android:focusable="true"
@@ -12,74 +12,74 @@
         android:id="@+id/oldSchoolDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="@dimen/margin_16dp"
         android:layout_weight="0.5"
-        android:background="@color/UX_background">
+        android:background="@color/UX_background"
+        android:padding="@dimen/margin_16dp">
 
         <TextView
             android:id="@+id/uxOldSchoolTextHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ux_text_header"
-            android:textStyle="bold"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/uxOldSchoolTextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ux_text_title"
-            android:textStyle="bold"
             android:textColor="#BEFF00"
             android:textSize="30sp"
-            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextHeader"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextHeader" />
 
         <TextView
             android:id="@+id/uxOldSchoolTextDescription"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:text="@string/ux_text_description"
             android:gravity="center"
+            android:text="@string/ux_text_description"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextTitle"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextFirstMonth"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextTitle" />
 
         <TextView
             android:id="@+id/uxOldSchoolTextFirstMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ux_text_first_month"
             android:background="#BEFF00"
-            android:textStyle="bold"
+            android:text="@string/ux_text_first_month"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextDescription"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextPrice"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextDescription" />
 
         <TextView
             android:id="@+id/uxOldSchoolTextPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ux_text_price"
             android:background="#D50000"
-            android:textStyle="bold"
+            android:text="@string/ux_text_price"
             android:textColor="#FFFFFF"
             android:textSize="50sp"
-            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextFirstMonth"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/uxOldSchoolTextPriceDescription"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextFirstMonth" />
 
         <TextView
             android:id="@+id/uxOldSchoolTextPriceDescription"
@@ -88,19 +88,24 @@
             android:text="@string/ux_text_price_description"
             android:textColor="#FFFFFF"
             android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextPrice"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxOldSchoolTextPrice" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white_30"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/modernDesignContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:padding="@dimen/margin_16dp"
-        android:background="@color/UX_background">
+        android:background="@color/UX_background"
+        android:padding="@dimen/margin_16dp">
 
         <TextView
             android:id="@+id/uxModernTextHeader"
@@ -109,59 +114,59 @@
             android:text="@string/ux_text_header"
             android:textColor="@color/white_65"
             android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/uxModernTextTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ux_text_title"
-            android:textStyle="bold"
             android:textColor="@color/white_87"
             android:textSize="30sp"
-            app:layout_constraintTop_toBottomOf="@id/uxModernTextHeader"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextHeader" />
 
         <TextView
             android:id="@+id/uxModernTextDescription"
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:text="@string/ux_text_description"
             android:gravity="center"
+            android:text="@string/ux_text_description"
             android:textColor="@color/white_30"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/uxModernTextTitle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextTitle" />
 
         <TextView
             android:id="@+id/uxModernTextFirstMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ux_text_first_month"
-            android:textStyle="bold"
             android:textColor="@color/white_65"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/uxModernTextDescription"
-            app:layout_constraintBottom_toTopOf="@id/uxModernTextPrice"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/uxModernButtonPrice"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextDescription" />
 
         <TextView
-            android:id="@+id/uxModernTextPrice"
+            android:id="@+id/uxModernButtonPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ux_text_price"
-            android:textStyle="bold"
             android:textColor="@color/white_87"
             android:textSize="50sp"
-            app:layout_constraintTop_toBottomOf="@id/uxModernTextFirstMonth"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/uxModernTextPriceDescription"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxModernTextFirstMonth" />
 
         <TextView
             android:id="@+id/uxModernTextPriceDescription"
@@ -170,10 +175,10 @@
             android:text="@string/ux_text_price_description"
             android:textColor="@color/white_30"
             android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@id/uxModernTextPrice"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/uxModernButtonPrice" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

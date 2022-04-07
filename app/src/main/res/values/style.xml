@@ -9,7 +9,7 @@
     <style name="myContainedButtonsStyle" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">?colorSecondary</item>
         <item name="android:textColor">?colorOnPrimaryContainer</item>
-        <item name="textAllCaps">false</item>
+<!--        <item name="textAllCaps">false</item>-->
     </style>
 
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
