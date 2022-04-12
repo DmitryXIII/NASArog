@@ -1,4 +1,4 @@
-package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition.stable
+package com.ineedyourcode.nasarog.view.ui.features.sharedelementtransition
 
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
 

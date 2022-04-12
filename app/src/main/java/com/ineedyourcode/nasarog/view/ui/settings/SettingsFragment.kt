@@ -11,10 +11,6 @@ import com.ineedyourcode.nasarog.view.basefragment.BaseFragment
 class SettingsFragment :
     BaseFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
 
-    companion object {
-        fun newInstance() = SettingsFragment()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

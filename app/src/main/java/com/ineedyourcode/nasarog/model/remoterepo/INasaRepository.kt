@@ -1,6 +1,7 @@
 package com.ineedyourcode.nasarog.model.remoterepo
 
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
+import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDto
 import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
@@ -11,4 +12,5 @@ interface INasaRepository {
     fun getEarthPhoto(date: String, callback: Callback<List<EarthPhotoDto>>)
     fun getEarthPhotoDates(callback: Callback<List<EarthPhotoDateDto>>)
     fun getMarsPhoto(earthDate: String, callback: Callback<MarsDto>)
+    fun getAsteroidsData(startDate: String, endDate: String, callback: Callback<AsteroidListDto>)
 }

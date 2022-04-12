@@ -34,11 +34,11 @@
         app:layout_constraintWidth_percent="0.8" />
 
     <Button
-        android:id="@+id/btn_shared_element_transition_not_stable"
+        android:id="@+id/btn_recycler_view"
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_16dp"
-        android:text="@string/btn_not_stable_shared_element_transition"
+        android:text="@string/btn_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_shared_element_transition"
@@ -103,5 +103,14 @@
         app:layout_constraintEnd_toStartOf="@id/animated_circle_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:id="@+id/featuresListContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

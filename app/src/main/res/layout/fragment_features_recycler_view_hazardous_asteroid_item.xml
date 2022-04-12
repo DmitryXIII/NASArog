@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:paddingHorizontal="@dimen/margin_4dp"
+    android:paddingTop="@dimen/margin_4dp"
+    android:background="@color/black">
+
+    <ImageView
+        android:id="@+id/ivItemIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:src="@drawable/ic_asteroid"
+        app:layout_constraintBottom_toTopOf="@id/itemDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/holo_red_light" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="ivMenuPanelOpenArrow, tvAsteroidNameTitle, tvAsteroidName, tvAsteroidMagnitudeHTitle, tvAsteroidMagnitudeH, tvCloseApproachDateTitle, tvCloseApproachDate"/>
+
+    <ImageView
+        android:id="@+id/ivMenuPanelOpenArrow"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/tvAsteroidNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_name_title"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@id/tvAsteroidName"
+        app:layout_constraintStart_toEndOf="@id/ivItemIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAsteroidName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tvAsteroidMagnitudeHTitle"
+        app:layout_constraintStart_toStartOf="@id/tvAsteroidNameTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvAsteroidNameTitle"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tvAsteroidMagnitudeHTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_magnitude_h_title"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@id/tvAsteroidMagnitudeH"
+        app:layout_constraintStart_toEndOf="@id/ivItemIcon"
+        app:layout_constraintTop_toBottomOf="@id/tvAsteroidName" />
+
+    <TextView
+        android:id="@+id/tvAsteroidMagnitudeH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tvCloseApproachDateTitle"
+        app:layout_constraintStart_toStartOf="@id/tvAsteroidMagnitudeHTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvAsteroidMagnitudeHTitle"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tvCloseApproachDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_4dp"
+        android:text="@string/asteroid_close_approach_date_title"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@id/tvCloseApproachDate"
+        app:layout_constraintStart_toEndOf="@id/ivItemIcon"
+        app:layout_constraintTop_toBottomOf="@id/tvAsteroidMagnitudeH" />
+
+    <TextView
+        android:id="@+id/tvCloseApproachDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        app:layout_constraintBottom_toTopOf="@id/itemDivider"
+        app:layout_constraintStart_toStartOf="@id/tvCloseApproachDateTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvCloseApproachDateTitle"
+        tools:text="@tools:sample/lorem" />
+
+    <View
+        android:id="@+id/itemDivider"
+        android:layout_width="@dimen/zero"
+        android:layout_height="1px"
+        android:background="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupMenuPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="itemMenuPanel, ivMoveItemUp, ivMoveItemDown, ivMoveItem, ivAddItem, ivDeleteItem, ivMenuPanelBackArrow"/>
+
+    <View
+        android:id="@+id/itemMenuPanel"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/zero"
+        android:layout_marginBottom="@dimen/margin_4dp"
+        android:background="#2E2E2E"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginStart="@dimen/margin_4dp"
+        app:layout_constraintBottom_toTopOf="@id/itemDivider"
+        app:layout_constraintStart_toEndOf="@id/ivItemIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivMoveItemUp"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_double_arrow_up"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toEndOf="@id/ivMenuPanelBackArrow"
+        app:layout_constraintEnd_toStartOf="@id/ivAddItem"
+        app:tint="@android:color/holo_green_light"/>
+
+    <ImageView
+        android:id="@+id/ivMoveItemDown"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_double_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toEndOf="@id/ivAddItem"
+        app:layout_constraintEnd_toStartOf="@id/ivMoveItem"
+        app:tint="@android:color/holo_green_light"/>
+
+    <ImageView
+        android:id="@+id/ivMoveItem"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_marginEnd="@dimen/margin_8dp"
+        android:src="@drawable/ic_burger"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintEnd_toEndOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:tint="@android:color/holo_green_light" />
+
+    <ImageView
+        android:id="@+id/ivAddItem"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_add_item"
+        app:layout_constraintBottom_toTopOf="@id/ivDeleteItem"
+        app:layout_constraintEnd_toEndOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toStartOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:tint="@android:color/holo_green_light" />
+
+    <ImageView
+        android:id="@+id/ivDeleteItem"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintEnd_toEndOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toStartOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toBottomOf="@id/ivAddItem"
+        app:tint="@android:color/holo_red_light" />
+
+    <ImageView
+        android:id="@+id/ivMenuPanelBackArrow"
+        android:layout_width="@dimen/recycler_view_menu_panel_icons_size"
+        android:layout_height="@dimen/recycler_view_menu_panel_icons_size"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@id/itemMenuPanel"
+        app:layout_constraintStart_toStartOf="@id/itemMenuPanel"
+        app:layout_constraintTop_toTopOf="@id/itemMenuPanel"
+        app:tint="@android:color/holo_green_light" />
+</androidx.constraintlayout.widget.ConstraintLayout>

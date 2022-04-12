@@ -1,6 +1,7 @@
 package com.ineedyourcode.nasarog.model.remoterepo
 
 import com.ineedyourcode.nasarog.model.dto.apoddto.PictureOfTheDayDto
+import com.ineedyourcode.nasarog.model.dto.asteroidsdto.AsteroidListDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDateDto
 import com.ineedyourcode.nasarog.model.dto.earthphotodto.EarthPhotoDto
 import com.ineedyourcode.nasarog.model.dto.marsphotodto.MarsDto
@@ -21,4 +22,10 @@ interface INasaApi {
 
     @GET("mars-photos/api/v1/rovers/curiosity/photos")
     fun getMarsPhoto(@Query("earth_date") earthDate: String): Call<MarsDto>
+
+    @GET("neo/rest/v1/feed")
+    fun getAsteroidsData(
+        @Query("start_date") startDate: String,
+        @Query("end_date") endDate: String
+    ): Call<AsteroidListDto>
 }
