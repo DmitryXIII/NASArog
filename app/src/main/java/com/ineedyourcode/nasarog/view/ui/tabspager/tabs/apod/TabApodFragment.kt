@@ -15,6 +15,7 @@ import androidx.transition.ChangeBounds
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.ineedyourcode.nasarog.MainActivity
 import com.ineedyourcode.nasarog.R
 import com.ineedyourcode.nasarog.databinding.FragmentTabApodBinding
 import com.ineedyourcode.nasarog.utils.*
@@ -38,7 +39,7 @@ class TabApodFragment :
 
     private lateinit var apodBottomSheet: BottomSheetBehavior<ConstraintLayout>
 
-    private var isAnimationRequired = true
+    private var isAnimationRequired = false
 
     private val podViewModel by viewModels<TabApodViewModel>()
 
@@ -129,6 +130,8 @@ class TabApodFragment :
                                     animateApodUI(rootContainer, apodCoordinator)
                                     setVisibilityOnStateSuccess(apodSpinKit)
                                 } else {
+                                    (requireActivity() as MainActivity).closeSplashScreen()
+                                    setConstraintSetWithoutAnimation(rootContainer)
                                     setVisibilityOnStateSuccess(apodSpinKit, apodCoordinator)
                                 }
                             }
@@ -146,8 +149,25 @@ class TabApodFragment :
                         getString(R.string.repeat)
                     ) { podViewModel.getPictureOfTheDayRequest() }
                 }
+                else -> {}
             }
         }
+
+    private fun setConstraintSetWithoutAnimation(rootContainer: ConstraintLayout) {
+        ConstraintSet().apply {
+            clone(rootContainer)
+            connect(R.id.input_layout, ConstraintSet.TOP, R.id.root_container, ConstraintSet.TOP)
+            clear(R.id.input_layout, ConstraintSet.BOTTOM)
+            connect(
+                R.id.chip_group,
+                ConstraintSet.BOTTOM,
+                R.id.root_container,
+                ConstraintSet.BOTTOM
+            )
+            connect(R.id.chip_group, ConstraintSet.TOP, R.id.apod_coordinator, ConstraintSet.BOTTOM)
+            applyTo(rootContainer)
+        }
+    }
 
     private fun animateApodUI(rootContainer: ConstraintLayout, apodCoordinator: CoordinatorLayout) {
         isAnimationRequired = false

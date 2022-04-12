@@ -38,4 +38,9 @@
     <color name="star_color_5">#FFFFFF</color>
 
     <color name="light_grey">#B4B4B4</color>
+    <color name="UX_background">#240D43</color>
+    <color name="white_100">#FFFFFF</color>
+    <color name="white_87">#DEFFFFFF</color>
+    <color name="white_65">#A6FFFFFF</color>
+    <color name="white_30">#4CFFFFFF</color>
 </resources>
